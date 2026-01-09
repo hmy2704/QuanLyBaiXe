@@ -39,7 +39,9 @@ II. Tác nhân tham gia
 
    -Phân quyền
 
-III. Yêu cầu phi chức năng
-II. Yêu cầu phi chức năng
-2.1 Hiệu năng
-2.2 Độ tin cậy
+II. Yêu cầu  chức năng
+2.1 Yêu cầu chức năng
+
+2.2 Yêu cầu phi chức năng
+
+gtass
