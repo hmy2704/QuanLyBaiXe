@@ -1,3 +1,44 @@
 Phân tích thiết kế hệ thống Quản lý bãi xe
 
-Mục đích .......
+I. Tổng quan hệ thống
+
+1.1 Mục đích
+
+Hệ thống quản lý bãi gửi xe được xây dựng nhằm hỗ trợ việc quản lý hoạt động gửi và lấy xe tại bãi gửi xe một cách hiệu quả, chính xác và minh bạch.
+Hệ thống giúp giảm sai sót thủ công, tiết kiệm thời gian cho nhân viên và nâng cao trải nghiệm người gửi xe.
+
+1.2 Phạm vi hệ thống
+
+Hệ thống phục vụ cho các bãi gửi xe tại trường học, tòa nhà, khu dân cư hoặc trung tâm thương mại, bao gồm:
+
+- Quản lý thông tin xe ra/vào
+- Quản lý vé gửi xe
+- Quản lý nhân viên
+- Báo cáo và thống kê
+
+II. Tác nhân tham gia
+
+1. Người gửi xe
+
+   -Gửi xe
+
+   -Lấy xe
+2. Nhân viên
+
+   -Ghi nhận xe vào/ra
+
+   -Thu phí
+3. Quản lý
+
+   -Quản lý hệ thống
+
+   -Xem báo cáo cuối ngày
+4. Quản trị hệ thống
+
+   -Bảo trì hệ thống
+
+   -Phân quyền
+
+III. Yêu cầu phi chức năng
+2.1 Hiệu năng
+2.2 Độ tin cậy
