@@ -42,6 +42,12 @@ II. Tác nhân tham gia
 II. Yêu cầu  chức năng
 2.1 Yêu cầu chức năng
 
-2.2 Yêu cầu phi chức năng
+ Ghi nhận xe vào/ra: Hệ thống cần ghi lại thời điểm xe bắt đầu vào bãi và thời điểm xe rời đi.
 
-gtass
+Thu phí: Tính toán và thực hiện thu phí đỗ xe dựa trên thời gian hoặc loại xe.
+
+Quản lý: Giám sát chung các hoạt động trong bãi xe.
+
+Quản lý hệ thống: Thiết lập các thông số, cấu hình phần mềm hoặc quản lý tài khoản nhân viên.
+
+2.2 Yêu cầu phi chức năng
