@@ -39,9 +39,13 @@ II. Tác nhân tham gia
 
    -Phân quyền
 
-II. Yêu cầu  chức năng
-2.1 Yêu cầu chức năng
+III. Yêu cầu  chức năng
+3.1 Yêu cầu chức năng
 
-2.2 Yêu cầu phi chức năng
-
-gtass
+3.2 Yêu cầu phi chức năng
+* Hiệu năng
+* Độ tin cậy và sẵn sàng
+* Bảo mật
+* Khả năng bảo trì
+* Khả năng sử dụng 
+* khả năng tương thích
