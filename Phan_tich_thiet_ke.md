@@ -15,3 +15,7 @@ Hệ thống phục vụ cho các bãi gửi xe tại trường học, tòa nhà
 - Quản lý vé gửi xe
 - Quản lý nhân viên
 - Báo cáo và thống kê
+
+II. Yêu cầu phi chức năng
+2.1 Hiệu năng
+2.2 Độ tin cậy
