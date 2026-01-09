@@ -41,7 +41,6 @@ II. Tác nhân tham gia
 
 II. Yêu cầu  chức năng
 
-
 2.1 Yêu cầu chức năng
 
  Ghi nhận xe vào/ra: Hệ thống cần ghi lại thời điểm xe bắt đầu vào bãi và thời điểm xe rời đi.
@@ -60,6 +59,8 @@ Quản lý thẻ/vé: Quản lý danh sách thẻ từ hoặc vé giấy đã ph
 
 Thống kê & Báo cáo: Xem doanh thu theo ca làm việc, ngày hoặc tháng.
 
-Cảnh báo an ninh: Báo động khi có thẻ lạ hoặc xe ra không khớp với biển số lúc vào.
+Cảnh báo an ninh: Báo động khi có thẻ lạ hoặc xe ra không khớp với biển số lúc vào
+
+Báo cáo thống kê 
 
 2.2 Yêu cầu phi chức năng
