@@ -40,6 +40,8 @@ II. Tác nhân tham gia
    -Phân quyền
 
 II. Yêu cầu  chức năng
+
+
 2.1 Yêu cầu chức năng
 
  Ghi nhận xe vào/ra: Hệ thống cần ghi lại thời điểm xe bắt đầu vào bãi và thời điểm xe rời đi.
@@ -48,6 +50,16 @@ Thu phí: Tính toán và thực hiện thu phí đỗ xe dựa trên thời gia
 
 Quản lý: Giám sát chung các hoạt động trong bãi xe.
 
-Quản lý hệ thống: Thiết lập các thông số, cấu hình phần mềm hoặc quản lý tài khoản nhân viên.
+Quản lý hệ thống: Thiết lập các thông số, cấu hình phần mềm hoặc quản lý tài khoản nhân viên
+
+Quản lý loại xe: Phân loại xe máy, ô tô, xe đạp để áp dụng các mức giá khác nhau.
+
+Nhận diện biển số (AI/Camera): Tự động quét và lưu biển số khi xe vào/ra để tránh gian lận.
+
+Quản lý thẻ/vé: Quản lý danh sách thẻ từ hoặc vé giấy đã phát hành.
+
+Thống kê & Báo cáo: Xem doanh thu theo ca làm việc, ngày hoặc tháng.
+
+Cảnh báo an ninh: Báo động khi có thẻ lạ hoặc xe ra không khớp với biển số lúc vào.
 
 2.2 Yêu cầu phi chức năng
