@@ -15,3 +15,37 @@ Hệ thống phục vụ cho các bãi gửi xe tại trường học, tòa nhà
 - Quản lý vé gửi xe
 - Quản lý nhân viên
 - Báo cáo và thống kê
+
+V. Phân tích mở rộng mục tiêu
+
+1.Quản lý phương tiện ra vào bãi xe
+
+-Ghi nhận đầy đủ thông tin xe khi vào và khi ra (biển số, loại xe, thời gian vào – ra)
+
+-Tự động xác định trạng thái xe trong bãi
+
+-Hạn chế tình trạng thất lạc xe, nhầm lẫn xe
+
+2.Quản lý vé xe và khách hàng
+
+-Quản lý vé ngày, vé tháng.
+
+-Lưu trữ thông tin khách hàng gửi xe dài hạn
+
+-Hỗ trợ tìm kiếm và rà soát thông tin nhanh chóng
+
+3.Tính toán và quản lý phí gửi xe
+
+-Tự động tính phí dựa trên thời gian gửi và loại xe.
+
+-Giảm sai sót trong quá trình thu phí.
+
+-Hỗ trợ thống kê doanh thu theo ngày, tháng, năm.
+
+4.Quản lý sức chứa và vị trí bãi xe
+
+-Theo dõi số lượng xe hiện có trong bãi.
+
+-Cảnh báo khi bãi xe gần hoặc đã đầy.
+
+-Hỗ trợ phân bố xe hợp lý theo khu vực.
