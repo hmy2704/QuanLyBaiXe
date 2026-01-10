@@ -2,7 +2,7 @@ Phân tích thiết kế hệ thống Quản lý bãi xe
 
 I. Tổng quan hệ thống
 
-1.1 Mục đích
+1.1 Mô tả hệ thống
 
 Hệ thống quản lý bãi gửi xe được xây dựng nhằm hỗ trợ việc quản lý hoạt động gửi và lấy xe tại bãi gửi xe một cách hiệu quả, chính xác và minh bạch.
 Hệ thống giúp giảm sai sót thủ công, tiết kiệm thời gian cho nhân viên và nâng cao trải nghiệm người gửi xe.
@@ -20,47 +20,77 @@ II. Tác nhân tham gia
 
 1. Người gửi xe
 
-   -Gửi xe
-
-   -Lấy xe
+   - Gửi xe
+   - Lấy xe
 2. Nhân viên
 
-   -Ghi nhận xe vào/ra
-
-   -Thu phí
+   - Ghi nhận xe vào/ra
+   - Thu phí
 3. Quản lý
 
-   -Quản lý hệ thống
-
-   -Xem báo cáo cuối ngày
+   - Quản lý hệ thống
+   - Xem báo cáo cuối ngày
 4. Quản trị hệ thống
 
-   -Bảo trì hệ thống
+   - Bảo trì hệ thống
+   - Phân quyền
 
-   -Phân quyền
+III. Yêu cầu  chức năng
 
-II. Yêu cầu  chức năng
+3.1 Yêu cầu chức năng
 
-2.1 Yêu cầu chức năng
+a. Đăng nhập hệ thống
 
- Ghi nhận xe vào/ra: Hệ thống cần ghi lại thời điểm xe bắt đầu vào bãi và thời điểm xe rời đi.
+- Người dùng nhập tài khoản và mật khẩu
+- Hệ thống xác thực thông tin
+- Cho phép truy cập theo quyền
 
-Thu phí: Tính toán và thực hiện thu phí đỗ xe dựa trên thời gian hoặc loại xe.
+b. Ghi nhận xe vào
 
-Quản lý: Giám sát chung các hoạt động trong bãi xe.
+Hệ thống cần ghi lại thời điểm xe bắt đầu vào bãi :
 
-Quản lý hệ thống: Thiết lập các thông số, cấu hình phần mềm hoặc quản lý tài khoản nhân viên
+*  Nhân viên nhập thông tin xe
+* Hệ thống cấp vé gửi xe
 
-Quản lý loại xe: Phân loại xe máy, ô tô, xe đạp để áp dụng các mức giá khác nhau.
+* Lưu thời gian gửi xe
 
-Nhận diện biển số (AI/Camera): Tự động quét và lưu biển số khi xe vào/ra để tránh gian lận.
+c. Ghi nhận xe ra:
 
-Quản lý thẻ/vé: Quản lý danh sách thẻ từ hoặc vé giấy đã phát hành.
+* Nhân viên nhập mã vé
+* Hệ thống tính thời gian gửi
 
-Thống kê & Báo cáo: Xem doanh thu theo ca làm việc, ngày hoặc tháng.
+* Tính phí gửi xe
 
-Cảnh báo an ninh: Báo động khi có thẻ lạ hoặc xe ra không khớp với biển số lúc vào
+d. Quản lý vé gửi
 
-Báo cáo thống kê 
+* Thêm mới vé
+* Cập nhật trạng thái vé
 
-2.2 Yêu cầu phi chức năng
+* Tra cứu vé gửi xe
+
+e. Quản lý nhân viên
+
+- Thêm, sửa, xóa nhân viên
+- Phân quyền truy cập
+
+f. Báo cáo thống kê
+
+- Thống kê số lượng xe gửi
+- Thống kê doanh thu
+- Xuất báo cáo
+
+3.2 Yêu cầu phi chức năng
+
+* Hệ thống dễ sử dụng
+* Thời gian phản hồi nhanh
+
+* Bảo mật thông tin người dùng
+* Sao lưu dữ liệu định kỳ
+
+IV. Ràng buộc và mở rộng
+
+* Hệ thống làm việc trên nền tảng web
+* Thời gian phản hồi nhanh
+
+* Bảo mật thông tin
+* Sao lưu và có thể phát triển
