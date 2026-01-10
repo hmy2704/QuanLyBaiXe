@@ -4,8 +4,33 @@ I. Tổng quan hệ thống
 
 1.1 Mô tả hệ thống
 
-Hệ thống quản lý bãi gửi xe được xây dựng nhằm hỗ trợ việc quản lý hoạt động gửi và lấy xe tại bãi gửi xe một cách hiệu quả, chính xác và minh bạch.
-Hệ thống giúp giảm sai sót thủ công, tiết kiệm thời gian cho nhân viên và nâng cao trải nghiệm người gửi xe.
+Hệ thống Quản lý Bãi gửi xe được xây dựng nhằm hỗ trợ việc ghi nhận, quản lý và xử lý
+thông tin gửi xe một cách chính xác, nhanh chóng và hiệu quả. Hệ thống cho phép
+nhân viên bãi xe thực hiện các thao tác liên quan đến việc ghi nhận xe vào bãi,
+xe ra khỏi bãi, quản lý vé gửi xe, quản lý nhân viên cũng như lập các báo cáo
+thống kê phục vụ công tác quản lý.
+
+Khi có phương tiện vào bãi gửi, nhân viên bãi xe thực hiện nhập các thông tin cần thiết của xe (như loại xe, biển số…). Hệ thống sẽ tự động cấp vé gửi xe cho phương tiện và ghi lại thời điểm xe bắt đầu gửi. Thông tin thời gian gửi xe được lưu trữ trong hệ thống nhằm phục vụ cho việc tính thời gian và chi phí gửi xe khi phương tiện rời khỏi bãi.
+
+Khi phương tiện ra khỏi bãi gửi, nhân viên nhập mã vé gửi xe vào hệ thống. Dựa trên thông tin thời gian xe vào bãi đã được lưu trước đó, hệ thống sẽ tính toán thời gian gửi xe và tự động tính phí gửi xe theo quy định. Kết quả tính phí được hiển thị để nhân viên thông báo cho người gửi xe và hoàn tất quá trình trả xe
+
+Hệ thống cho phép quản lý toàn bộ vé gửi xe, bao gồm:
+
+* Thêm mới vé gửi xe khi phát sinh nhu cầu.
+* Cập nhật trạng thái vé (đang sử dụng, đã thanh toán, hết hiệu lực…).
+* Tra cứu thông tin vé gửi xe nhằm phục vụ việc kiểm soát và xử lý các tình huống phát sinh.
+
+Hệ thống hỗ trợ quản lý thông tin nhân viên làm việc tại bãi gửi xe:
+
+* Thêm mới, chỉnh sửa hoặc xóa thông tin nhân viên.
+* Phân quyền truy cập theo vai trò nhằm đảm bảo mỗi nhân viên chỉ được thực hiện các chức năng phù hợp với
+  quyền hạn của mình.
+
+Hệ thống cung cấp các chức năng báo cáo và thống kê nhằm hỗ trợ công tác quản lý:
+
+* Thống kê số lượng xe gửi theo thời gian.
+* Thống kê doanh thu từ hoạt động gửi xe.
+* Xuất báo cáo dưới các định dạng phù hợp phục vụ việc lưu trữ và đánh giá hoạt động của bãi gửi xe.
 
 1.2 Phạm vi hệ thống
 
@@ -35,7 +60,7 @@ II. Tác nhân tham gia
    - Bảo trì hệ thống
    - Phân quyền
 
-III. Yêu cầu  chức năng
+III. Yêu cầu 
 
 3.1 Yêu cầu chức năng
 
