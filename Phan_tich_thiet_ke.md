@@ -108,49 +108,47 @@ f. Báo cáo thống kê
 * Bảo mật thông tin người dùng
 * Sao lưu dữ liệu định kỳ
 
+V. Phân tích mở rộng mục tiêu
+
+4.1.Quản lý phương tiện ra vào bãi xe
+
+- Ghi nhận đầy đủ thông tin xe khi vào và khi ra (biển số, loại xe, thời gian vào ra)
+
+- Tự động xác định trạng thái xe trong bãi
+
+- Hạn chế tình trạng thất lạc xe, nhầm lẫn xe
+
+4.2.Quản lý vé xe và khách hàng
+
+- Quản lý vé ngày, vé tháng
+
+- Lưu trữ thông tin khách hàng gửi xe dài hạn
+
+- Hỗ trợ tìm kiếm và rà soát thông tin nhanh chóng
+
+4.3.Tính toán và quản lý phí gửi xe
+
+- Tự động tính phí dựa trên thời gian gửi và loại xe
+
+- Giảm sai sót trong quá trình thu phí
+
+- Hỗ trợ thống kê doanh thu theo ngày, tháng, năm
+
+4.4.Quản lý sức chứa và vị trí bãi xe
+
+- Theo dõi số lượng xe hiện có trong bãi
+
+- Cảnh báo khi bãi xe gần hoặc đã đầy
+
+4.5.Hỗ trợ quản trị và báo cáo
+
+- Cung cấp các báo cáo thống kê
+- Hỗ trợ quản trị viên đưa ra quyết định quản lý kịp thời
+- Lưu trữ dữ liệu lâu dài phục vụ kiểm tra, đối chiếu
+
 IV. Ràng buộc và mở rộng
 
 * Hệ thống làm việc trên nền tảng web
 * Thời gian phản hồi nhanh
 * Bảo mật thông tin
-* Sao lưu và có thể phát triển 
-
-V. Phân tích mở rộng mục tiêu
-
-1.Quản lý phương tiện ra vào bãi xe
-
--Ghi nhận đầy đủ thông tin xe khi vào và khi ra (biển số, loại xe, thời gian vào ra)
-
--Tự động xác định trạng thái xe trong bãi
-
--Hạn chế tình trạng thất lạc xe, nhầm lẫn xe
-
-2.Quản lý vé xe và khách hàng
-
--Quản lý vé ngày, vé tháng
-
--Lưu trữ thông tin khách hàng gửi xe dài hạn
-
--Hỗ trợ tìm kiếm và rà soát thông tin nhanh chóng
-
-3.Tính toán và quản lý phí gửi xe
-
--Tự động tính phí dựa trên thời gian gửi và loại xe
-
--Giảm sai sót trong quá trình thu phí
-
--Hỗ trợ thống kê doanh thu theo ngày, tháng, năm
-
-4.Quản lý sức chứa và vị trí bãi xe
-
--Theo dõi số lượng xe hiện có trong bãi
-
--Cảnh báo khi bãi xe gần hoặc đã đầy
-
-5.Hỗ trợ quản trị và báo cáo
-
--Cung cấp các báo cáo thống kê
-
--Hỗ trợ quản trị viên đưa ra quyết định quản lý kịp thời
-
--Lưu trữ dữ liệu lâu dài phục vụ kiểm tra, đối chiếu
+* Sao lưu và có thể phát triển
