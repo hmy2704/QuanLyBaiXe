@@ -60,8 +60,7 @@ II. Tác nhân tham gia
    - Bảo trì hệ thống
    - Phân quyền
 
-III. Yêu cầu
-
+III. Yêu cầu  chức năng
 3.1 Yêu cầu chức năng
 
 a. Đăng nhập hệ thống
@@ -102,42 +101,67 @@ f. Báo cáo thống kê
 - Xuất báo cáo
 
 3.2 Yêu cầu phi chức năng
-
-* Hệ thống dễ sử dụng
-* Thời gian phản hồi nhanh
-* Bảo mật thông tin người dùng
-* Sao lưu dữ liệu định kỳ
-
+a. Khả năng sử dụng
+- giao diện trực quan, dễ sử dụng
+- Nhân viên mới có thể làm quen với hệ thống một cách dễ dàng
+- Hiển thị trạng thái bãi xe (còn trống hay đã hết)
+- Ngôn ngữ hỗ trợ: tiếng Việt, Tiếng Anh
+- Thông báo lỗi rõ ràng dễ hình dung.
+b. Hiệu suất
+- Thời gian phản hồi: <= 2 giây cho các check in/ check-out
+- Thời gian nhận diện biển số xe: <= 3 giây
+- Xử lý đồng thời: tối thiểu không quá 50 giao dịch/ 1 giây.
+- Tải trang web: <=5 giây
+c. Độ tin cậy
+- Tính khả dụng: 
+- Thời gian trung bình giữa hai lỗi (MTBF):
+- Thời gian trung bình để sửa lỗi (MTTR):
+- Độ chính xác:
+- Tỷ lệ lỗi: <=1 lỗi nghiêm trọng/tháng
+d. Độ bảo mật
+- Mã hóa dữ liệu thanh toán chuẩn PCIDSS:
+- Mã hóa thông tin cá nhân khách hàng
+- Xác thực đa yếu tố cho tài khoản quản trị
+- Phân quyền rõ ràng: Quản trị, nhân viên
+- tuân thủ Luật An toàn thông tin mạng và nghị điịnh 13/2023/NĐ-CP và bảo vệ dữ liệu cá nhân
+- Camera giám sát 24/7 và lưu trữ giữ liệu 30 ngày
+e. Độ an toàn
+- Hệ thống phòng cháy chữa cháy đạt chuẩn PCCC
+- Hệ thống chiểu sáng
+- Nút khẩn cấp tại các vị trí quan trọng
+f. Khả năng hỗ trợ
+- Log hệ thống chi tiết, dễ tra cứu
+- Code tuân thủ:
+- Tài liệu API đầy đủ:
+- Comment code bằng tiếng việt hoặc anh
+g. Ràng buộc về thiết kế
+- Backend:Javascript, php
+- Frontend:HTML, CSS, React.sj
+- Database: MySQL
+- khác: Visual Paradigm
 V. Phân tích mở rộng mục tiêu
 
 4.1.Quản lý phương tiện ra vào bãi xe
 
 - Ghi nhận đầy đủ thông tin xe khi vào và khi ra (biển số, loại xe, thời gian vào ra)
-
 - Tự động xác định trạng thái xe trong bãi
-
 - Hạn chế tình trạng thất lạc xe, nhầm lẫn xe
 
 4.2.Quản lý vé xe và khách hàng
 
 - Quản lý vé ngày, vé tháng
-
 - Lưu trữ thông tin khách hàng gửi xe dài hạn
-
 - Hỗ trợ tìm kiếm và rà soát thông tin nhanh chóng
 
 4.3.Tính toán và quản lý phí gửi xe
 
 - Tự động tính phí dựa trên thời gian gửi và loại xe
-
 - Giảm sai sót trong quá trình thu phí
-
 - Hỗ trợ thống kê doanh thu theo ngày, tháng, năm
 
 4.4.Quản lý sức chứa và vị trí bãi xe
 
 - Theo dõi số lượng xe hiện có trong bãi
-
 - Cảnh báo khi bãi xe gần hoặc đã đầy
 
 4.5.Hỗ trợ quản trị và báo cáo
@@ -152,3 +176,11 @@ IV. Ràng buộc và mở rộng
 * Thời gian phản hồi nhanh
 * Bảo mật thông tin
 * Sao lưu và có thể phát triển
+
+>>>>>>> e4dd2ffcff0ea38b87ee7458d871e8c9a82e9806
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
