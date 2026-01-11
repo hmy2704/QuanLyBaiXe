@@ -1,6 +1,6 @@
-Phân tích thiết kế hệ thống Quản lý bãi xe
+# Phân tích thiết kế hệ thống Quản lý bãi xe
 
-I. Tổng quan hệ thống
+## I. Tổng quan hệ thống
 
 1.1 Mô tả hệ thống
 
@@ -41,7 +41,7 @@ Hệ thống phục vụ cho các bãi gửi xe tại trường học, tòa nhà
 - Quản lý nhân viên
 - Báo cáo và thống kê
 
-II. Tác nhân tham gia
+## II. Tác nhân tham gia
 
 1. Người gửi xe
 
@@ -60,7 +60,8 @@ II. Tác nhân tham gia
    - Bảo trì hệ thống
    - Phân quyền
 
-III. Yêu cầu  chức năng
+## III. Yêu cầu  chức năng
+
 3.1 Yêu cầu chức năng
 
 a. Đăng nhập hệ thống
@@ -102,44 +103,58 @@ f. Báo cáo thống kê
 
 3.2 Yêu cầu phi chức năng
 a. Khả năng sử dụng
+
 - giao diện trực quan, dễ sử dụng
 - Nhân viên mới có thể làm quen với hệ thống một cách dễ dàng
 - Hiển thị trạng thái bãi xe (còn trống hay đã hết)
 - Ngôn ngữ hỗ trợ: tiếng Việt, Tiếng Anh
 - Thông báo lỗi rõ ràng dễ hình dung.
+
 b. Hiệu suất
+
 - Thời gian phản hồi: <= 2 giây cho các check in/ check-out
 - Thời gian nhận diện biển số xe: <= 3 giây
 - Xử lý đồng thời: tối thiểu không quá 50 giao dịch/ 1 giây.
 - Tải trang web: <=5 giây
+
 c. Độ tin cậy
-- Tính khả dụng: 
+
+- Tính khả dụng:
 - Thời gian trung bình giữa hai lỗi (MTBF):
 - Thời gian trung bình để sửa lỗi (MTTR):
 - Độ chính xác:
 - Tỷ lệ lỗi: <=1 lỗi nghiêm trọng/tháng
+
 d. Độ bảo mật
+
 - Mã hóa dữ liệu thanh toán chuẩn PCIDSS:
 - Mã hóa thông tin cá nhân khách hàng
 - Xác thực đa yếu tố cho tài khoản quản trị
 - Phân quyền rõ ràng: Quản trị, nhân viên
 - tuân thủ Luật An toàn thông tin mạng và nghị điịnh 13/2023/NĐ-CP và bảo vệ dữ liệu cá nhân
 - Camera giám sát 24/7 và lưu trữ giữ liệu 30 ngày
+
 e. Độ an toàn
+
 - Hệ thống phòng cháy chữa cháy đạt chuẩn PCCC
 - Hệ thống chiểu sáng
 - Nút khẩn cấp tại các vị trí quan trọng
+
 f. Khả năng hỗ trợ
+
 - Log hệ thống chi tiết, dễ tra cứu
 - Code tuân thủ:
 - Tài liệu API đầy đủ:
 - Comment code bằng tiếng việt hoặc anh
+
 g. Ràng buộc về thiết kế
+
 - Backend:Javascript, php
 - Frontend:HTML, CSS, React.sj
 - Database: MySQL
 - khác: Visual Paradigm
-V. Phân tích mở rộng mục tiêu
+
+## V. Phân tích mở rộng mục tiêu
 
 4.1.Quản lý phương tiện ra vào bãi xe
 
@@ -170,7 +185,7 @@ V. Phân tích mở rộng mục tiêu
 - Hỗ trợ quản trị viên đưa ra quyết định quản lý kịp thời
 - Lưu trữ dữ liệu lâu dài phục vụ kiểm tra, đối chiếu
 
-IV. Ràng buộc và mở rộng
+## IV. Ràng buộc và mở rộng
 
 * Hệ thống làm việc trên nền tảng web
 * Thời gian phản hồi nhanh
