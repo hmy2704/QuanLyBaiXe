@@ -150,33 +150,53 @@ VI. Phân tích và thiết kế đối tượng với UML
 
 6.1 Biểu đồ UseCase tổng quát
 
-`<img src = "images/uml_bai_xe.PNG" width = 400 />`
+
+<p align="center">
+  <img src="images/uml_bai_xe.PNG" width="400">
+</p>
+
 
 6.1.2 Biểu đồ Usecase phân rã
 
 Usecase phân rã ghi xe vào
 
-`<img src = "images/uml_xe_vao" />`
+
+<p align="center">
+  <img src="images/uml_xe_vao.PNG" width="400">
+</p>
 
 
 Usecase phân rã ghi xe ra
 
-`<img src = "images/uml_xe_ra" />`
+
+<p align="center">
+  <img src="images/uml_xe_ra.PNG" width="400">
+</p>
 
 
 Usecase phân rã quản lý vé xe
 
-`<img src = "images/uml_ve_xe" />`
+
+<p align="center">
+  <img src="images/uml_ve_xe.PNG" width="400">
+</p>
 
 
 Usecase phân rã quản lý nhân viên
 
-`<img src = "images/uml_nhan_vien" />`
+
+<p align="center">
+  <img src="images/uml_nhan_vien.PNG" width="400">
+</p>
 
 
 usecase phân rã quản lý báo cáo
 
-`<img src ="uml_bao_cao" />`
+
+<p align="center">
+  <img src="images/uml_bao_cao.PNG" width="400">
+</p>
+
 
 6.2 Kịch bản Usecase
 
