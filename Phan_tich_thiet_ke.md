@@ -118,11 +118,57 @@ f. Báo cáo thống kê
 
 3.2 Yêu cầu phi chức năng
 
-* Hệ thống dễ sử dụng
-* Thời gian phản hồi nhanh
-* Bảo mật thông tin người dùng
-* Sao lưu dữ liệu định kỳ
+a. Khả năng sử dụng
 
+- giao diện trực quan, dễ sử dụng
+- Nhân viên mới có thể làm quen với hệ thống một cách dễ dàng
+- Hiển thị trạng thái bãi xe (còn trống hay đã hết)
+- Ngôn ngữ hỗ trợ: tiếng Việt, Tiếng Anh
+- Thông báo lỗi rõ ràng dễ hình dung.
+
+b. Hiệu suất
+
+- Thời gian phản hồi: <= 2 giây cho các check in/ check-out
+- Thời gian nhận diện biển số xe: <= 3 giây
+- Xử lý đồng thời: tối thiểu không quá 50 giao dịch/ 1 giây.
+- Tải trang web: <=5 giây
+
+c. Độ tin cậy
+
+- Tính khả dụng:
+- Thời gian trung bình giữa hai lỗi (MTBF):
+- Thời gian trung bình để sửa lỗi (MTTR):
+- Độ chính xác:
+- Tỷ lệ lỗi: <=1 lỗi nghiêm trọng/tháng
+
+d. Độ bảo mật
+
+- Mã hóa dữ liệu thanh toán chuẩn PCIDSS:
+- Mã hóa thông tin cá nhân khách hàng
+- Xác thực đa yếu tố cho tài khoản quản trị
+- Phân quyền rõ ràng: Quản trị, nhân viên
+- tuân thủ Luật An toàn thông tin mạng và nghị điịnh 13/2023/NĐ-CP và bảo vệ dữ liệu cá nhân
+- Camera giám sát 24/7 và lưu trữ giữ liệu 30 ngày
+
+e. Độ an toàn
+
+- Hệ thống phòng cháy chữa cháy đạt chuẩn PCCC
+- Hệ thống chiểu sáng
+- Nút khẩn cấp tại các vị trí quan trọng
+
+f. Khả năng hỗ trợ
+
+- Log hệ thống chi tiết, dễ tra cứu
+- Code tuân thủ:
+- Tài liệu API đầy đủ:
+- Comment code bằng tiếng việt hoặc anh
+
+g. Ràng buộc về thiết kế
+
+- Backend:Javascript, php
+- Frontend:HTML, CSS, React.sj
+- Database: MySQL
+- khác: Visual Paradigm
 IV. Phân tích mở rộng mục tiêu
 
 4.1.Quản lý phương tiện ra vào bãi xe
@@ -343,3 +389,17 @@ usecase phân rã quản lý báo cáo
 | Kích hoạt             | Người dùng chọn chức năng "Thêm mới"                                                                                                                                                                                                                                                               |
 | Chuỗi sự kiện chính | 1. Nhân viên chọn chức năng "Thêm mới vé"<br />2. Nhân viên nhập thông tin cần thiết để tạo vé mới (biển số xe, thời gian gửi,...)<br />3. Hệ thống tạo vé mới vào cơ sở dữ liệu                                                                                          |
 | Ngoại lệ              | 1. Mã vé mới đã tồn tại<br />      - Hệ thống hiển thị thông báo đã tồn tại mã vé và yêu cầu nhân viên nhập lại  thông tin<br />2. Thiếu thông tin<br />      - Hệ thống hiển thị thông báo yêu cầu nhập đầy đủ thông tin cần thiết để tạo vé mới |
+
+6.3 Biểu đồ lớp
+<p align="center">
+  <img src="../QuanLyBaiXe/images/CL_baiGuiXe.png" width="400">
+</p>
+
+| **Tên lớp**  | **Thuộc tính**                                 | **Phương thức**                                                 |
+| ------------ | ---------------------------------------------- | --------------------------------------------------------------- |
+| **NhanVien** | maNV<br>hoTen<br>taiKhoan<br>sdt               | quanLyXeRa()<br>quanLyXeVao()<br>quanLyVeXe()<br>quanLyBaoCao() |
+| **QuanTri**  | tenQT<br>maQT<br>sdt                           | quanLyNhanVien()<br>xemBaoCao()                                 |
+| **BaiGuiXe** | tenBai<br>diaChi                               | ghiNhanXeVao()<br>ghiNhanXeRa()                                 |
+| **Xe**       | maXe<br>bienSo<br>loaiXe                       | timKiem()<br>themXe()                                           |
+| **VeXe**     | maVe<br>thoiGianVao<br>thoiGianRa<br>trangThai | capNhatTrangThai()<br>thongTinThoiGianGui()<br>traCuuVe()       |
+| **BaoCao**   | maBaoCao<br>ngayTao<br>nguoiTao<br>noiDung     | xuatBaoCao()<br>thongKeDoanhThu()<br>capNhatBaoCao()            |
