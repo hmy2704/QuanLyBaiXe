@@ -70,34 +70,69 @@ II. Tác nhân tham gia
 
 a. Đăng nhập hệ thống
 
-- Người dùng nhập tài khoản và mật khẩu
-- Hệ thống xác thực thông tin
-- Cho phép truy cập theo quyền
+* Người dùng nhập tài khoản và mật khẩu
+* Hệ thống xác thực thông tin đăng nhập
+* Phân quyền truy cập theo vai trò:
+
+  * Nhân viên bãi xe
+  * Quản lý bãi xe
+  * Quản trị hệ thống
 
 b. Ghi nhận xe vào
 
-Hệ thống cần ghi lại thời điểm xe bắt đầu vào bãi :
+Hệ thống hỗ trợ ghi nhận thông tin phương tiện khi vào bãi gửi:
 
-* Nhân viên nhập thông tin xe
-* Hệ thống cấp vé gửi xe
-* Lưu thời gian gửi xe
+* Nhân viên nhập thông tin xe:
+  * Loại xe (xe máy, ô tô)
+  * Biển số xe
+  * Hình thức gửi (vé lượt, vé tháng)
+* Hệ thống kiểm tra:
+  * Tính hợp lệ của vé tháng (nếu có)
+  * Số chỗ trống trong bãi
+* Hệ thống cấp vé gửi xe (vé giấy /  thẻ từ)
+* Ghi nhận thời điểm xe vào bãi
+* Cập nhật số lượng xe hiện có trong bãi
 
 c. Ghi nhận xe ra:
 
-* Nhân viên nhập mã vé
-* Hệ thống tính thời gian gửi
-* Tính phí gửi xe
+Hệ thống hỗ trợ trả xe và kiểm soát an toàn:
+
+* Nhân viên nhập mã vé gửi xe
+* Hệ thống đối soát:
+  * Thông tin vé gửi
+  * Biển số xe
+  * Thời điểm xe vào bãi
+* Hệ thống tính toán:
+  * Thời gian gửi xe
+  * Phí gửi xe theo quy định (theo giờ/loại xe)
+* Hiển thị số tiền cần thanh toán
+* Cập nhật trạng thái vé gửi và số chỗ trống trong bãi
+* Xử lý các trường hợp ngoại lệ:
+  * Mất vé
+  * Vé không hợp lệ
+  * Sai thông tin xe
 
 d. Quản lý vé gửi
 
-* Thêm mới vé
-* Cập nhật trạng thái vé
-* Tra cứu vé gửi xe
+* Quản lý vé gửi theo loại:
+
+  * Vé gửi theo lượt
+  * Vé gửi theo tháng
+* Thêm mới, cập nhật, hủy vé gửi
+* Gia hạn vé tháng
+* Theo dõi trạng thái vé:
+
+  * Đang sử dụng
+  * Hết hạn
+  * Đã thanh toán
+* Tra cứu lịch sử gửi xe theo vé
 
 e. Quản lý nhân viên
 
-- Thêm, sửa, xóa nhân viên
-- Phân quyền truy cập
+* Thêm, sửa, xóa thông tin nhân viên
+* Phân quyền chức năng theo vai trò
+* Ghi nhận nhật ký thao tác của nhân viên
+* Theo dõi lịch sử xử lý xe ra/vào
 
 f. Báo cáo thống kê
 
