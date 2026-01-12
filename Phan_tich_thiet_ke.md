@@ -1,6 +1,6 @@
-# Phân tích thiết kế hệ thống Quản lý bãi xe
+Phân tích thiết kế hệ thống Quản lý bãi xe
 
-## I. Tổng quan hệ thống
+I. Tổng quan hệ thống
 
 1.1 Mô tả hệ thống
 
@@ -41,13 +41,20 @@ Hệ thống phục vụ cho các bãi gửi xe tại trường học, tòa nhà
 - Quản lý nhân viên
 - Báo cáo và thống kê
 
+II. Tác nhân tham gia
+=======================
+
 ## II. Tác nhân tham gia
 
-1. Người gửi xe
+II. Tác nhân tham gia
 
-   - Gửi xe
-   - Lấy xe
-2. Nhân viên
+1.Người gửi xe
+
+* Gửi xe
+
+- Lấy xe
+
+1. Nhân viên
 
    - Ghi nhận xe vào/ra
    - Thu phí
@@ -60,7 +67,15 @@ Hệ thống phục vụ cho các bãi gửi xe tại trường học, tòa nhà
    - Bảo trì hệ thống
    - Phân quyền
 
-## III. Yêu cầu  chức năng
+III. Yêu cầu
+
+III. Yêu cầu phi chức năng
+==============================
+
+II. Yêu cầu phi chức năng
+2.1 Hiệu năng
+2.2 Độ tin cậy
+=================
 
 3.1 Yêu cầu chức năng
 
@@ -102,59 +117,13 @@ f. Báo cáo thống kê
 - Xuất báo cáo
 
 3.2 Yêu cầu phi chức năng
-a. Khả năng sử dụng
 
-- giao diện trực quan, dễ sử dụng
-- Nhân viên mới có thể làm quen với hệ thống một cách dễ dàng
-- Hiển thị trạng thái bãi xe (còn trống hay đã hết)
-- Ngôn ngữ hỗ trợ: tiếng Việt, Tiếng Anh
-- Thông báo lỗi rõ ràng dễ hình dung.
+* Hệ thống dễ sử dụng
+* Thời gian phản hồi nhanh
+* Bảo mật thông tin người dùng
+* Sao lưu dữ liệu định kỳ
 
-b. Hiệu suất
-
-- Thời gian phản hồi: <= 2 giây cho các check in/ check-out
-- Thời gian nhận diện biển số xe: <= 3 giây
-- Xử lý đồng thời: tối thiểu không quá 50 giao dịch/ 1 giây.
-- Tải trang web: <=5 giây
-
-c. Độ tin cậy
-
-- Tính khả dụng:
-- Thời gian trung bình giữa hai lỗi (MTBF):
-- Thời gian trung bình để sửa lỗi (MTTR):
-- Độ chính xác:
-- Tỷ lệ lỗi: <=1 lỗi nghiêm trọng/tháng
-
-d. Độ bảo mật
-
-- Mã hóa dữ liệu thanh toán chuẩn PCIDSS:
-- Mã hóa thông tin cá nhân khách hàng
-- Xác thực đa yếu tố cho tài khoản quản trị
-- Phân quyền rõ ràng: Quản trị, nhân viên
-- tuân thủ Luật An toàn thông tin mạng và nghị điịnh 13/2023/NĐ-CP và bảo vệ dữ liệu cá nhân
-- Camera giám sát 24/7 và lưu trữ giữ liệu 30 ngày
-
-e. Độ an toàn
-
-- Hệ thống phòng cháy chữa cháy đạt chuẩn PCCC
-- Hệ thống chiểu sáng
-- Nút khẩn cấp tại các vị trí quan trọng
-
-f. Khả năng hỗ trợ
-
-- Log hệ thống chi tiết, dễ tra cứu
-- Code tuân thủ:
-- Tài liệu API đầy đủ:
-- Comment code bằng tiếng việt hoặc anh
-
-g. Ràng buộc về thiết kế
-
-- Backend:Javascript, php
-- Frontend:HTML, CSS, React.sj
-- Database: MySQL
-- khác: Visual Paradigm
-
-## V. Phân tích mở rộng mục tiêu
+IV. Phân tích mở rộng mục tiêu
 
 4.1.Quản lý phương tiện ra vào bãi xe
 
@@ -185,17 +154,192 @@ g. Ràng buộc về thiết kế
 - Hỗ trợ quản trị viên đưa ra quyết định quản lý kịp thời
 - Lưu trữ dữ liệu lâu dài phục vụ kiểm tra, đối chiếu
 
-## IV. Ràng buộc và mở rộng
+V. Ràng buộc và mở rộng
 
 * Hệ thống làm việc trên nền tảng web
 * Thời gian phản hồi nhanh
 * Bảo mật thông tin
 * Sao lưu và có thể phát triển
 
->>>>>>> e4dd2ffcff0ea38b87ee7458d871e8c9a82e9806
->>>>>>>
->>>>>>
->>>>>
->>>>
->>>
->>
+VI. Phân tích và thiết kế đối tượng với UML
+
+6.1 Biểu đồ UseCase tổng quát
+
+<p align="center">
+  <img src="images/uml_bai_xe.PNG" width="400">
+</p>
+
+6.1.2 Biểu đồ Usecase phân rã
+
+Usecase phân rã ghi xe vào
+
+`<img src = "images/uml_xe_vao" />`
+
+Usecase phân rã ghi xe ra
+
+`<img src = "images/uml_xe_ra" />`
+
+Usecase phân rã quản lý vé xe
+
+`<img src = "images/uml_ve_xe" />`
+
+Usecase phân rã quản lý nhân viên
+
+`<img src = "images/uml_nhan_vien" />`
+<p align="center">
+  <img src="images/uml_xe_vao.PNG" width="400">
+</p>
+
+Usecase phân rã ghi xe ra
+
+<p align="center">
+  <img src="images/uml_xe_ra.PNG" width="400">
+</p>
+
+Usecase phân rã quản lý vé xe
+
+<p align="center">
+  <img src="images/uml_ve_xe.PNG" width="400">
+</p>
+
+Usecase phân rã quản lý nhân viên
+
+<p align="center">
+  <img src="images/uml_nhan_vien.PNG" width="400">
+</p>
+
+usecase phân rã quản lý báo cáo
+
+<p align="center">
+  <img src="images/uml_bao_cao.PNG" width="400">
+</p>
+
+6.2 Kịch bản Usecase
+
+**Kịch bản cho use case “Đăng nhập**·
+
+| **Thuộc tính**            | **Mô tả**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Tên Use Case**           | Đăng nhập                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| **Tác nhân chính**       | Nhân viên, Quản trị viên                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| **Mức**                    | Mức 3 – Use Case nghiệp vụ chi tiết                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Tiền điều kiện**      | Người dùng đã có tài khoản hợp lệ; Trang đăng nhập đã sẵn sàng                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| **Đảm bảo tối thiểu**  | Nếu đăng nhập thất bại (sai tài khoản hoặc mật khẩu), hệ thống hiển thị thông báo lỗi                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| **Đảm bảo thành công** | Người dùng được xác thực thành công và được chuyển đến trang chủ phù hợp (trang quản trị hoặc trang nhân viên)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| **Kích hoạt**             | Người dùng chọn chức năng“Đăng nhập” trên trang web                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| **Chuỗi sự kiện chính** | 1. Người dùng chọn chức năng đăng nhập<br />2. Hệ thống hiển thị form đăng nhập <br />3. Người dùng nhập tên đăng nhập và mật khẩu <br />4. Hệ thống kiểm tra tính hợp lệ dữ liệu (không để trống, đúng định dạng)<br />5. Hệ thống gửi thông tin đăng nhập đến CSDL để xác nhận <br />6. CSDL trả kết quả xác thực <br />7. Nếu thông tin đúng:<br />&nbsp;&nbsp;• Tạo phiên đăng nhập <br />&nbsp;&nbsp;• Chuyển đến trang chủ phù hợp <br />&nbsp;&nbsp;• Hiển thị thông báo “Đăng nhập thành công”<br />8. Người dùng bắt đầu sử dụng hệ thống |
+| **Ngoại lệ**              | 4.a. Thông tin không hợp lệ (bỏ trống, sai định dạng)<br />&nbsp;&nbsp;4.a.1. Hệ thống hiển thị thông báo lỗi <br />&nbsp;&nbsp;4.a.2. Người dùng nhập lại thông tin <br />6.a. Sai tài khoản hoặc mật khẩu <br />&nbsp;&nbsp;6.a.1. Hệ thống thông báo “Tên tài khoản hoặc mật khẩu không đúng”<br />&nbsp;&nbsp;6.a.2. Người dùng nhập lại thông tin                                                                                                                                                                                                                                                 |
+
+**Kịch bản use case cho "Cập nhật trạng thái vé"**
+
+
+| Thuộc tính            | Mô tả                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên use case           | Cập nhật trạng thái vé                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Tác nhân chính       | Nhân viên, quản lý                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Mức                    | Mức 3 – Use case nghiệp vụ chi tiết                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Mô tả chức năng     | Cho phép nhân viên hoặc quản lý cập nhật trạng thái vé xe trong hệ thống quản lý bãi xe                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Tiền điều kiện      | - Hệ thống quản lý bãi xe đang hoạt động bình thường<br />- Nhân viên hoặc quản lý đã đăng nhập vào hệ thống <br />- Vé xe cần cập nhật đã tồn tại trong cơ sở dữ liệu                                                                                                                                                                                                                                                                                                                                                                |
+| Đảm bảo tối thiểu  | Nếu cập nhật thất bại (trạng thái không hợp lệ, vé không tồn tại), hệ thống không thay đổi dữ liệu và hiển thị thông báo lỗi                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Đảm bảo thành công | Trạng thái vé được cập nhật thành công và lưu vào CSDL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Chuỗi sự kiện chính | 1. Nhân viên hoặc quản lý truy cập hệ thống quản lý bãi xe<br />2. Hệ thống hiển thị giao diện quản lý vé <br />3. Tác nhân chọn vé xe cần cập nhật trạng thái <br />4. Tác nhân thực hiện thao tác xe vào hoặc ra bãi <br />5. Tác nhân chọn trạng thái mới cho vé xe <br />6. Tác nhân nhấn nút "Cập nhật trạng thái"<br />7. Hệ thống kiểm tra thông tin cập nhật <br />8. Nếu hợp lệ, hệ thống lưu trạng thái mới vào CSDL <br />9. Hệ thống thông báo cập nhật trạng thái vé thành công |
+| Ngoại lệ              | 8.1. Trạng thái vé không hợp lệ:<br />- Hệ thống từ chối cập nhật <br />- Hiển thị thông báo lỗi và yêu cầu chọn lại <br />8.2. Vé xe không tồn tại:<br />- Hiển thị thông báo vé không tồn tại<br />8.3. Tác nhân hủy thao tác:<br />- Không lưu thay đổi và quay lại giao diện quản lý vé                                                                                                                                                                                                                                |
+
+
+**Kịch bản use case cho "Tra cứu vé"**
+
+
+| Thuộc tính            | Mô tả                                                                                                                                                                                                                                                                                                                                                                                                |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Tên Use Case           | Tra cứu vé                                                                                                                                                                                                                                                                                                                                                                                           |
+| Tác nhân chính       | Nhân viên, Quản lý                                                                                                                                                                                                                                                                                                                                                                                 |
+| Mức                    | Mức 3 – Use Case nghiệp vụ chi tiết                                                                                                                                                                                                                                                                                                                                                               |
+| Tiền điều kiện      | - Nhân viên hoặc quản lý đã đăng nhập vào hệ thống<br />- Cơ sở dữ liệu vé xe đã có dữ liệu                                                                                                                                                                                                                                                                                     |
+| Đảm bảo tối thiểu  | Nếu không tìm thấy vé hoặc thông tin tra cứu không hợp lệ, hệ thống hiển thị thông báo và không gây lỗi                                                                                                                                                                                                                                                                           |
+| Đảm bảo thành công | Hệ thống hiển thị danh sách vé phù hợp với điều kiện tra cứu                                                                                                                                                                                                                                                                                                                              |
+| Chuỗi sự kiện chính | 1. Tác nhân mở chức năng tra cứu vé<br />2. Hệ thống hiển thị form tra cứu <br />3. Tác nhân nhập thông tin tra cứu <br />4. Tác nhân nhấn"Tra cứu**"**<br />5. Hệ thống kiểm tra dữ liệu nhập <br />6. Hệ thống truy vấn CSDL <br />7. Hệ thống hiển thị kết quả tra cứu phù hợp                                                                         |
+| Ngoại lệ              | 5.1. Thông tin tra cứu không hợp lệ:<br />- 5.1.1. Hệ thống hiển thị thông báo lỗi <br />- 5.1.2. Yêu cầu tác nhân nhập lại thông tin tra cứu <br />7.1. Không tìm thấy vé phù hợp:<br />- 7.1.1. Hệ thống hiển thị thông báo không có kết quả tra cứu <br />7.2. Tác nhân hủy thao tác tra cứu:<br />- 7.2.1. Hệ thống quay lại giao diện quản lý vé |
+
+**Kịch bản use case cho "Thêm nhân viên"**
+
+| Thuộc tính            | Mô tả                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use Case           | Thêm nhân viên                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Tác nhân chính       | Quản lý                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Mức                    | Mức 3 – Use Case nghiệp vụ chi tiết                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Tiền điều kiện      | - Quản lý đã đăng nhập hệ thống<br />- Có quyền quản lý nhân viên                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Đảm bảo tối thiểu  | Nếu thông tin không hợp lệ hoặc nhân viên đã tồn tại, hệ thống không lưu dữ liệu và hiển thị thông báo lỗi                                                                                                                                                                                                                                                                                                                                                      |
+| Đảm bảo thành công | Nhân viên mới được thêm thành công vào hệ thống                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| Chuỗi sự kiện chính | 1. Quản lý truy cập chức năng quản lý nhân viên<br />2. Hệ thống hiển thị danh sách nhân viên <br />3. Quản lý chọn "Thêm nhân viên""<br />4. Hệ thống hiển thị form nhập thông tin <br />5. Quản lý nhập thông tin nhân viên <br />6. Quản lý nhấn \"Lưu"<br />7. Hệ thống kiểm tra tính hợp lệ <br />8. Hệ thống lưu thông tin vào CSDL <br />9. Hệ thống thông báo thêm thành công                                           |
+| Ngoại lệ              | 7.1. Thông tin nhân viên không hợp lệ:<br />- 7.1.1. Hệ thống hiển thị thông báo lỗi <br />- 7.1.2. Yêu cầu quản lý nhập lại thông tin <br />7.2. Nhân viên đã tồn tại:<br />- 7.2.1. Hệ thống từ chối thêm nhân viên <br />- 7.2.2. Hiển thị thông báo nhân viên đã tồn tại trong hệ thống <br />9.1. Quản lý hủy thao tác thêm nhân viên:- 9.1.1. Hệ thống không lưu dữ liệu và quay lại giao diện quản lý nhân viên |
+**Kịch bản use case Xóa nhân viên**
+
+
+| Thuộc tính                | Mô tả                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên use case               | Xóa nhân viên                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Tác nhân chính           | Quản trị                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Mức                        | 3 – Use Case nghiệp vụ chi tiết                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Người chịu trách nhiệm | Quản trị hệ thống                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| Tiền điều kiện          | Quản trị đã đăng nhập thành công và đang ở giao diện "Quản lý nhân viên"                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Đảm bảo tối thiểu      | Nhân viên không bị xóa nếu Quản trị hủy xác nhận; dữ liệu hệ thống vẫn toàn vẹn                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Đảm bảo thành công     | Thông tin nhân viên được loại bỏ khỏi danh sách hoạt động trong CSDL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Kích hoạt                 | Quản trị chọn một hoặc nhiều nhân viên trong danh sách và nhấn nút "Xóa"                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| Chuỗi sự kiện chính     | 1. Quản trị chọn nhân viên cần xóa từ danh sách hiển thị.<br />2. Quản trị nhấn nút "Xóa".<br />3. Hệ thống hiển thị thông báo xác nhận: "Bạn có chắc chắn muốn xóa nhân viên này không?".<br />4. Quản trị nhấn "Đồng ý" (Confirm).<br />5. Hệ thống kiểm tra các ràng buộc dữ liệu (ví dụ: nhân viên này có đang xử lý báo cáo nào không).<br />6. Hệ thống thực hiện xóa dữ liệu trong CSDL.<br />7. Hệ thống thông báo xóa thành công và cập nhật lại danh sách nhân viên. |
+| Ngoại lệ                  | 4.a: Quản trị nhấn "Hủy" (Cancel).<br />4.a.1: Hệ thống đóng thông báo xác nhận và không thực hiện lệnh xóa.<br />5.a: Nhân viên không thể xóa do ràng buộc dữ liệu (ví dụ: đang là quản lý của một bộ phận khác).<br />5.a.1: Hệ thống báo lỗi "Không thể xóa nhân viên này" và nêu lý do.                                                                                                                                                                                                                   |
+
+**Kịch  bản use case Cập nhật thông tin nhân viên** 
+
+| Thuộc tính                | Mô tả                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên use case               | Cập nhật thông tin nhân viên                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| Tác nhân chính           | Quản trị                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Mức                        | 3 – Use Case nghiệp vụ chi tiết                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| Người chịu trách nhiệm | Quản trị hệ thống                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Tiền điều kiện          | Quản trị đã đăng nhập vào hệ thống thành công                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Đảm bảo tối thiểu      | Hệ thống giữ nguyên dữ liệu cũ nếu quá trình cập nhật bị hủy hoặc lỗi.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Đảm bảo thành công     | Thông tin mới của nhân viên được cập nhật chính xác vào Cơ sở dữ liệu (CSDL)                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Kích hoạt                 | Quản trị chọn chức năng “Quản lý nhân viên” từ menu hệ thống                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Chuỗi sự kiện chính     | 1. Quản trị chọn chức năng “Cập nhật nhân viên” trong danh sách nhân viên.<br />2. Hệ thống hiển thị biểu mẫu (form) thông tin hiện tại của nhân viên và yêu cầu nhập thông tin mới.<br />3. Quản trị thực hiện chỉnh sửa các trường thông tin cần thiết và nhấn “Lưu”.<br />4. Hệ thống kiểm tra tính hợp lệ của dữ liệu.<br />5. Hệ thống cập nhật thông tin mới vào CSDL.<br />6. Hệ thống thông báo cập nhật thành công.<br />7. Quản trị kết thúc tác vụ. |
+| Ngoại lệ                  | 3.a: Hệ thống thông báo dữ liệu nhập vào không hợp lệ (ví dụ: định dạng email sai, để trống trường bắt buộc).<br />3.a.1: Quản trị nhập lại thông tin đúng và tiếp tục bước 4.<br />3.b: Nhân viên muốn cập nhật không còn tồn tại trong hệ thống (đã bị xóa bởi người khác).<br />3.b.1: Hệ thống báo lỗi và quay lại danh sách nhân viên.                                                                                                                                   |
+**Kịch bản cho use case “Ghi nhận xe vào"**
+
+| Thuộc tính            | Mô tả                                                                                                                                                                                                                                                                                                                                               |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên UseCase            | Xe vào                                                                                                                                                                                                                                                                                                                                               |
+| Tác nhân chính       | Nhân viên                                                                                                                                                                                                                                                                                                                                           |
+| Mức                    | Mức 3 - UseCase nghiệp vụ chi tiết                                                                                                                                                                                                                                                                                                                |
+| Tiền điều kiện      | - Hệ thống đã được khởi động và cài đặt đầy đủ<br />- Nhân viên đã đăng nhập vào hệ thống<br />- Xe đến bãi đỗ xe<br />- Hệ thống có thể truy cập máy quét biển số xe và máy in vé<br />- Hệ thống có thể truy cập cơ sở dữ liệu để lưu trữ thông tin vé và xe                           |
+| Đảm bảo tối thiểu  | Bãi xe còn chỗ trống                                                                                                                                                                                                                                                                                                                              |
+| Đảm bảo thành công | Vé được cấp cho khách                                                                                                                                                                                                                                                                                                                           |
+| Kích hoạt             | Người dùng chọn chức năng "Xe vào"                                                                                                                                                                                                                                                                                                             |
+| Chuỗi sự kiện chính | 1. Nhân viên chọn chức năng "Nhận xe vào"<br />2. Vé gửi xe được tạo ra và in ra cho khách hàng<br />3. Nhân viên chọn chức năng "Nhận xe vào"<br />4. Hệ thống kích hoạt máy quét biển số xe<br />5. Vé được in ra và giao cho khách hàng<br />6. Hệ thống lưu thông tin xe và vé vào cơ sở dữ liệu |
+| Ngoại lệ              | 1. Thông tin xe không được nhận diện<br />        - Hệ thống hiển thị thông báo lỗi và yêu cầu nhân viên nhập thủ công biển số xe<br />2. Máy in vé lỗi khi tạo vé<br />        - Hệ thống hiển thị thông báo lỗi và yêu cầu nhân viên in lại hoặc liên hệ bộ phận kỹ thuật                  |
+
+**Kịch bản cho use case “Ghi nhận xe ra"**
+
+| Thuộc tính            | Mô tả                                                                                                                                                                                                                                                             |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use Case           | Xe ra                                                                                                                                                                                                                                                               |
+| Tác nhân chính       | Nhân viên                                                                                                                                                                                                                                                         |
+| Mức                    | Mức 3 - UseCase nghiệp vụ chi tiết                                                                                                                                                                                                                              |
+| Tiền điều kiện      | - Hệ thống đã được khởi động và cài đặt đầy đủ<br />- Nhân viên đã đăng nhập vào hệ thống<br />- Xe chuẩn bị ra khỏi bãi đỗ xe<br />- Hệ thống có thể truy cập cơ sở dữ liệu để kiểm tra thông tin vé               |
+| Đảm báo tối thiểu  | Biển số xe khớp vơi vé                                                                                                                                                                                                                                         |
+| Đảm bảo thành công | Lưu giao dịch thành công                                                                                                                                                                                                                                        |
+| Kích hoạt             | Người dùng chọn chức năng "Xe ra"                                                                                                                                                                                                                             |
+| Chuỗi sự kiện chính | 1. Nhân viên chọn chức năng "Nhận xe ra"<br />2. Hệ thống kịch hoạt máy quét biển số xe<br />3. Vé được thu hồi và xác nhận thanh toán<br />4. Hệ thống ghi nhận xe ra và hoàn tất vé                                                 |
+| Ngoại lệ              | 1. Không tìm thấy vé<br />      - Hệ thống hiển thị thông báo không tồn tại vé và yêu cầu nhân viên kiểm tra lại thông tin<br />2. Khách chưa thanh toán<br />      - Hệ thống hiển thị thông báo chưa hoàn tất thanh toán |
+
+**Kịch bản cho Use Case "Thêm mới vé"**
+
+| Thuộc tính            | Mô tả                                                                                                                                                                                                                                                                                                    |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên UseCase            | Thêm mới vé                                                                                                                                                                                                                                                                                             |
+| Tác nhân chính       | Nhân viên                                                                                                                                                                                                                                                                                                |
+| Mức                    | Mức 3 - UseCase nghiệp vụ chi tiết                                                                                                                                                                                                                                                                     |
+| Tiền điều kiện      | - Hệ thống đã được khởi động và cài đặt đầy đủ<br />- Nhân viên đã đăng nhập vào hệ thống<br />- Khách hàng yêu cầu thêm mới vé gửi xe                                                                                                                                 |
+| Đảm báo tối thiểu  | Biển số xe hợp lệ, mẫ vé hợp lệ                                                                                                                                                                                                                                                                    |
+| Đảm báo thành công | Gán đúng vị trí xe, tạo mã vé duy nhất                                                                                                                                                                                                                                                            |
+| Kích hoạt             | Người dùng chọn chức năng "Thêm mới"                                                                                                                                                                                                                                                               |
+| Chuỗi sự kiện chính | 1. Nhân viên chọn chức năng "Thêm mới vé"<br />2. Nhân viên nhập thông tin cần thiết để tạo vé mới (biển số xe, thời gian gửi,...)<br />3. Hệ thống tạo vé mới vào cơ sở dữ liệu                                                                                          |
+| Ngoại lệ              | 1. Mã vé mới đã tồn tại<br />      - Hệ thống hiển thị thông báo đã tồn tại mã vé và yêu cầu nhân viên nhập lại  thông tin<br />2. Thiếu thông tin<br />      - Hệ thống hiển thị thông báo yêu cầu nhập đầy đủ thông tin cần thiết để tạo vé mới |
