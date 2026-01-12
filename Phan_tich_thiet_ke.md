@@ -220,6 +220,24 @@ VI. Phân tích và thiết kế đối tượng với UML
 Usecase phân rã ghi xe vào
 
 
+<<<<<<< HEAD
+`<img src = "images/uml_xe_vao" />`
+
+Usecase phân rã ghi xe ra
+
+`<img src = "images/uml_xe_ra" />`
+
+Usecase phân rã quản lý vé xe
+
+`<img src = "images/uml_ve_xe" />`
+
+Usecase phân rã quản lý nhân viên
+
+`<img src = "images/uml_nhan_vien" />`
+===
+
+=======
+>>>>>>> db51f9532f8acb1219366813659349d9bb503737
 <p align="center">
   <img src="images/uml_xe_vao.PNG" width="400">
 </p>
@@ -244,6 +262,10 @@ Usecase phân rã quản lý nhân viên
 <p align="center">
   <img src="images/uml_nhan_vien.PNG" width="400">
 </p>
+<<<<<<< HEAD
+>>>>>>> 50fa499beeca2eee7a69df848b3d9cb6ac12cefc
+=======
+>>>>>>> db51f9532f8acb1219366813659349d9bb503737
 
 usecase phân rã quản lý báo cáo
 
@@ -268,6 +290,8 @@ usecase phân rã quản lý báo cáo
 | **Ngoại lệ**              | 4.a. Thông tin không hợp lệ (bỏ trống, sai định dạng)<br />&nbsp;&nbsp;4.a.1. Hệ thống hiển thị thông báo lỗi <br />&nbsp;&nbsp;4.a.2. Người dùng nhập lại thông tin <br />6.a. Sai tài khoản hoặc mật khẩu <br />&nbsp;&nbsp;6.a.1. Hệ thống thông báo “Tên tài khoản hoặc mật khẩu không đúng”<br />&nbsp;&nbsp;6.a.2. Người dùng nhập lại thông tin                                                                                                                                                                                                                                                 |
 
 
+<<<<<<< HEAD
+=======
 
 ## USE CASE: ĐĂNG KÝ
 
@@ -284,6 +308,7 @@ usecase phân rã quản lý báo cáo
 | **Chuỗi sự kiện chính**     | 1. Người dùng chọn chức năng “Đăng ký” trên hệ thống`<br>`2. Hệ thống hiển thị form đăng ký`<br>`3. Người dùng nhập tên đăng nhập, mật khẩu và nhập lại mật khẩu`<br>`4. Hệ thống kiểm tra tính hợp lệ của dữ liệu (không để trống, đúng định dạng, tài khoản chưa tồn tại)`<br>`5. Hệ thống gửi thông tin đăng ký đến CSDL để xác nhận`<br>`6. Cơ sở dữ liệu trả kết quả xác thực`<br>`7. Người dùng bắt đầu sử dụng hệ thống |
 | **Ngoại lệ**                  | **4.a. Thông tin đăng ký không hợp lệ** (bỏ trống, sai định dạng)`<br>`4.a.1. Hệ thống hiển thị thông báo lỗi`<br>`4.a.2. Người dùng nhập lại thông tin                                                                                                                                                                                                                                                                                                                                            |
 
+>>>>>>> db51f9532f8acb1219366813659349d9bb503737
 **Kịch bản use case cho "Cập nhật trạng thái vé"**
 
 | Thuộc tính            | Mô tả                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
@@ -313,6 +338,21 @@ usecase phân rã quản lý báo cáo
 
 **Kịch bản use case cho "Thêm nhân viên"**
 
+<<<<<<< HEAD
+| Thuộc tính            | Mô tả                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use Case           | Thêm nhân viên                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Tác nhân chính       | Quản lý                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Mức                    | Mức 3 – Use Case nghiệp vụ chi tiết                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Tiền điều kiện      | - Quản lý đã đăng nhập hệ thống<br />- Có quyền quản lý nhân viên                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Đảm bảo tối thiểu  | Nếu thông tin không hợp lệ hoặc nhân viên đã tồn tại, hệ thống không lưu dữ liệu và hiển thị thông báo lỗi                                                                                                                                                                                                                                                                                                                                                      |
+| Đảm bảo thành công | Nhân viên mới được thêm thành công vào hệ thống                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| Chuỗi sự kiện chính | 1. Quản lý truy cập chức năng quản lý nhân viên<br />2. Hệ thống hiển thị danh sách nhân viên <br />3. Quản lý chọn "Thêm nhân viên""<br />4. Hệ thống hiển thị form nhập thông tin <br />5. Quản lý nhập thông tin nhân viên <br />6. Quản lý nhấn \"Lưu"<br />7. Hệ thống kiểm tra tính hợp lệ <br />8. Hệ thống lưu thông tin vào CSDL <br />9. Hệ thống thông báo thêm thành công                                           |
+| Ngoại lệ              | 7.1. Thông tin nhân viên không hợp lệ:<br />- 7.1.1. Hệ thống hiển thị thông báo lỗi <br />- 7.1.2. Yêu cầu quản lý nhập lại thông tin <br />7.2. Nhân viên đã tồn tại:<br />- 7.2.1. Hệ thống từ chối thêm nhân viên <br />- 7.2.2. Hiển thị thông báo nhân viên đã tồn tại trong hệ thống <br />9.1. Quản lý hủy thao tác thêm nhân viên:- 9.1.1. Hệ thống không lưu dữ liệu và quay lại giao diện quản lý nhân viên |
+
+
+**Kịch bản cho use case “Ghi nhận xe vào"**
+=======
 | Thuộc tính                                   | Mô tả                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Tên Use Case                                  | Thêm nhân viên                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
@@ -369,6 +409,7 @@ usecase phân rã quản lý báo cáo
 | Chuỗi sự kiện chính                                | 1. Quản trị chọn chức năng “Cập nhật nhân viên” trong danh sách nhân viên.<br />2. Hệ thống hiển thị biểu mẫu (form) thông tin hiện tại của nhân viên và yêu cầu nhập thông tin mới.<br />3. Quản trị thực hiện chỉnh sửa các trường thông tin cần thiết và nhấn “Lưu”.<br />4. Hệ thống kiểm tra tính hợp lệ của dữ liệu.<br />5. Hệ thống cập nhật thông tin mới vào CSDL.<br />6. Hệ thống thông báo cập nhật thành công.<br />7. Quản trị kết thúc tác vụ. |
 | Ngoại lệ                                             | 3.a: Hệ thống thông báo dữ liệu nhập vào không hợp lệ (ví dụ: định dạng email sai, để trống trường bắt buộc).<br />3.a.1: Quản trị nhập lại thông tin đúng và tiếp tục bước 4.<br />3.b: Nhân viên muốn cập nhật không còn tồn tại trong hệ thống (đã bị xóa bởi người khác).<br />3.b.1: Hệ thống báo lỗi và quay lại danh sách nhân viên.                                                                                                                                   |
 | **Kịch bản cho use case “Ghi nhận xe vào"** | <br />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+>>>>>>> db51f9532f8acb1219366813659349d9bb503737
 
 | Thuộc tính            | Mô tả                                                                                                                                                                                                                                                                                                                                               |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -409,6 +450,8 @@ usecase phân rã quản lý báo cáo
 | Kích hoạt             | Người dùng chọn chức năng "Thêm mới"                                                                                                                                                                                                                                                               |
 | Chuỗi sự kiện chính | 1. Nhân viên chọn chức năng "Thêm mới vé"<br />2. Nhân viên nhập thông tin cần thiết để tạo vé mới (biển số xe, thời gian gửi,...)<br />3. Hệ thống tạo vé mới vào cơ sở dữ liệu                                                                                          |
 | Ngoại lệ              | 1. Mã vé mới đã tồn tại<br />      - Hệ thống hiển thị thông báo đã tồn tại mã vé và yêu cầu nhân viên nhập lại  thông tin<br />2. Thiếu thông tin<br />      - Hệ thống hiển thị thông báo yêu cầu nhập đầy đủ thông tin cần thiết để tạo vé mới |
+<<<<<<< HEAD
+=======
 
 
 
@@ -475,3 +518,4 @@ usecase phân rã quản lý báo cáo
 | **Xe**        | maXe`<br>`bienSo`<br>`loaiXe                           | timKiem()`<br>`themXe()                                                   |
 | **VeXe**      | maVe`<br>`thoiGianVao`<br>`thoiGianRa`<br>`trangThai | capNhatTrangThai()`<br>`thongTinThoiGianGui()`<br>`traCuuVe()           |
 | **BaoCao**    | maBaoCao`<br>`ngayTao`<br>`nguoiTao`<br>`noiDung     | xuatBaoCao()`<br>`thongKeDoanhThu()`<br>`capNhatBaoCao()                |
+>>>>>>> db51f9532f8acb1219366813659349d9bb503737
