@@ -1,6 +1,6 @@
-# Phân tích thiết kế hệ thống Quản lý bãi xe
+Phân tích thiết kế hệ thống Quản lý bãi xe
 
-## I. Tổng quan hệ thống
+I. Tổng quan hệ thống
 
 1.1 Mô tả hệ thống
 
@@ -41,7 +41,7 @@ Hệ thống phục vụ cho các bãi gửi xe tại trường học, tòa nhà
 - Quản lý nhân viên
 - Báo cáo và thống kê
 
-## II. Tác nhân tham gia
+II. Tác nhân tham gia
 
 1. Người gửi xe
 
@@ -60,7 +60,7 @@ Hệ thống phục vụ cho các bãi gửi xe tại trường học, tòa nhà
    - Bảo trì hệ thống
    - Phân quyền
 
-## III. Yêu cầu  chức năng
+III. Yêu cầu
 
 3.1 Yêu cầu chức năng
 
@@ -102,59 +102,13 @@ f. Báo cáo thống kê
 - Xuất báo cáo
 
 3.2 Yêu cầu phi chức năng
-a. Khả năng sử dụng
 
-- giao diện trực quan, dễ sử dụng
-- Nhân viên mới có thể làm quen với hệ thống một cách dễ dàng
-- Hiển thị trạng thái bãi xe (còn trống hay đã hết)
-- Ngôn ngữ hỗ trợ: tiếng Việt, Tiếng Anh
-- Thông báo lỗi rõ ràng dễ hình dung.
+* Hệ thống dễ sử dụng
+* Thời gian phản hồi nhanh
+* Bảo mật thông tin người dùng
+* Sao lưu dữ liệu định kỳ
 
-b. Hiệu suất
-
-- Thời gian phản hồi: <= 2 giây cho các check in/ check-out
-- Thời gian nhận diện biển số xe: <= 3 giây
-- Xử lý đồng thời: tối thiểu không quá 50 giao dịch/ 1 giây.
-- Tải trang web: <=5 giây
-
-c. Độ tin cậy
-
-- Tính khả dụng:
-- Thời gian trung bình giữa hai lỗi (MTBF):
-- Thời gian trung bình để sửa lỗi (MTTR):
-- Độ chính xác:
-- Tỷ lệ lỗi: <=1 lỗi nghiêm trọng/tháng
-
-d. Độ bảo mật
-
-- Mã hóa dữ liệu thanh toán chuẩn PCIDSS:
-- Mã hóa thông tin cá nhân khách hàng
-- Xác thực đa yếu tố cho tài khoản quản trị
-- Phân quyền rõ ràng: Quản trị, nhân viên
-- tuân thủ Luật An toàn thông tin mạng và nghị điịnh 13/2023/NĐ-CP và bảo vệ dữ liệu cá nhân
-- Camera giám sát 24/7 và lưu trữ giữ liệu 30 ngày
-
-e. Độ an toàn
-
-- Hệ thống phòng cháy chữa cháy đạt chuẩn PCCC
-- Hệ thống chiểu sáng
-- Nút khẩn cấp tại các vị trí quan trọng
-
-f. Khả năng hỗ trợ
-
-- Log hệ thống chi tiết, dễ tra cứu
-- Code tuân thủ:
-- Tài liệu API đầy đủ:
-- Comment code bằng tiếng việt hoặc anh
-
-g. Ràng buộc về thiết kế
-
-- Backend:Javascript, php
-- Frontend:HTML, CSS, React.sj
-- Database: MySQL
-- khác: Visual Paradigm
-
-## V. Phân tích mở rộng mục tiêu
+IV. Phân tích mở rộng mục tiêu
 
 4.1.Quản lý phương tiện ra vào bãi xe
 
@@ -185,17 +139,59 @@ g. Ràng buộc về thiết kế
 - Hỗ trợ quản trị viên đưa ra quyết định quản lý kịp thời
 - Lưu trữ dữ liệu lâu dài phục vụ kiểm tra, đối chiếu
 
-## IV. Ràng buộc và mở rộng
+V. Ràng buộc và mở rộng
 
 * Hệ thống làm việc trên nền tảng web
 * Thời gian phản hồi nhanh
 * Bảo mật thông tin
 * Sao lưu và có thể phát triển
 
->>>>>>> e4dd2ffcff0ea38b87ee7458d871e8c9a82e9806
->>>>>>>
->>>>>>
->>>>>
->>>>
->>>
->>
+VI. Phân tích và thiết kế đối tượng với UML
+
+6.1 Biểu đồ UseCase tổng quát
+
+`<img src = "images/uml_bai_xe.PNG" width = 400 />`
+
+6.1.2 Biểu đồ Usecase phân rã
+
+Usecase phân rã ghi xe vào
+
+`<img src = "images/uml_xe_vao" />`
+
+
+Usecase phân rã ghi xe ra
+
+`<img src = "images/uml_xe_ra" />`
+
+
+Usecase phân rã quản lý vé xe
+
+`<img src = "images/uml_ve_xe" />`
+
+
+Usecase phân rã quản lý nhân viên
+
+`<img src = "images/uml_nhan_vien" />`
+
+
+usecase phân rã quản lý báo cáo
+
+`<img src ="uml_bao_cao" />`
+
+6.2 Kịch bản Usecase
+
+**Kịch bản cho use case “Đăng nhập**·
+
+| **Thuộc tính**            | **Mô tả**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Tên Use Case**           | Đăng nhập                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| **Tác nhân chính**       | Nhân viên, Quản trị viên                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| **Mức**                    | Mức 3 – Use Case nghiệp vụ chi tiết                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Tiền điều kiện**      | Người dùng đã có tài khoản hợp lệ; Trang đăng nhập đã sẵn sàng                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| **Đảm bảo tối thiểu**  | Nếu đăng nhập thất bại (sai tài khoản hoặc mật khẩu), hệ thống hiển thị thông báo lỗi                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| **Đảm bảo thành công** | Người dùng được xác thực thành công và được chuyển đến trang chủ phù hợp (trang quản trị hoặc trang nhân viên)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| **Kích hoạt**             | Người dùng chọn chức năng“Đăng nhập” trên trang web                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| **Chuỗi sự kiện chính** | 1. Người dùng chọn chức năng đăng nhập<br />2. Hệ thống hiển thị form đăng nhập <br />3. Người dùng nhập tên đăng nhập và mật khẩu <br />4. Hệ thống kiểm tra tính hợp lệ dữ liệu (không để trống, đúng định dạng)<br />5. Hệ thống gửi thông tin đăng nhập đến CSDL để xác nhận <br />6. CSDL trả kết quả xác thực <br />7. Nếu thông tin đúng:<br />&nbsp;&nbsp;• Tạo phiên đăng nhập <br />&nbsp;&nbsp;• Chuyển đến trang chủ phù hợp <br />&nbsp;&nbsp;• Hiển thị thông báo “Đăng nhập thành công”<br />8. Người dùng bắt đầu sử dụng hệ thống |
+| **Ngoại lệ**              | 4.a. Thông tin không hợp lệ (bỏ trống, sai định dạng)<br />&nbsp;&nbsp;4.a.1. Hệ thống hiển thị thông báo lỗi <br />&nbsp;&nbsp;4.a.2. Người dùng nhập lại thông tin <br />6.a. Sai tài khoản hoặc mật khẩu <br />&nbsp;&nbsp;6.a.1. Hệ thống thông báo “Tên tài khoản hoặc mật khẩu không đúng”<br />&nbsp;&nbsp;6.a.2. Người dùng nhập lại thông tin                                                                                                                                                                                                                                                 |
+
+·
