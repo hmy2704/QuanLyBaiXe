@@ -520,7 +520,7 @@ Biểu đồ tuần tự cho kịch bản "Thêm vé mới"
   <img src="images/sq_them_ve_moi.png" width="400">
 </p>
 
-Biểu đồ tuần tự cho kịch bản "Cập nhật vé"
+Biểu đồ tuần tự cho kịch bản "Cập nhật trạng thái vé"
 
 <p align="center">
   <img src="images/sq_update_ve.png" width="400">
