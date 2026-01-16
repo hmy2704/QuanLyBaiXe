@@ -498,22 +498,17 @@ Biểu đồ tuần tự kịch bản "đăng nhập"
 
 Biểu đồ tuần tự cho kịch bản "đăng xuất"
 
-
 <p align="center">
   <img src="images/sq_logout.png" width="400">
 </p>
 
-
 Biểu đồ hoạt động cho kịch bản "xe vào"
-
 
 <p align="center">
   <img src="images/sq_xe_vao2.png" width="400">
 </p>
 
-
 Biểu đồ tuần tự cho kịch bản " Ghi Xe ra"
-
 
 <p align="center">
   <img src="images/sq_xe_ra.png" width="400">
@@ -521,13 +516,11 @@ Biểu đồ tuần tự cho kịch bản " Ghi Xe ra"
 
 Biểu đồ tuần tự cho kịch bản "Thêm vé mới"
 
-
 <p align="center">
   <img src="images/sq_them_ve_moi.png" width="400">
 </p>
 
 Biểu đồ tuần tự cho kịch bản "Cập nhật trạng thái vé"
-
 
 <p align="center">
   <img src="images/sq_update_ve.png" width="400">
@@ -535,21 +528,17 @@ Biểu đồ tuần tự cho kịch bản "Cập nhật trạng thái vé"
 
 Biểu đồ tuần tự cho kịch bản "Phân quyền người dùng"
 
-
 <p align="center">
   <img src="images/sq_phan_quyen.png" width="400">
 </p>
 
 Biểu đồ hoạt động cho kịch bản "Tạo báo cáo"
 
-
 <p align="center">
   <img src="images/sq_tao_bao_cao.png" width="400">
 </p>
 
-
 Biểu đồ hoạt động cho kịch bản"Sửa báo cáo"
-
 
 <p align="center">
   <img src="images/sq_sua_bao_cao.png" width="400">
@@ -557,7 +546,22 @@ Biểu đồ hoạt động cho kịch bản"Sửa báo cáo"
 
 Biểu đồ kịch bản tuần tự cho kịch bản "Xoá báo cáo"
 
-
 <p align="center">
   <img src="images/sq_xoa_bc.png" width="400">
 </p>
+
+# VII. Giao diện của hệ thống
+
+1. Đăng nhập hệ thống
+
+   ![1768545860248](image/Phan_tich_thiet_ke/1768545860248.png)
+2. Thêm mới vé xe
+
+   ![1768545875832](image/Phan_tich_thiet_ke/1768545875832.png)
+3. Ghi nhận xe vào
+
+   ![1768545891972](image/Phan_tich_thiet_ke/1768545891972.png)
+4. Ghi nhận xe ra
+
+   ![1768545899050](image/Phan_tich_thiet_ke/1768545899050.png)
+5. Menu chính![1768545906251](image/Phan_tich_thiet_ke/1768545906251.png)
