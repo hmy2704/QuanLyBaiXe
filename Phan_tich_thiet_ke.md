@@ -648,8 +648,18 @@ Biểu đồ kịch bản tuần tự cho kịch bản "Xoá báo cáo"
 <p align="center">
   <img src="images/sq_xoa_bc.png" width="400">
 </p>
+
+### 6.5 Biểu đồ hoạt động
+
+Biểu đồ hoạt động cho kịch bản "đăng ký"
+
+<p align="center">
+  <img src="images/AC_dangKy.png" width="400">
+</p>
+
 <<<<<<< HEAD
 >>>>>>> 62fd23ab2ee53e7fecd6611a4de37ec19f30ca3e
+
 =======
 
 # VII. Giao diện của hệ thống
