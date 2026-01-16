@@ -4,7 +4,7 @@
 
 1.1 Mô tả hệ thống
 
-Hệ thống Quản lý Bãi gửi xe được xây dựng nhằm hỗ trợ việc ghi nhận, quản lý và xử lý thông tin gửi xe một cách  chính xác, nhanh chóng và minh bạch . Hệ thống áp dụng cho  bãi gửi xe máy và ô tô , hỗ trợ cả  hình thức gửi xe theo lượt và gửi xe theo tháng , phục vụ nhu cầu quản lý thực tế của bãi xe.
+Hệ thống là hệ thống Quản lý Bãi gửi xe bán tự động được xây dựng nhằm hỗ trợ việc ghi nhận, quản lý và xử lý thông tin gửi xe một cách  chính xác, nhanh chóng và minh bạch . Hệ thống áp dụng cho  bãi gửi xe máy và ô tô , hỗ trợ cả  hình thức gửi xe theo lượt và gửi xe theo tháng , phục vụ nhu cầu quản lý thực tế của bãi xe nhỏ .
 
 Hệ thống cho phép nhân viên bãi xe thực hiện các nghiệp vụ như: ghi nhận xe vào bãi, xe ra khỏi bãi, quản lý vé gửi xe (vé lượt, vé tháng), quản lý khu vực bãi và số chỗ trống, quản lý nhân viên theo phân quyền, đồng thời lập các báo cáo thống kê phục vụ công tác quản lý và giám sát hoạt động bãi xe.
 
@@ -191,10 +191,8 @@ g. Ràng buộc về thiết kế
 
 * Backend:Javascript, php
 * Frontend:HTML, CSS, React.sj
-
 * Database: MySQL
 * khác: Visual Paradigm
-
 
 ## IV. Phân tích mở rộng mục tiêu
 
@@ -305,7 +303,6 @@ Kịch bản cho use case “Đăng ký"
 | **Chuỗi sự kiện chính**     | 1. Người dùng chọn chức năng “Đăng ký” trên hệ thống `<br>`2. Hệ thống hiển thị form đăng ký `<br>`3. Người dùng nhập tên đăng nhập, mật khẩu và nhập lại mật khẩu `<br>`4. Hệ thống kiểm tra tính hợp lệ của dữ liệu (không để trống, đúng định dạng, tài khoản chưa tồn tại)`<br>`5. Hệ thống gửi thông tin đăng ký đến CSDL để xác nhận `<br>`6. Cơ sở dữ liệu trả kết quả xác thực `<br>`7. Người dùng bắt đầu sử dụng hệ thống |
 | **Ngoại lệ**                  | **4.a. Thông tin đăng ký không hợp lệ** (bỏ trống, sai định dạng)`<br>`4.a.1. Hệ thống hiển thị thông báo lỗi `<br>`4.a.2. Người dùng nhập lại thông tin                                                                                                                                                                                                                                                                                                                                                |
 
-
 **Kịch bản use case cho "Cập nhật trạng thái vé"**
 
 | Thuộc tính            | Mô tả                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
@@ -318,7 +315,7 @@ Kịch bản cho use case “Đăng ký"
 | Đảm bảo tối thiểu  | Nếu cập nhật thất bại (trạng thái không hợp lệ, vé không tồn tại), hệ thống không thay đổi dữ liệu và hiển thị thông báo lỗi                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | Đảm bảo thành công | Trạng thái vé được cập nhật thành công và lưu vào CSDL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | Chuỗi sự kiện chính | 1. Nhân viên hoặc quản lý truy cập hệ thống quản lý bãi xe<br />2. Hệ thống hiển thị giao diện quản lý vé <br />3. Tác nhân chọn vé xe cần cập nhật trạng thái <br />4. Tác nhân thực hiện thao tác xe vào hoặc ra bãi <br />5. Tác nhân chọn trạng thái mới cho vé xe <br />6. Tác nhân nhấn nút "Cập nhật trạng thái"<br />7. Hệ thống kiểm tra thông tin cập nhật <br />8. Nếu hợp lệ, hệ thống lưu trạng thái mới vào CSDL <br />9. Hệ thống thông báo cập nhật trạng thái vé thành công |
-| Ngoại lệ              | 8.1. Trạng thái vé không hợp lệ:<br />- Hệ thống từ chối cập nhật <br />- Hiển thị thông báo lỗi và yêu cầu chọn lại <br />8.2. Vé xe không tồn tại:<br />- Hiển thị thông báo vé không tồn tại<br />8.3. Tác nhân hủy thao tác:<br />- Không lưu thay đổi và quay lại giao diện quản lý vé                                                                                                                                                                                                                                |
+| Ngoại lệ              | <br />8.1. Vé xe không tồn tại:<br />- Hiển thị thông báo vé không hợp lệ<br />-Nhân viên nhậplại<br />6.1. Tác nhân hủy thao tác:<br />- Không lưu thay đổi và quay lại giao diện quản lý vé                                                                                                                                                                                                                                                                                                                                                |
 
 **Kịch bản use case cho "Tra cứu vé"**
 
@@ -391,45 +388,45 @@ Kịch bản cho use case “Đăng ký"
 | Ngoại lệ                  | 3.a: Hệ thống thông báo dữ liệu nhập vào không hợp lệ (ví dụ: định dạng email sai, để trống trường bắt buộc).<br />3.a.1: Quản trị nhập lại thông tin đúng và tiếp tục bước 4.<br />3.b: Nhân viên muốn cập nhật không còn tồn tại trong hệ thống (đã bị xóa bởi người khác).<br />3.b.1: Hệ thống báo lỗi và quay lại danh sách nhân viên.                                                                                                                                   |
 |                             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 
-| Thuộc tính            | Mô tả                                                                                                                                                                                                                                                                                                                                               |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Tên UseCase            | Xe vào                                                                                                                                                                                                                                                                                                                                               |
-| Tác nhân chính       | Nhân viên                                                                                                                                                                                                                                                                                                                                           |
-| Mức                    | Mức 3 - UseCase nghiệp vụ chi tiết                                                                                                                                                                                                                                                                                                                |
-| Tiền điều kiện      | - Hệ thống đã được khởi động và cài đặt đầy đủ<br />- Nhân viên đã đăng nhập vào hệ thống<br />- Xe đến bãi đỗ xe<br />- Hệ thống có thể truy cập máy quét biển số xe và máy in vé<br />- Hệ thống có thể truy cập cơ sở dữ liệu để lưu trữ thông tin vé và xe                           |
-| Đảm bảo tối thiểu  | Bãi xe còn chỗ trống                                                                                                                                                                                                                                                                                                                              |
-| Đảm bảo thành công | Vé được cấp cho khách                                                                                                                                                                                                                                                                                                                           |
-| Kích hoạt             | Người dùng chọn chức năng "Xe vào"                                                                                                                                                                                                                                                                                                             |
-| Chuỗi sự kiện chính | 1. Nhân viên chọn chức năng "Nhận xe vào"<br />2. Vé gửi xe được tạo ra và in ra cho khách hàng<br />3. Nhân viên chọn chức năng "Nhận xe vào"<br />4. Hệ thống kích hoạt máy quét biển số xe<br />5. Vé được in ra và giao cho khách hàng<br />6. Hệ thống lưu thông tin xe và vé vào cơ sở dữ liệu |
-| Ngoại lệ              | 1. Thông tin xe không được nhận diện<br />        - Hệ thống hiển thị thông báo lỗi và yêu cầu nhân viên nhập thủ công biển số xe<br />2. Máy in vé lỗi khi tạo vé<br />        - Hệ thống hiển thị thông báo lỗi và yêu cầu nhân viên in lại hoặc liên hệ bộ phận kỹ thuật                  |
+| Thuộc tính            | Mô tả                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên UseCase            | Xe vào                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Tác nhân chính       | Nhân viên                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Mức                    | Mức 3 - UseCase nghiệp vụ chi tiết                                                                                                                                                                                                                                                                                                                                                                                        |
+| Tiền điều kiện      | - Hệ thống đã được khởi động và cài đặt đầy đủ<br />- Nhân viên đã đăng nhập vào hệ thống<br />- Xe đến bãi đỗ xe<br />- Hệ thống có thể truy cập máy quét biển số xe và máy in vé<br />- Hệ thống có thể truy cập cơ sở dữ liệu để lưu trữ thông tin vé và xe                                                                                                   |
+| Đảm bảo tối thiểu  | Bãi xe còn chỗ trống                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Đảm bảo thành công | Vé được cấp cho khách                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Kích hoạt             | Người dùng chọn chức năng "Xe vào"                                                                                                                                                                                                                                                                                                                                                                                     |
+| Chuỗi sự kiện chính | 1. Nhân viên chọn chức năng "Nhận xe vào"<br />2. Hệ thống hiện thị màm hình nhận xe<br />3. Hệ thống kích hoạt máy quét biển số<br />4. Hệ thống nhận diện và ghi biển số xe<br />5. Nhân viên đưa vé gửi xe cho khách  hàng<br />6.Nhân viên nhấn nút mở Barrier<br />7.Hệ thống điều khiểnmở Barrier<br />7. Hệ thống lưu thông tin xe và vé vào cơ sở dữ liệu |
+| Ngoại lệ              | 4.1. Thông tin xe không được nhận diện<br />        - Hệ thống hiển thị thông báo lỗi và yêu cầu nhân viên nhập thủ công biển số xe                                                                                                                                                                                                                                                               |
 
 **Kịch bản cho use case “Ghi nhận xe ra"**
 
-| Thuộc tính            | Mô tả                                                                                                                                                                                                                                                             |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Tên Use Case           | Xe ra                                                                                                                                                                                                                                                               |
-| Tác nhân chính       | Nhân viên                                                                                                                                                                                                                                                         |
-| Mức                    | Mức 3 - UseCase nghiệp vụ chi tiết                                                                                                                                                                                                                              |
-| Tiền điều kiện      | - Hệ thống đã được khởi động và cài đặt đầy đủ<br />- Nhân viên đã đăng nhập vào hệ thống<br />- Xe chuẩn bị ra khỏi bãi đỗ xe<br />- Hệ thống có thể truy cập cơ sở dữ liệu để kiểm tra thông tin vé               |
-| Đảm báo tối thiểu  | Biển số xe khớp vơi vé                                                                                                                                                                                                                                         |
-| Đảm bảo thành công | Lưu giao dịch thành công                                                                                                                                                                                                                                        |
-| Kích hoạt             | Người dùng chọn chức năng "Xe ra"                                                                                                                                                                                                                             |
-| Chuỗi sự kiện chính | 1. Nhân viên chọn chức năng "Nhận xe ra"<br />2. Hệ thống kịch hoạt máy quét biển số xe<br />3. Vé được thu hồi và xác nhận thanh toán<br />4. Hệ thống ghi nhận xe ra và hoàn tất vé                                                 |
-| Ngoại lệ              | 1. Không tìm thấy vé<br />      - Hệ thống hiển thị thông báo không tồn tại vé và yêu cầu nhân viên kiểm tra lại thông tin<br />2. Khách chưa thanh toán<br />      - Hệ thống hiển thị thông báo chưa hoàn tất thanh toán |
+| Thuộc tính            | Mô tả                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên Use Case           | Xe ra                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| Tác nhân chính       | Nhân viên                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Mức                    | Mức 3 - UseCase nghiệp vụ chi tiết                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Tiền điều kiện      | - Hệ thống đã được khởi động và cài đặt đầy đủ<br />- Nhân viên đã đăng nhập vào hệ thống<br />- Xe chuẩn bị ra khỏi bãi đỗ xe<br />- Hệ thống có thể truy cập cơ sở dữ liệu để kiểm tra thông tin vé                                                                                                                                                                                                                           |
+| Đảm báo tối thiểu  | Biển số xe khớp vơi vé                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Đảm bảo thành công | Lưu giao dịch thành công                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Kích hoạt             | Người dùng chọn chức năng "Xe ra"                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Chuỗi sự kiện chính | 1. Nhân viên chọn chức năng "Nhận xe ra"<br />2. Hệ thống kịch hoạt máy quét biển số xe<br />3. Hệ thống nhận diện biển số và tìm vé tươngứng<br />4. Hệ thống tính thời gian gửi và tính phí gửi xe<br />5.Nhân viên thu phí từ khách hàng<br />6.Nhân viên nhấn nút mở Barrier<br />7.Hệ thống điểu khiển barrier mở cho xe ra<br />8.Hệ thống ghi nhận xe ra<br />9.Hệ thống lưu thông  tin giao dịch vào csdl |
+| Ngoại lệ              | 3.1. Không tìm thấy vé<br />     3.1.a - Hệ thống hiển thị thông báo không tồn tại vé và yêu cầu nhân viên kiểm tra lại thông tin<br />      3.1.b- nếu vé vẫn không hợp lệ, nhân viên không mở barrier , gửi báo cáo đến quản lý để xử lý sự cố<br />3.2 hệ thống không nhận diện được biển số<br />     - Hệ thống yêu cầu nhân viên nhập thủ công                                                  |
 
 **Kịch bản cho Use Case "Thêm mới vé"**
 
-| Thuộc tính            | Mô tả                                                                                                                                                                                                                                                                                                    |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Tên UseCase            | Thêm mới vé                                                                                                                                                                                                                                                                                             |
-| Tác nhân chính       | Nhân viên                                                                                                                                                                                                                                                                                                |
-| Mức                    | Mức 3 - UseCase nghiệp vụ chi tiết                                                                                                                                                                                                                                                                     |
-| Tiền điều kiện      | - Hệ thống đã được khởi động và cài đặt đầy đủ<br />- Nhân viên đã đăng nhập vào hệ thống<br />- Khách hàng yêu cầu thêm mới vé gửi xe                                                                                                                                 |
-| Đảm báo tối thiểu  | Biển số xe hợp lệ, mẫ vé hợp lệ                                                                                                                                                                                                                                                                    |
-| Đảm báo thành công | Gán đúng vị trí xe, tạo mã vé duy nhất                                                                                                                                                                                                                                                            |
-| Kích hoạt             | Người dùng chọn chức năng "Thêm mới"                                                                                                                                                                                                                                                               |
-| Chuỗi sự kiện chính | 1. Nhân viên chọn chức năng "Thêm mới vé"<br />2. Nhân viên nhập thông tin cần thiết để tạo vé mới (biển số xe, thời gian gửi,...)<br />3. Hệ thống tạo vé mới vào cơ sở dữ liệu                                                                                          |
-| Ngoại lệ              | 1. Mã vé mới đã tồn tại<br />      - Hệ thống hiển thị thông báo đã tồn tại mã vé và yêu cầu nhân viên nhập lại  thông tin<br />2. Thiếu thông tin<br />      - Hệ thống hiển thị thông báo yêu cầu nhập đầy đủ thông tin cần thiết để tạo vé mới |
+| Thuộc tính            | Mô tả                                                                                                                                                                                                                                                                                                                                                            |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Tên UseCase            | Thêm mới vé                                                                                                                                                                                                                                                                                                                                                     |
+| Tác nhân chính       | Nhân viên                                                                                                                                                                                                                                                                                                                                                        |
+| Mức                    | Mức 3 - UseCase nghiệp vụ chi tiết                                                                                                                                                                                                                                                                                                                             |
+| Tiền điều kiện      | - Hệ thống đã được khởi động và cài đặt đầy đủ<br />- Nhân viên đã đăng nhập vào hệ thống<br />- Khách hàng yêu cầu thêm mới vé gửi xe                                                                                                                                                                                         |
+| Đảm báo tối thiểu  | Biển số xe hợp lệ, mẫ vé hợp lệ                                                                                                                                                                                                                                                                                                                            |
+| Đảm báo thành công | Gán đúng vị trí xe, tạo mã vé duy nhất                                                                                                                                                                                                                                                                                                                    |
+| Kích hoạt             | Người dùng chọn chức năng "Thêm mới"                                                                                                                                                                                                                                                                                                                       |
+| Chuỗi sự kiện chính | 1. Nhân viên chọn chức năng "Thêm mới vé"<br />2. Hệ thống hiện thị màn hình chức năng thêm mới vé<br />3. Nhân viên nhập mã vé có sẵn<br />4. Hệ thống kiểm tra tính hợp lệ của mã vé<br />5.Hệ thống lưu thông tin vào Csdl<br />6. Hệ thống thông báo tạo vé thành công<br />7.Nhân viên đưa vé cho khách |
+| Ngoại lệ              | 3.1. Mã vé mới đã tồn tại<br />      - Hệ thống hiển thị thông báo đã tồn tại mã vé <br />      - yêu cầu nhân viên nhập lại  thông tin<br />3.2. Thiếu thông tin<br />      - Hệ thống hiển thị thông báo yêu cầu nhập đầy đủ thông tin cần thiết để tạo vé mới                                        |
 
 **Kịch bản UseCase "xem báo cáo"**
 
@@ -490,3 +487,77 @@ Kịch bản cho use case “Đăng ký"
 | **Xe**        | maXe `<br>`bienSo `<br>`loaiXe                            | timKiem()`<br>`themXe()                                                   |
 | **VeXe**      | maVe `<br>`thoiGianVao `<br>`thoiGianRa `<br>`trangThai | capNhatTrangThai()`<br>`thongTinThoiGianGui()`<br>`traCuuVe()           |
 | **BaoCao**    | maBaoCao `<br>`ngayTao `<br>`nguoiTao `<br>`noiDung     | xuatBaoCao()`<br>`thongKeDoanhThu()`<br>`capNhatBaoCao()                |
+
+### 6.4 Biểu đồ tuần tự
+
+Biểu đồ tuần tự kịch bản "đăng nhập"
+
+<p align="center">
+  <img src="images/sq_login.png" width="400">
+</p>
+
+Biểu đồ tuần tự cho kịch bản "đăng xuất"
+
+
+<p align="center">
+  <img src="images/sq_logout.png" width="400">
+</p>
+
+
+Biểu đồ hoạt động cho kịch bản "xe vào"
+
+
+<p align="center">
+  <img src="images/sq_xe_vao2.png" width="400">
+</p>
+
+
+Biểu đồ tuần tự cho kịch bản " Ghi Xe ra"
+
+
+<p align="center">
+  <img src="images/sq_xe_ra.png" width="400">
+</p>
+
+Biểu đồ tuần tự cho kịch bản "Thêm vé mới"
+
+
+<p align="center">
+  <img src="images/sq_them_ve_moi.png" width="400">
+</p>
+
+Biểu đồ tuần tự cho kịch bản "Cập nhật vé"
+
+
+<p align="center">
+  <img src="images/sq_update_ve.png" width="400">
+</p>
+
+Biểu đồ tuần tự cho kịch bản "Phân quyền người dùng"
+
+
+<p align="center">
+  <img src="images/sq_phan_quyen.png" width="400">
+</p>
+
+Biểu đồ hoạt động cho kịch bản "Tạo báo cáo"
+
+
+<p align="center">
+  <img src="images/sq_tao_bao_cao.png" width="400">
+</p>
+
+
+Biểu đồ hoạt động cho kịch bản"Sửa báo cáo"
+
+
+<p align="center">
+  <img src="images/sq_sua_bao_cao.png" width="400">
+</p>
+
+Biểu đồ kịch bản tuần tự cho kịch bản "Xoá báo cáo"
+
+
+<p align="center">
+  <img src="images/sq_xoa_bc.png" width="400">
+</p>
