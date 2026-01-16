@@ -287,19 +287,6 @@ Usecase phân rã quản lý vé xe
 
 Usecase phân rã quản lý nhân viên
 
-`<img src = "images/uml_nhan_vien" />`
-===
-
-=======
-
->>>>>>> 62fd23ab2ee53e7fecd6611a4de37ec19f30ca3e
->>>>>>>
->>>>>>
->>>>>
->>>>
->>>
->>
-
 <p align="center">
   <img src="images/uml_xe_vao.PNG" width="400">
 </p>
@@ -376,12 +363,7 @@ Kịch bản cho use case “Đăng nhập"
 | Đảm bảo thành công     | Thông tin mới của nhân viên được cập nhật chính xác vào Cơ sở dữ liệu (CSDL)                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | Kích hoạt                 | Quản trị chọn chức năng “Quản lý nhân viên” từ menu hệ thống                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | Chuỗi sự kiện chính     | 1. Quản trị chọn chức năng “Cập nhật nhân viên” trong danh sách nhân viên.<br />2. Hệ thống hiển thị biểu mẫu (form) thông tin hiện tại của nhân viên và yêu cầu nhập thông tin mới.<br />3. Quản trị thực hiện chỉnh sửa các trường thông tin cần thiết và nhấn “Lưu”.<br />4. Hệ thống kiểm tra tính hợp lệ của dữ liệu.<br />5. Hệ thống cập nhật thông tin mới vào CSDL.<br />6. Hệ thống thông báo cập nhật thành công.<br />7. Quản trị kết thúc tác vụ. |
-| Ngoại lệ                  | 3.a: Hệ thống thông báo dữ liệu nhập vào không hợp lệ (ví dụ: định dạng email sai, để trống trường bắt buộc).<br />3.a.1: Quản trị nhập lại thông tin đúng và tiếp tục bước 4.<br />3.b: Nhân viên muốn cập nhật không còn tồn tại trong hệ thống (đã bị xóa bởi người khác).<br />3.b.1: Hệ thống báo lỗi và quay lại danh sách nhân viên.                                                                                                                                   |
-
-**Kịch bản cho use case “Ghi nhận xe vào"**
-============================================
-
-Kịch bản cho use case “Đăng ký"
+| Ngoại lệ                  | 3.a: Hệ thống thông báo dữ liệu nhập vào không hợp lệ (ví dụ: định dạng email sai, để trống trường bắt buộc).<br />3.a.1: Quản trị nhập lại thông tin đúng và tiếp tục bước 4.<br />3.b: Nhân viên muốn cập nhật không còn tồn tại trong hệ thống (đã bị xóa bởi người khác).<br />3.b.1: Hệ thống báo lỗi và quay lại danh sách nhân viên. Kịch bản cho use case “Đăng ký"                                                                                             |
 
 | Tiêu đề                            | Tên nội dung                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -611,12 +593,36 @@ Biểu đồ tuần tự cho kịch bản "Thêm vé mới"
 
 <p align="center">
   <img src="images/sq_them_ve_moi.png" width="400">
-</p>
+</p>x
 
-Biểu đồ tuần tự cho kịch bản "Cập nhật vé"
+Biểu đồ tuần tự cho kịch bản "Cập nhật trạng thái vé"
 
 <p align="center">
   <img src="images/sq_update_ve.png" width="400">
+</p>
+
+Biểu đồ tuần từ cho kịch bản " Tra cứu vé"
+
+<p align="center">
+  <img src="images/tt_tracuuve.png" width="400">
+</p>
+
+Biểu đồ tuần tự cho kịch bản " Thêm nhân viên"
+
+<p align="center">
+  <img src="images/themnv.png" width="400">
+</p>
+
+Biểu đồ tuần tư cho kịch bản " Cập nhật thông tin nhân viên "
+
+<p align="center">
+  <img src="images/capnhatttnv.png" width="400">
+</p>
+
+Biểu đồ tuần tự cho kịch bản "Xóa nhân viên "
+
+<p align="center">
+  <img src="images/xoanv.png" width="400">
 </p>
 
 Biểu đồ tuần tự cho kịch bản "Phân quyền người dùng"
@@ -642,4 +648,30 @@ Biểu đồ kịch bản tuần tự cho kịch bản "Xoá báo cáo"
 <p align="center">
   <img src="images/sq_xoa_bc.png" width="400">
 </p>
+<<<<<<< HEAD
 >>>>>>> 62fd23ab2ee53e7fecd6611a4de37ec19f30ca3e
+=======
+
+# VII. Giao diện của hệ thống
+
+1. Đăng nhập hệ thống
+
+   ![1768545860248](image/Phan_tich_thiet_ke/1768545860248.png)
+2. Thêm mới vé xe
+
+   ![1768545875832](image/Phan_tich_thiet_ke/1768545875832.png)
+3. Ghi nhận xe vào
+
+   ![1768545891972](image/Phan_tich_thiet_ke/1768545891972.png)
+4. Ghi nhận xe ra
+
+   ![1768545899050](image/Phan_tich_thiet_ke/1768545899050.png)
+5. Menu chính![1768545906251](image/Phan_tich_thiet_ke/1768545906251.png)
+
+>>>>>>> 7da166097c597a346d171dee697564d92072db96
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
