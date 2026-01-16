@@ -41,7 +41,20 @@ Hệ thống phục vụ cho các bãi gửi xe tại trường học, tòa nhà
 - Quản lý nhân viên
 - Báo cáo và thống kê
 
+II. Tác nhân tham gia
+=======================
+
+=======
+
 ## II. Tác nhân tham gia
+
+>>>>>>> 62fd23ab2ee53e7fecd6611a4de37ec19f30ca3e
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
 
 II. Tác nhân tham gia
 
@@ -64,7 +77,26 @@ II. Tác nhân tham gia
    - Bảo trì hệ thống
    - Phân quyền
 
+III. Yêu cầu phi chức năng
+==============================
+
+2.1 Hiệu năng
+===============
+
+2.2 Độ tin cậy
+=================
+
+=======
+
 ## III. Yêu cầu chức năng
+
+>>>>>>> 62fd23ab2ee53e7fecd6611a4de37ec19f30ca3e
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
 
 3.1 Yêu cầu chức năng
 
@@ -243,6 +275,17 @@ g. Ràng buộc về thiết kế
 6.1.2 Biểu đồ Usecase phân rã
 
 Usecase phân rã ghi xe vào
+`<img src = "images/uml_xe_vao" />`
+
+Usecase phân rã ghi xe ra
+
+`<img src = "images/uml_xe_ra" />`
+
+Usecase phân rã quản lý vé xe
+
+`<img src = "images/uml_ve_xe" />`
+
+Usecase phân rã quản lý nhân viên
 
 <p align="center">
   <img src="images/uml_xe_vao.PNG" width="400">
@@ -265,6 +308,10 @@ Usecase phân rã quản lý nhân viên
 <p align="center">
   <img src="images/uml_nhan_vien.PNG" width="400">
 </p>
+<<<<<<< HEAD
+>>>>>>> 50fa499beeca2eee7a69df848b3d9cb6ac12cefc
+=======
+>>>>>>> 62fd23ab2ee53e7fecd6611a4de37ec19f30ca3e
 
 usecase phân rã quản lý báo cáo
 
@@ -288,7 +335,35 @@ Kịch bản cho use case “Đăng nhập"
 | **Chuỗi sự kiện chính** | 1. Người dùng chọn chức năng đăng nhập<br />2. Hệ thống hiển thị form đăng nhập <br />3. Người dùng nhập tên đăng nhập và mật khẩu <br />4. Hệ thống kiểm tra tính hợp lệ dữ liệu (không để trống, đúng định dạng)<br />5. Hệ thống gửi thông tin đăng nhập đến CSDL để xác nhận <br />6. CSDL trả kết quả xác thực <br />7. Nếu thông tin đúng:<br />&nbsp;&nbsp;• Tạo phiên đăng nhập <br />&nbsp;&nbsp;• Chuyển đến trang chủ phù hợp <br />&nbsp;&nbsp;• Hiển thị thông báo “Đăng nhập thành công”<br />8. Người dùng bắt đầu sử dụng hệ thống |
 | **Ngoại lệ**              | 4.a. Thông tin không hợp lệ (bỏ trống, sai định dạng)<br />&nbsp;&nbsp;4.a.1. Hệ thống hiển thị thông báo lỗi <br />&nbsp;&nbsp;4.a.2. Người dùng nhập lại thông tin <br />6.a. Sai tài khoản hoặc mật khẩu <br />&nbsp;&nbsp;6.a.1. Hệ thống thông báo “Tên tài khoản hoặc mật khẩu không đúng”<br />&nbsp;&nbsp;6.a.2. Người dùng nhập lại thông tin                                                                                                                                                                                                                                                 |
 
-Kịch bản cho use case “Đăng ký"
+**Kịch bản use case Xóa nhân viên**
+
+| Thuộc tính                | Mô tả                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên use case               | Xóa nhân viên                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Tác nhân chính           | Quản trị                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Mức                        | 3 – Use Case nghiệp vụ chi tiết                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Người chịu trách nhiệm | Quản trị hệ thống                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| Tiền điều kiện          | Quản trị đã đăng nhập thành công và đang ở giao diện "Quản lý nhân viên"                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Đảm bảo tối thiểu      | Nhân viên không bị xóa nếu Quản trị hủy xác nhận; dữ liệu hệ thống vẫn toàn vẹn                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Đảm bảo thành công     | Thông tin nhân viên được loại bỏ khỏi danh sách hoạt động trong CSDL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Kích hoạt                 | Quản trị chọn một hoặc nhiều nhân viên trong danh sách và nhấn nút "Xóa"                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| Chuỗi sự kiện chính     | 1. Quản trị chọn nhân viên cần xóa từ danh sách hiển thị.<br />2. Quản trị nhấn nút "Xóa".<br />3. Hệ thống hiển thị thông báo xác nhận: "Bạn có chắc chắn muốn xóa nhân viên này không?".<br />4. Quản trị nhấn "Đồng ý" (Confirm).<br />5. Hệ thống kiểm tra các ràng buộc dữ liệu (ví dụ: nhân viên này có đang xử lý báo cáo nào không).<br />6. Hệ thống thực hiện xóa dữ liệu trong CSDL.<br />7. Hệ thống thông báo xóa thành công và cập nhật lại danh sách nhân viên. |
+| Ngoại lệ                  | 4.a: Quản trị nhấn "Hủy" (Cancel).<br />4.a.1: Hệ thống đóng thông báo xác nhận và không thực hiện lệnh xóa.<br />5.a: Nhân viên không thể xóa do ràng buộc dữ liệu (ví dụ: đang là quản lý của một bộ phận khác).<br />5.a.1: Hệ thống báo lỗi "Không thể xóa nhân viên này" và nêu lý do.                                                                                                                                                                                                                   |
+
+**Kịch  bản use case Cập nhật thông tin nhân viên**
+
+| Thuộc tính                | Mô tả                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tên use case               | Cập nhật thông tin nhân viên                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| Tác nhân chính           | Quản trị                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Mức                        | 3 – Use Case nghiệp vụ chi tiết                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| Người chịu trách nhiệm | Quản trị hệ thống                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Tiền điều kiện          | Quản trị đã đăng nhập vào hệ thống thành công                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Đảm bảo tối thiểu      | Hệ thống giữ nguyên dữ liệu cũ nếu quá trình cập nhật bị hủy hoặc lỗi.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Đảm bảo thành công     | Thông tin mới của nhân viên được cập nhật chính xác vào Cơ sở dữ liệu (CSDL)                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Kích hoạt                 | Quản trị chọn chức năng “Quản lý nhân viên” từ menu hệ thống                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| Chuỗi sự kiện chính     | 1. Quản trị chọn chức năng “Cập nhật nhân viên” trong danh sách nhân viên.<br />2. Hệ thống hiển thị biểu mẫu (form) thông tin hiện tại của nhân viên và yêu cầu nhập thông tin mới.<br />3. Quản trị thực hiện chỉnh sửa các trường thông tin cần thiết và nhấn “Lưu”.<br />4. Hệ thống kiểm tra tính hợp lệ của dữ liệu.<br />5. Hệ thống cập nhật thông tin mới vào CSDL.<br />6. Hệ thống thông báo cập nhật thành công.<br />7. Quản trị kết thúc tác vụ. |
+| Ngoại lệ                  | 3.a: Hệ thống thông báo dữ liệu nhập vào không hợp lệ (ví dụ: định dạng email sai, để trống trường bắt buộc).<br />3.a.1: Quản trị nhập lại thông tin đúng và tiếp tục bước 4.<br />3.b: Nhân viên muốn cập nhật không còn tồn tại trong hệ thống (đã bị xóa bởi người khác).<br />3.b.1: Hệ thống báo lỗi và quay lại danh sách nhân viên. Kịch bản cho use case “Đăng ký"                                                                                             |
 
 | Tiêu đề                            | Tên nội dung                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -518,12 +593,36 @@ Biểu đồ tuần tự cho kịch bản "Thêm vé mới"
 
 <p align="center">
   <img src="images/sq_them_ve_moi.png" width="400">
-</p>
+</p>x
 
 Biểu đồ tuần tự cho kịch bản "Cập nhật trạng thái vé"
 
 <p align="center">
   <img src="images/sq_update_ve.png" width="400">
+</p>
+
+Biểu đồ tuần từ cho kịch bản " Tra cứu vé"
+
+<p align="center">
+  <img src="images/tt_tracuuve.png" width="400">
+</p>
+
+Biểu đồ tuần tự cho kịch bản " Thêm nhân viên"
+
+<p align="center">
+  <img src="images/themnv.png" width="400">
+</p>
+
+Biểu đồ tuần tư cho kịch bản " Cập nhật thông tin nhân viên "
+
+<p align="center">
+  <img src="images/capnhatttnv.png" width="400">
+</p>
+
+Biểu đồ tuần tự cho kịch bản "Xóa nhân viên "
+
+<p align="center">
+  <img src="images/xoanv.png" width="400">
 </p>
 
 Biểu đồ tuần tự cho kịch bản "Phân quyền người dùng"
@@ -549,6 +648,12 @@ Biểu đồ kịch bản tuần tự cho kịch bản "Xoá báo cáo"
 <p align="center">
   <img src="images/sq_xoa_bc.png" width="400">
 </p>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 62fd23ab2ee53e7fecd6611a4de37ec19f30ca3e
+=======
+>>>>>>> 4408c84b77b2984ec507b1828444122f90bd1a8a
 
 # VII. Giao diện của hệ thống
 
@@ -565,3 +670,11 @@ Biểu đồ kịch bản tuần tự cho kịch bản "Xoá báo cáo"
 
    ![1768545899050](image/Phan_tich_thiet_ke/1768545899050.png)
 5. Menu chính![1768545906251](image/Phan_tich_thiet_ke/1768545906251.png)
+
+>>>>>>> 7da166097c597a346d171dee697564d92072db96
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
