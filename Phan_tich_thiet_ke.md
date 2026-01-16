@@ -44,18 +44,6 @@ Hệ thống phục vụ cho các bãi gửi xe tại trường học, tòa nhà
 II. Tác nhân tham gia
 =======================
 
-=======
-
-## II. Tác nhân tham gia
-
->>>>>>> 62fd23ab2ee53e7fecd6611a4de37ec19f30ca3e
->>>>>>>
->>>>>>
->>>>>
->>>>
->>>
->>
-
 II. Tác nhân tham gia
 
 1.Người gửi xe
@@ -77,26 +65,7 @@ II. Tác nhân tham gia
    - Bảo trì hệ thống
    - Phân quyền
 
-III. Yêu cầu phi chức năng
-==============================
-
-2.1 Hiệu năng
-===============
-
-2.2 Độ tin cậy
-=================
-
-=======
-
 ## III. Yêu cầu chức năng
-
->>>>>>> 62fd23ab2ee53e7fecd6611a4de37ec19f30ca3e
->>>>>>>
->>>>>>
->>>>>
->>>>
->>>
->>
 
 3.1 Yêu cầu chức năng
 
@@ -308,10 +277,6 @@ Usecase phân rã quản lý nhân viên
 <p align="center">
   <img src="images/uml_nhan_vien.PNG" width="400">
 </p>
-<<<<<<< HEAD
->>>>>>> 50fa499beeca2eee7a69df848b3d9cb6ac12cefc
-=======
->>>>>>> 62fd23ab2ee53e7fecd6611a4de37ec19f30ca3e
 
 usecase phân rã quản lý báo cáo
 
@@ -649,6 +614,7 @@ Biểu đồ kịch bản tuần tự cho kịch bản "Xoá báo cáo"
   <img src="images/sq_xoa_bc.png" width="400">
 </p>
 
+
 ### 6.5 Biểu đồ hoạt động
 
 Biểu đồ hoạt động cho kịch bản "đăng ký"
@@ -688,6 +654,7 @@ Biểu đồ hoạt động cho kịch bản "Xóa nhân viên"
 </p>
 
 Biểu đồ hoạt động chức năng "Thêm vé mới"
+
 <p align="center"> 
 <img src="images/AC_them_ve_moi.png">
 </p>
@@ -705,10 +672,6 @@ Biểu đồ hoạt động chức năng "Phân quyền người dùng"
 </p>
 
 
-<<<<<<< HEAD
->>>>>>> 62fd23ab2ee53e7fecd6611a4de37ec19f30ca3e
-
-=======
 
 # VII. Giao diện của hệ thống
 
@@ -725,11 +688,3 @@ Biểu đồ hoạt động chức năng "Phân quyền người dùng"
 
    ![1768545899050](image/Phan_tich_thiet_ke/1768545899050.png)
 5. Menu chính![1768545906251](image/Phan_tich_thiet_ke/1768545906251.png)
-
->>>>>>> 7da166097c597a346d171dee697564d92072db96
->>>>>>>
->>>>>>
->>>>>
->>>>
->>>
->>
