@@ -532,13 +532,13 @@ Biểu đồ tuần tự cho kịch bản "Phân quyền người dùng"
   <img src="images/sq_phan_quyen.png" width="400">
 </p>
 
-Biểu đồ hoạt động cho kịch bản "Tạo báo cáo"
+Biểu đồ kịch bản tuần tự cho kịch bản "Tạo báo cáo"
 
 <p align="center">
   <img src="images/sq_tao_bao_cao.png" width="400">
 </p>
 
-Biểu đồ hoạt động cho kịch bản"Sửa báo cáo"
+Biểu đồ kịch bản tuần tự cho kịch bản"Sửa báo cáo"
 
 <p align="center">
   <img src="images/sq_sua_bao_cao.png" width="400">
@@ -550,6 +550,45 @@ Biểu đồ kịch bản tuần tự cho kịch bản "Xoá báo cáo"
   <img src="images/sq_xoa_bc.png" width="400">
 </p>
 
+6.5 Biểu đồ hoạt động
+
+Biểu đồ hoạt động cho kịch bản "Đăng ký"
+
+<p align="center">
+  <img src="images/AC_dangKy.png" width="400">
+</p>
+
+Biểu đồ hoạt động cho kịch bản "Đăng nhập"
+
+<p align="center">
+  <img src="images/AC_dangNhap.png" width="400">
+</p>
+
+
+Biểu đồ hoạt động cho kịch bản "Thêm nhân viên"
+
+<p align="center">
+  <img src="images/AC_themNhanVien.png" width="400">
+</p>
+
+
+Biểu đồ hoạt động cho kịch bản "Xóa nhân viên"
+
+<p align="center">
+  <img src="images/AC_xoaNhanVien.png" width="400">
+</p>
+
+Biểu đồ hoạt động cho kịch bản "Cập nhật trạng thái vé"
+
+<p align="center">
+  <img src="images/AC_capNhatTrangThaiVe.png" width="400">
+</p>
+
+Biểu đồ hoạt động cho kịch bản "Tra cứu vé"
+
+<p align="center">
+  <img src="images/AC_traCuuVe.png" width="400">
+</p>
 
 
 # VII. Giao diện của hệ thống
