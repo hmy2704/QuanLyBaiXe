@@ -648,6 +648,25 @@ Biểu đồ kịch bản tuần tự cho kịch bản "Xoá báo cáo"
 <p align="center">
   <img src="images/sq_xoa_bc.png" width="400">
 </p>
+### 6.5 Biểu đồ hoạt động
+Biểu đồ hoạt động chức năng "Thêm vé mới"
+<p align="center"> 
+<img src="images/AC_them_ve_moi.png">
+</p>
+Biểu đồ hoạt động chức năng "Nhận xe ra"
+<p align="center"> 
+<img src="images/AC_nhan_xe_ra.png">
+</p>
+Biểu đồ hoạt động chức năng "Nhận xe vào"
+<p align="center"> 
+<img src="images/AC_nhan_xe_vao.png">
+</p>
+Biểu đồ hoạt động chức năng "Phân quyền người dùng"
+<p align="center"> 
+<img src="images/AC_phan_quyen.png">
+</p>
+
+
 <<<<<<< HEAD
 >>>>>>> 62fd23ab2ee53e7fecd6611a4de37ec19f30ca3e
 =======
