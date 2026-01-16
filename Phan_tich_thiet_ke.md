@@ -614,6 +614,65 @@ Biểu đồ kịch bản tuần tự cho kịch bản "Xoá báo cáo"
   <img src="images/sq_xoa_bc.png" width="400">
 </p>
 
+
+### 6.5 Biểu đồ hoạt động
+
+Biểu đồ hoạt động cho kịch bản "đăng ký"
+
+<p align="center">
+  <img src="images/AC_dangKy.png" width="400">
+</p>
+
+Biểu đồ hoạt động cho kịch bản "đăng nhập"
+
+<p align="center">
+  <img src="images/AC_dangNhap.png" width="400">
+</p>
+
+Biểu đồ hoạt động cho kịch bản "Cập nhật trạng thái xe"
+
+<p align="center">
+  <img src="images/AC_capNhatTrangThaiXe.png" width="400">
+</p>
+
+Biểu đồ hoạt động cho kịch bản "Thêm nhân viên"
+
+<p align="center">
+  <img src="images/AC_themNhanVien.png" width="400">
+</p>
+
+Biểu đồ hoạt động cho kịch bản "Tra cứu vé"
+
+<p align="center">
+  <img src="images/AC_traCuuVe.png" width="400">
+</p>
+
+Biểu đồ hoạt động cho kịch bản "Xóa nhân viên"
+
+<p align="center">
+  <img src="images/AC_xoaNhanVien.png" width="400">
+</p>
+
+Biểu đồ hoạt động chức năng "Thêm vé mới"
+
+<p align="center"> 
+<img src="images/AC_them_ve_moi.png">
+</p>
+Biểu đồ hoạt động chức năng "Nhận xe ra"
+<p align="center"> 
+<img src="images/AC_nhan_xe_ra.png">
+</p>
+Biểu đồ hoạt động chức năng "Nhận xe vào"
+<p align="center"> 
+<img src="images/AC_nhan_xe_vao.png">
+</p>
+Biểu đồ hoạt động chức năng "Phân quyền người dùng"
+<p align="center"> 
+<img src="images/AC_phan_quyen.png">
+</p>
+
+
+
 # VII. Giao diện của hệ thống
 
 1. Đăng nhập hệ thống
