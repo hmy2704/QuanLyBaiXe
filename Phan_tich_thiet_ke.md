@@ -656,21 +656,44 @@ Biểu đồ hoạt động cho kịch bản "Xóa nhân viên"
 Biểu đồ hoạt động chức năng "Thêm vé mới"
 
 <p align="center"> 
-<img src="images/AC_them_ve_moi.png">
-</p>
-Biểu đồ hoạt động chức năng "Nhận xe ra"
-<p align="center"> 
-<img src="images/AC_nhan_xe_ra.png">
-</p>
-Biểu đồ hoạt động chức năng "Nhận xe vào"
-<p align="center"> 
-<img src="images/AC_nhan_xe_vao.png">
-</p>
-Biểu đồ hoạt động chức năng "Phân quyền người dùng"
-<p align="center"> 
-<img src="images/AC_phan_quyen.png">
+<img src="images/AC_them_ve_moi.png" width="400">
 </p>
 
+Biểu đồ hoạt động chức năng "Nhận xe ra"
+
+<p align="center"> 
+<img src="images/AC_nhan_xe_ra.png" width="400">
+</p>
+
+Biểu đồ hoạt động chức năng "Nhận xe vào"
+
+<p align="center"> 
+<img src="images/AC_nhan_xe_vao.png" width="400">
+</p>
+
+Biểu đồ hoạt động chức năng "Phân quyền người dùng"
+
+<p align="center"> 
+<img src="images/AC_phan_quyen.png" width="400">
+</p>
+
+Biểu đồ hoạt động chức năng "Cập nhật thông tin nhân viên"
+
+<p align="center"> 
+<img src="images/AC_cap_nhap_nhan_vien.png" width="400">
+</p>
+
+Biểu đồ hoạt động chức năng "Tạo báo cáo"
+
+<p align="center"> 
+<img src="images/AC_tao_bao_cao.png" width="400">
+</p>
+
+Biểu đồ hoạt động chức năng "Sửa báo cáo"
+
+<p align="center"> 
+<img src="images/AC_sua_bao_cao.png" width="400">
+</p>
 
 
 # VII. Giao diện của hệ thống
