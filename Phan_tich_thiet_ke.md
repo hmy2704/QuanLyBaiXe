@@ -694,7 +694,6 @@ Biểu đồ hoạt động chức năng "Sửa báo cáo"
 <img src="images/AC_sua_bao_cao.png" width="400">
 </p>
 
-
 # VII. Giao diện của hệ thống
 
 1. Đăng nhập hệ thống
@@ -721,17 +720,32 @@ Các bảng chính :
 
 NhanVien: Dùng để quản lý nhân viên
 
-TaiKhoan: dùng để quản lý tài  khoản 
+TaiKhoan: dùng để quản lý tài  khoản
 
 VaiTro: quản lý vai trò
 
-PhanQuyen: quản lý quyền 
+PhanQuyen: quản lý quyền
 
 NhatKyHeThong: quản lý nhật ký hoạt động tránh gian lận
 
 7.1.1 Biểu đồ ERD quản lý người dùng và phân quyền
 
-
 <p align="center">
   <img src="images/erd_qly_nguoi_dung.png" width="400">
+</p>
+
+7.2 Thiết kế cơ sở dữ liệu Quản lý  Phương tiện và Nhận diện xe
+
+Các bảng chính:
+
+Xe: Lưu trữ biển số định danh phương tiện
+
+LoaiXe: Quản lý đơn giá theo từng loại phương tiện
+
+HinhAnhXe: Lưu ảnh camera nhận diện biển số đối soát
+
+LuotGui:  Ghi nhận chi tiết thi gian và phí của từng lượt xe
+
+<p align="center">
+  <img src="images/erd_qlyphuongtien.png" width="400">
 </p>
