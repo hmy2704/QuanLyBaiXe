@@ -1,0 +1,48 @@
+CREATE TABLE IF NOT EXISTS BangGiaGuiXe (
+    BangGiaId INT AUTO_INCREMENT PRIMARY KEY,
+    LoaiXe VARCHAR(50) NOT NULL UNIQUE,
+    GiaTheoGio DECIMAL(10,2) NOT NULL,
+    GiaTheoNgay DECIMAL(10,2),
+    TrangThai BOOLEAN DEFAULT TRUE
+);
+
+
+CREATE TABLE IF NOT EXISTS HoaDon (
+    HoaDonId INT AUTO_INCREMENT PRIMARY KEY,
+    ThoiDiemVao DATETIME NOT NULL,
+    ThoiDiemRa DATETIME,
+    TongTien DECIMAL(12,2),
+    TrangThaiThanhToan VARCHAR(30) DEFAULT 'ChuaThanhToan',
+    NhanVienId INT,
+    FOREIGN KEY (NhanVienId) REFERENCES NhanVien(NhanVienId),
+    FOREIGN KEY (BaoCaoId) REFERENCES BaoCaoThongKe(BaoCaoId)
+);
+
+CREATE TABLE IF NOT EXISTS BaoCao_HoaDon (
+    BaoCaoId INT NOT NULL,
+    HoaDonId INT NOT NULL,
+    PRIMARY KEY (BaoCaoId, HoaDonId),
+    FOREIGN KEY (BaoCaoId) REFERENCES BaoCaoThongKe(BaoCaoId),
+    FOREIGN KEY (HoaDonId) REFERENCES HoaDon(HoaDonId)
+);
+
+CREATE TABLE IF NOT EXISTS ChiTietHoaDon (
+    ChiTietHoaDonId INT AUTO_INCREMENT PRIMARY KEY,
+    HoaDonId INT NOT NULL,
+    BangGiaId INT NOT NULL,
+    LoaiXe VARCHAR(50) NOT NULL,
+    SoGioGui INT,
+    ThanhTien DECIMAL(12,2),
+    FOREIGN KEY (HoaDonId) REFERENCES HoaDon(HoaDonId),
+    FOREIGN KEY (BangGiaId) REFERENCES BangGiaGuiXe(BangGiaId)
+);
+
+CREATE TABLE IF NOT EXISTS BaoCaoThongKe (
+    BaoCaoId INT AUTO_INCREMENT PRIMARY KEY,
+    TuNgay DATE NOT NULL,
+    DenNgay DATE NOT NULL,
+    TongLuotGui INT,
+    TongDoanhThu DECIMAL(15,2),
+    ThoiGianTao DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
