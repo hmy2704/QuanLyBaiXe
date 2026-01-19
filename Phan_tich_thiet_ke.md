@@ -694,7 +694,6 @@ Biểu đồ hoạt động chức năng "Sửa báo cáo"
 <img src="images/AC_sua_bao_cao.png" width="400">
 </p>
 
-
 # VII. Giao diện của hệ thống
 
 7.1  Đăng nhập hệ thống
@@ -704,7 +703,6 @@ Biểu đồ hoạt động chức năng "Sửa báo cáo"
 7.2 Thêm mới vé xe
 
 ![1768545875832](image/Phan_tich_thiet_ke/1768545875832.png)
-
 
 7.3 Ghi nhận xe vào
 
@@ -742,3 +740,38 @@ NhatKyHeThong: quản lý nhật ký hoạt động tránh gian lận
 <p align="center">
   <img src="images/erd_qly_nguoi_dung.png" width="400">
 </p>
+
+7.2 Thiết kế cơ sở dữ liệu Quản lý  Phương tiện và Nhận diện xe
+
+Các bảng chính:
+
+Xe: Lưu trữ biển số định danh phương tiện
+
+LoaiXe: Quản lý đơn giá theo từng loại phương tiện
+
+HinhAnhXe: Lưu ảnh camera nhận diện biển số đối soát
+
+LuotGui:  Ghi nhận chi tiết thi gian và phí của từng lượt xe
+
+7.2.1 Biểu đồ ERD Quản lý  Phương tiện và Nhận diện xe
+
+<p align="center">
+  <img src="images/erd_qlyphuongtien.png" width="400">
+</p>
+
+
+7.3 Thiết kế cơ sở dữ liệu Quản lý vé và lượt gửi xe
+
+Các bảng chính: 
+
+LoaiVe: Phân loại vé ngày/tháng
+
+VeGui: Lưu thông tin vé được tạo ra
+
+TrangThaiVe: Quản lý tình trạng của vé (vd: Đang gửi, Đã huỷ....)
+
+LuotGui: Ghi nhận lượt gửi, gửi thành công/thất bại
+
+7.3.1 Biểu đồ ERD Quản lý vé và lượt gửi xe
+
+![1768804764638](image/Phan_tich_thiet_ke/1768804764638.png)
