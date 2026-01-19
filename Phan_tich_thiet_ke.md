@@ -759,10 +759,9 @@ LuotGui:  Ghi nhận chi tiết thi gian và phí của từng lượt xe
   <img src="images/erd_qlyphuongtien.png" width="400">
 </p>
 
-
 7.3 Thiết kế cơ sở dữ liệu Quản lý vé và lượt gửi xe
 
-Các bảng chính: 
+Các bảng chính:
 
 LoaiVe: Phân loại vé ngày/tháng
 
@@ -775,3 +774,22 @@ LuotGui: Ghi nhận lượt gửi, gửi thành công/thất bại
 7.3.1 Biểu đồ ERD Quản lý vé và lượt gửi xe
 
 ![1768804764638](image/Phan_tich_thiet_ke/1768804764638.png)
+
+7.4 Thiết kế cơ sở dữ liệu Quản lý bãi xe và điều phối
+
+Các bảng chính:
+
+Bãi xe: Lưu thông tin tổng quát của bãi xe
+
+Khu vực: Quản lý khu vực và phân khu trong một bãi xe
+
+Chố đỗ xe: Quản lý vị trí đỗ xe cụ thể
+
+Lịch sử đỗ xe: Lịch sử xe ra/vào
+
+7.4.1 Biểu đồ ERD Quản lý bãi xe và điều phối
+
+
+<p align="center">
+  <img src="images/erd_QLybaixevafDieuPhoi.png" width="400">
+</p>
