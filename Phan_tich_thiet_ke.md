@@ -774,4 +774,4 @@ LuotGui: Ghi nhận lượt gửi, gửi thành công/thất bại
 
 7.3.1 Biểu đồ ERD Quản lý vé và lượt gửi xe
 
-![1768804764638](image/Phan_tich_thiet_ke/1768804764638.png)
+![1768805379468](image/Phan_tich_thiet_ke/1768805379468.png)
