@@ -550,20 +550,26 @@ Biểu đồ kịch bản tuần tự cho kịch bản "Xoá báo cáo"
   <img src="images/sq_xoa_bc.png" width="400">
 </p>
 
-
-
 # VII. Giao diện của hệ thống
 
-1. Đăng nhập hệ thống
+7.1  Đăng nhập hệ thống
 
-   ![1768545860248](image/Phan_tich_thiet_ke/1768545860248.png)
-2. Thêm mới vé xe
+![1768545860248](image/Phan_tich_thiet_ke/1768545860248.png)
 
-   ![1768545875832](image/Phan_tich_thiet_ke/1768545875832.png)
-3. Ghi nhận xe vào
+7.2 Thêm mới vé xe
 
-   ![1768545891972](image/Phan_tich_thiet_ke/1768545891972.png)
-4. Ghi nhận xe ra
+![1768545875832](image/Phan_tich_thiet_ke/1768545875832.png)
 
-   ![1768545899050](image/Phan_tich_thiet_ke/1768545899050.png)
-5. Menu chính![1768545906251](image/Phan_tich_thiet_ke/1768545906251.png)
+7.3 Ghi nhận xe vào
+
+![1768545891972](image/Phan_tich_thiet_ke/1768545891972.png)
+
+7.4 Ghi nhận xe ra
+
+![1768545899050](image/Phan_tich_thiet_ke/1768545899050.png)
+
+7.5 Menu chính
+
+
+
+![1768545906251](image/Phan_tich_thiet_ke/1768545906251.png)
