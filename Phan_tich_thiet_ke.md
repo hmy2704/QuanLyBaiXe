@@ -779,17 +779,36 @@ LuotGui: Ghi nhận lượt gửi, gửi thành công/thất bại
 
 Các bảng chính:
 
-Bãi xe: Lưu thông tin tổng quát của bãi xe
+BaiXe: Lưu thông tin tổng quát của bãi xe
 
-Khu vực: Quản lý khu vực và phân khu trong một bãi xe
+KhuVuc: Quản lý khu vực và phân khu trong một bãi xe
 
-Chố đỗ xe: Quản lý vị trí đỗ xe cụ thể
+ChoDoXe: Quản lý vị trí đỗ xe cụ thể
 
-Lịch sử đỗ xe: Lịch sử xe ra/vào
+LichSuDoXe: Lịch sử xe ra/vào
 
 7.4.1 Biểu đồ ERD Quản lý bãi xe và điều phối
 
-
 <p align="center">
   <img src="images/erd_QLybaixevafDieuPhoi.png" width="400">
+</p>
+
+7.5 Thiết kế cơ sở dữ liệu Thanh toán và Báo cáo
+
+Các bảng chính:
+
+BangGiaGuiXe: Quy định phí gửi
+
+ChiTietHoaDon: Cách tính tiền cụ thể
+
+HoaDon: ghi nhận doanh thu
+
+BaoCaoThongKe: Xuất báo cáo
+
+BaoCao_HoaDon: bảng phụ liên kết giữa hóa đơn và báo cáo
+
+7.5.1 Biểu đồ ERD Thanh toán và báo cáo
+
+<p align="center">
+  <img src="images/ERD_ThanhToan&BaoCao.png" width="400">
 </p>
