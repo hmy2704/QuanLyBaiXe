@@ -696,16 +696,23 @@ Biểu đồ hoạt động chức năng "Sửa báo cáo"
 
 # VII. Giao diện của hệ thống
 
-1. Đăng nhập hệ thống
+7.1  Đăng nhập hệ thống
 
-   ![1768545860248](image/Phan_tich_thiet_ke/1768545860248.png)
-2. Thêm mới vé xe
+![1768545860248](image/Phan_tich_thiet_ke/1768545860248.png)
 
-   ![1768545875832](image/Phan_tich_thiet_ke/1768545875832.png)
-3. Ghi nhận xe vào
+7.2 Thêm mới vé xe
 
-   ![1768545891972](image/Phan_tich_thiet_ke/1768545891972.png)
-4. Ghi nhận xe ra
+![1768545875832](image/Phan_tich_thiet_ke/1768545875832.png)
+
+7.3 Ghi nhận xe vào
+
+![1768545891972](image/Phan_tich_thiet_ke/1768545891972.png)
+
+7.4 Ghi nhận xe ra
+
+![1768545899050](image/Phan_tich_thiet_ke/1768545899050.png)
+
+7.5 Menu chính
 
    ![1768545899050](image/Phan_tich_thiet_ke/1768545899050.png)
 5. Menu chính![1768545906251](image/Phan_tich_thiet_ke/1768545906251.png)
@@ -746,6 +753,25 @@ HinhAnhXe: Lưu ảnh camera nhận diện biển số đối soát
 
 LuotGui:  Ghi nhận chi tiết thi gian và phí của từng lượt xe
 
+7.2.1 Biểu đồ ERD Quản lý  Phương tiện và Nhận diện xe
+
 <p align="center">
   <img src="images/erd_qlyphuongtien.png" width="400">
 </p>
+
+
+7.3 Thiết kế cơ sở dữ liệu Quản lý vé và lượt gửi xe
+
+Các bảng chính: 
+
+LoaiVe: Phân loại vé ngày/tháng
+
+VeGui: Lưu thông tin vé được tạo ra
+
+TrangThaiVe: Quản lý tình trạng của vé (vd: Đang gửi, Đã huỷ....)
+
+LuotGui: Ghi nhận lượt gửi, gửi thành công/thất bại
+
+7.3.1 Biểu đồ ERD Quản lý vé và lượt gửi xe
+
+![1768804764638](image/Phan_tich_thiet_ke/1768804764638.png)
