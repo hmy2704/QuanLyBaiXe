@@ -614,7 +614,6 @@ Biểu đồ kịch bản tuần tự cho kịch bản "Xoá báo cáo"
   <img src="images/sq_xoa_bc.png" width="400">
 </p>
 
-
 ### 6.5 Biểu đồ hoạt động
 
 Biểu đồ hoạt động cho kịch bản "đăng ký"
@@ -671,8 +670,6 @@ Biểu đồ hoạt động chức năng "Phân quyền người dùng"
 <img src="images/AC_phan_quyen.png">
 </p>
 
-
-
 # VII. Giao diện của hệ thống
 
 1. Đăng nhập hệ thống
@@ -688,3 +685,28 @@ Biểu đồ hoạt động chức năng "Phân quyền người dùng"
 
    ![1768545899050](image/Phan_tich_thiet_ke/1768545899050.png)
 5. Menu chính![1768545906251](image/Phan_tich_thiet_ke/1768545906251.png)
+
+# VIII.Thiết kế Cơ sở dữ liệu
+
+Cơ sở dữ liệu của hệ thống Quản lý bãi xe sử dụng MySQL, tên bảng được đặt bằng tiếng việt viết liền không dấu, chữ cái đầu viết hoa để thống nhất nghiệp vụ cho từng hệ thống
+
+7.1 Thiết kế cơ sở dữ liệu Quản lý người dùng và phân quyền
+
+Các bảng chính :
+
+NhanVien: Dùng để quản lý nhân viên
+
+TaiKhoan: dùng để quản lý tài  khoản 
+
+VaiTro: quản lý vai trò
+
+PhanQuyen: quản lý quyền 
+
+NhatKyHeThong: quản lý nhật ký hoạt động tránh gian lận
+
+7.1.1 Biểu đồ ERD quản lý người dùng và phân quyền
+
+
+<p align="center">
+  <img src="images/erd_qly_nguoi_dung.png" width="400">
+</p>
