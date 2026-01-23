@@ -143,52 +143,49 @@ f. Báo cáo thống kê
 - Thống kê doanh thu
 - Xuất báo cáo
 
-3.2 Yêu cầu phi chức năng
+3.2 Yêu cầu phi chức năng 
 
-a. Khả năng sử dụng
+a. Khả năng sử dụng 
 
-- giao diện trực quan, dễ sử dụng
-- Nhân viên mới có thể làm quen với hệ thống một cách dễ dàng
-- Hiển thị trạng thái bãi xe (còn trống hay đã hết)
-- Ngôn ngữ hỗ trợ: tiếng Việt, Tiếng Anh
-- Thông báo lỗi rõ ràng dễ hình dung.
+* Giao diện trực quan: Giao diện được thiết kế tối ưu cho nghiệp vụ bãi xe, hỗ trợ các phím tắt để nhân viên ghi nhận xe vào/ra nhanh chóng
+* Hỗ trợ đào tạo: Nhân viên mới có thể nắm bắt quy trình nhận diện xe, đối soát vé và tính phí chỉ sau tối đa 01 giờ làm quen
+* Hiển thị trạng thái bãi xe: Dashboard phải hiển thị thời gian thực số chỗ trống cho từng loại xe (ô tô, xe máy) và từng khu vực để hỗ trợ điều phối
+* Đa ngôn ngữ: Hệ thống hỗ trợ hoàn toàn giao diện Tiếng Việt và Tiếng Anh
+* Thông báo và phản hồi: Cung cấp thông báo rõ ràng khi nhận diện sai biển số, vé hết hạn hoặc bãi đã đầy chỗ
 
-b. Hiệu suất
+b. Hiệu suất 
 
-- Thời gian phản hồi: <= 2 giây cho các check in/ check-out
-- Thời gian nhận diện biển số xe: <= 3 giây
-- Xử lý đồng thời: tối thiểu không quá 50 giao dịch/ 1 giây.
-- Tải trang web: <=5 giây
+* Tốc độ xử lý giao dịch: Thời gian phản hồi cho các thao tác check-in/check-out (bao gồm tính phí tự động) không quá 2 giây
+* Hiệu suất AI/Quét biển số: Thời gian tự động nhận diện biển số xe qua camera hoặc mã vạch/thẻ từ không quá 1.5 giây để tránh ùn tắc làn xe
+* Khả năng xử lý đồng thời: Hệ thống xử lý ổn định tối thiểu 50 giao dịch thanh toán hoặc tra cứu cùng một lúc
+* Tải trang: Các trang báo cáo doanh thu và báo cáo thống kê phức tạp phải được hiển thị trong vòng 3 đến 5 giây
 
-c. Độ tin cậy
+c. Độ tin cậy 
 
-- Tính khả dụng:
-- Thời gian trung bình giữa hai lỗi (MTBF):
-- Thời gian trung bình để sửa lỗi (MTTR):
-- Độ chính xác:
-- Tỷ lệ lỗi: <=1 lỗi nghiêm trọng/tháng
+* Tính khả dụng : Hệ thống hoạt động liên tục 24/7 đảm bảo không gián đoạn việc ra vào bãi
+* Độ chính xác dữ liệu: Đảm bảo chính xác 100% trong việc tính toán phí gửi xe theo khung giờ/ngày và loại xe đã thiết lập
+* Kiểm soát lỗi: Tỷ lệ lỗi nghiêm trọng (như sai lệch doanh thu hoặc mất dữ liệu xe trong bãi) không quá 1 lỗi/tháng
+* Khả năng phục hồi: Thời gian trung bình để sửa lỗi (MTTR) và khôi phục hoạt động sau sự cố phần mềm không quá 1 giờ
 
 d. Độ bảo mật
 
-- Mã hóa dữ liệu thanh toán chuẩn PCIDSS:
+- Mã hóa dữ liệu thanh toán chuẩn PCIDSS
 - Mã hóa thông tin cá nhân khách hàng
 - Xác thực đa yếu tố cho tài khoản quản trị
 - Phân quyền rõ ràng: Quản trị, nhân viên
 - tuân thủ Luật An toàn thông tin mạng và nghị điịnh 13/2023/NĐ-CP và bảo vệ dữ liệu cá nhân
 - Camera giám sát 24/7 và lưu trữ giữ liệu 30 ngày
 
-e. Độ an toàn
+e. Độ an toàn 
 
-- Hệ thống phòng cháy chữa cháy đạt chuẩn PCCC
-- Hệ thống chiểu sáng
-- Nút khẩn cấp tại các vị trí quan trọng
+* PCCC: Hệ thống có khả năng kết nối với cảm biến khói/cháy để tự động mở toàn bộ Barrier thoát hiểm khi có sự cố
+* Chiếu sáng và Khẩn cấp: Hỗ trợ cảnh báo trên màn hình điều khiển khi các thiết bị phần cứng (Barrier, máy in vé) gặp sự cố kỹ thuật
 
-f. Khả năng hỗ trợ
+f. Khả năng hỗ trợ và bảo trì 
 
-- Log hệ thống chi tiết, dễ tra cứu
-- Code tuân thủ:
-- Tài liệu API đầy đủ:
-- Comment code bằng tiếng việt hoặc anh
+* Nhật ký hệ thống : Lưu trữ chi tiết lỗi hệ thống và các truy vấn cơ sở dữ liệu để phục vụ bảo trì^^.
+* Tiêu chuẩn mã nguồn: Code phải tuân thủ quy chuẩn thiết kế sạch, có chú thích  rõ ràng bằng tiếng Việt hoặc tiếng Anh để dễ dàng nâng cấp bãi xe sau này
+* Tài liệu kỹ thuật: Cung cấp đầy đủ tài liệu API phục vụ kết nối với các thiết bị ngoại vi như đầu đọc thẻ, camera nhận diện biển số
 
 g. Ràng buộc về thiết kế
 
