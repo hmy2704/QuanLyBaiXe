@@ -43,26 +43,27 @@ Hệ thống phục vụ cho các bãi gửi xe tại trường học, tòa nhà
 - Quản lý nhân viên
 - Báo cáo và thống kê
 
-II. Tác nhân tham gia
-=======================
+## II. Tác nhân tham gia
 
-II. Tác nhân tham gia
+1. Người gửi xe
 
-1.Người gửi xe
+  - Gửi xe
+  - Lấy xe
+  - Xuất trình vé khi lấy xe ra khỏi bãi
 
-* Gửi xe
-
-- Lấy xe
-
-1. Nhân viên
+2. Nhân viên
 
    - Ghi nhận xe vào/ra
    - Thu phí
-2. Quản lý
+   - Tra cứu thông tin vé
+
+3. Quản lý
 
    - Quản lý hệ thống
    - Xem báo cáo cuối ngày
-3. Quản trị hệ thống
+   - Quản lý nhân viên
+
+4. Quản trị hệ thống
 
    - Bảo trì hệ thống
    - Phân quyền
@@ -155,7 +156,7 @@ a. Khả năng sử dụng
 
 b. Hiệu suất
 
-- Thời gian phản hồi: <= 2 giây cho các check in/ check-out
+- Thời gian phản hồi: phụ thuộc vào thời gian xử lý code
 - Thời gian nhận diện biển số xe: <= 3 giây
 - Xử lý đồng thời: tối thiểu không quá 50 giao dịch/ 1 giây.
 - Tải trang web: <=5 giây
