@@ -244,32 +244,21 @@ g. Ràng buộc về thiết kế
 6.1.2 Biểu đồ Usecase phân rã
 
 Usecase phân rã ghi xe vào
-`<img src = "images/uml_xe_vao" />`
 
-Usecase phân rã ghi xe ra
-
-`<img src = "images/uml_xe_ra" />`
+<p align="center">
+  <img src = "images/uml_xe_vao.PNG" width="400">
+</p>
 
 Usecase phân rã quản lý vé xe
 
-`<img src = "images/uml_ve_xe" />`
-
-Usecase phân rã quản lý nhân viên
-
 <p align="center">
-  <img src="images/uml_xe_vao.PNG" width="400">
+  <img src = "images/uml_ve_xe.PNG" width="400">
 </p>
 
 Usecase phân rã ghi xe ra
 
 <p align="center">
   <img src="images/uml_xe_ra.PNG" width="400">
-</p>
-
-Usecase phân rã quản lý vé xe
-
-<p align="center">
-  <img src="images/uml_ve_xe.PNG" width="400">
 </p>
 
 Usecase phân rã quản lý nhân viên
