@@ -4,15 +4,17 @@
 
 1.1 Mô tả hệ thống
 
-Hệ thống là hệ thống Quản lý Bãi gửi xe bán tự động được xây dựng nhằm hỗ trợ việc ghi nhận, quản lý và xử lý thông tin gửi xe một cách  chính xác, nhanh chóng và minh bạch . Hệ thống áp dụng cho  bãi gửi xe máy và ô tô , hỗ trợ cả  hình thức gửi xe theo lượt và gửi xe theo tháng , phục vụ nhu cầu quản lý thực tế của bãi xe nhỏ .
+Hệ thống Quản lý Bãi gửi xe được xây dựng nhằm hỗ trợ công tác ghi nhận, quản lý và xử lý thông tin gửi xe một cách chính xác, nhanh chóng và minh bạch. Hệ thống phù hợp triển khai cho các bãi gửi xe sử dụng hình thức thu vé thủ công, chưa tích hợp thiết bị tự động hoặc IoT.
 
-Hệ thống cho phép nhân viên bãi xe thực hiện các nghiệp vụ như: ghi nhận xe vào bãi, xe ra khỏi bãi, quản lý vé gửi xe (vé lượt, vé tháng), quản lý khu vực bãi và số chỗ trống, quản lý nhân viên theo phân quyền, đồng thời lập các báo cáo thống kê phục vụ công tác quản lý và giám sát hoạt động bãi xe.
+Hệ thống cho phép nhân viên bãi xe thực hiện các nghiệp vụ chính như ghi nhận phương tiện vào bãi, ghi nhận phương tiện ra bãi, quản lý vé gửi xe, quản lý thông tin nhân viên và lập các báo cáo thống kê phục vụ công tác quản lý.
 
-Khi có phương tiện vào bãi gửi, nhân viên bãi xe thực hiện nhập các thông tin cần thiết của xe như  loại xe, biển số, hình thức gửi (theo lượt hoặc theo tháng) . Hệ thống hỗ trợ  nhận diện và quản lý xe thông qua mã vé (vé giấy/thẻ từ) , đồng thời ghi nhận thời điểm xe vào bãi và lưu trữ thông tin gửi xe. Đối với vé tháng, hệ thống kiểm tra trạng thái hiệu lực của vé trước khi cho phép xe vào bãi.
+Khi có phương tiện vào bãi gửi, nhân viên bãi xe phát vé gửi xe cho khách và nhập mã vé vào hệ thống. Đồng thời, nhân viên ghi nhận các thông tin nhận diện của phương tiện bao gồm biển số xe, loại xe và màu xe. Hệ thống tự động lưu thời điểm phương tiện vào bãi và liên kết thông tin vé gửi với phương tiện, đảm bảo việc quản lý chính xác từng lượt gửi xe.
 
-Thông tin thời gian gửi xe và dữ liệu vé được lưu trữ trong hệ thống nhằm phục vụ cho việc theo dõi thời gian gửi, kiểm soát số lượng xe trong bãi và tính phí gửi xe theo các quy định đã thiết lập (theo giờ, theo ngày, theo loại xe).
+Trong quá trình phương tiện ra khỏi bãi, khách hàng xuất trình vé gửi xe. Nhân viên nhập mã vé vào hệ thống để tra cứu thông tin lượt gửi tương ứng. Hệ thống hiển thị đầy đủ các thông tin đã lưu của phương tiện như biển số, loại xe, màu xe và thời gian gửi. Nhân viên tiến hành đối chiếu các thông tin này với phương tiện thực tế nhằm đảm bảo trả đúng xe cho khách, hạn chế tối đa các trường hợp nhầm lẫn hoặc gian lận. Sau khi hoàn tất đối soát, hệ thống tự động tính toán thời gian gửi và phí gửi xe theo quy định, cập nhật trạng thái vé và kết thúc lượt gửi xe.
 
-Khi phương tiện ra khỏi bãi gửi, nhân viên nhập mã vé gửi xe vào hệ thống. Hệ thống thực hiện  đối soát thông tin vé và biển số xe , kiểm tra tính hợp lệ của vé gửi, sau đó dựa trên thời điểm xe vào bãi để tính toán thời gian gửi và  tự động tính phí gửi xe . Kết quả tính phí được hiển thị để nhân viên thông báo cho người gửi xe và hoàn tất quá trình trả xe. Các thao tác của nhân viên trong quá trình này đều được ghi nhận nhằm phục vụ công tác kiểm tra và quản lý sau này.
+Bên cạnh đó, hệ thống hỗ trợ quản lý nhân viên bãi xe bao gồm tạo mới, cập nhật, phân quyền truy cập và ghi nhận nhật ký thao tác nhằm tăng cường tính kiểm soát và minh bạch trong vận hành. Các chức năng báo cáo thống kê cho phép tổng hợp số lượng xe gửi, doanh thu theo thời gian, hỗ trợ ban quản lý trong việc theo dõi và đánh giá hiệu quả hoạt động của bãi gửi xe.
+
+Trong tương lai, hệ thống có thể được mở rộng tích hợp các công nghệ nhận diện tự động như mã QR hoặc nhận diện biển số nhằm nâng cao mức độ tự động hóa và an toàn trong quản lý bãi gửi xe.
 
 Hệ thống cho phép quản lý toàn bộ vé gửi xe, bao gồm:
 
