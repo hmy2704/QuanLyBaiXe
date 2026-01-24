@@ -224,6 +224,7 @@ g. Ràng buộc về thiết kế
 - Hỗ trợ quản trị viên đưa ra quyết định quản lý kịp thời
 - Lưu trữ dữ liệu lâu dài phục vụ kiểm tra, đối chiếu
 
+
 ## V. Ràng buộc và mở rộng
 
 * Hệ thống làm việc trên nền tảng web
