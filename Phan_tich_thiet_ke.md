@@ -195,35 +195,34 @@ g. Ràng buộc về thiết kế
 
 ## IV. Phân tích mở rộng mục tiêu
 
-4.1.Quản lý phương tiện ra vào bãi xe
+**4.1. Quản lý hoạt động xe ra/vào bãi**
 
-- Ghi nhận đầy đủ thông tin xe khi vào và khi ra (biển số, loại xe, thời gian vào ra)
-- Tự động xác định trạng thái xe trong bãi
-- Hạn chế tình trạng thất lạc xe, nhầm lẫn xe
+* Ghi nhận chi tiết thông tin phương tiện khi vào và rời bãi như biển số, loại xe, thời điểm vào – ra
+* Tự động cập nhật và xác định trạng thái xe đang có mặt trong bãi
+* Giảm thiểu rủi ro thất lạc hoặc nhầm lẫn phương tiện
 
-4.2.Quản lý vé xe và khách hàng
+**4.2. Quản lý vé xe và thông tin khách hàng**
 
-- Quản lý vé ngày, vé tháng
-- Lưu trữ thông tin khách hàng gửi xe dài hạn
-- Hỗ trợ tìm kiếm và rà soát thông tin nhanh chóng
+* Quản lý các loại vé gửi xe theo ngày,tháng,năm
+* Lưu trữ thông tin khách hàng gửi xe dài hạn một cách hệ thống
+* Hỗ trợ tra cứu và kiểm tra dữ liệu nhanh chóng, thuận tiện
 
-4.3.Tính toán và quản lý phí gửi xe
+**4.3. Tính phí và quản lý doanh thu gửi xe**
 
-- Tự động tính phí dựa trên thời gian gửi và loại xe
-- Giảm sai sót trong quá trình thu phí
-- Hỗ trợ thống kê doanh thu theo ngày, tháng, năm
+* Tự động tính toán chi phí gửi xe dựa trên thời gian sử dụng và loại phương tiện
+* Hạn chế sai sót trong quá trình thu và quản lý phí
+* Hỗ trợ tổng hợp, thống kê doanh thu theo ngày, tháng và năm
 
-4.4.Quản lý sức chứa và vị trí bãi xe
+**4.4. Quản lý sức chứa và khu vực bãi xe**
 
-- Theo dõi số lượng xe hiện có trong bãi
-- Cảnh báo khi bãi xe gần hoặc đã đầy
+* Theo dõi số lượng phương tiện đang gửi trong bãi theo thời gian thực
+* Cảnh báo khi số lượng xe đạt ngưỡng tối đa hoặc bãi xe đã đầy
 
-4.5.Hỗ trợ quản trị và báo cáo
+**4.5. Hỗ trợ công tác quản trị và lập báo cáo**
 
-- Cung cấp các báo cáo thống kê
-- Hỗ trợ quản trị viên đưa ra quyết định quản lý kịp thời
-- Lưu trữ dữ liệu lâu dài phục vụ kiểm tra, đối chiếu
-
+* Cung cấp các báo cáo thống kê phục vụ công tác quản lý
+* Hỗ trợ quản trị viên đưa ra quyết định kịp thời và chính xác
+* Lưu trữ dữ liệu lâu dài để phục vụ việc kiểm tra và đối chiếu sau này
 
 ## V. Ràng buộc và mở rộng
 
