@@ -799,4 +799,3 @@ BaoCao_HoaDon: bảng phụ liên kết giữa hóa đơn và báo cáo
 <p align="center">
   <img src="images/ERD_ThanhToan&BaoCao.png" width="400">
 </p>
-![1768805379468](image/Phan_tich_thiet_ke/1768805379468.png)
