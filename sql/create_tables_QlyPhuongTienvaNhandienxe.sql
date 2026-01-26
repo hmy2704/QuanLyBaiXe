@@ -1,44 +1,63 @@
--- 1. Bảng Loại Xe
-CREATE TABLE LoaiXe (
-    LoaiXeId INT AUTO_INCREMENT PRIMARY KEY,
-    TenLoaiXe VARCHAR(50) NOT NULL, -- Ví dụ: Xe máy, Ô tô [cite: 71]
-    GiaTienLuot DECIMAL(10, 2) NOT NULL DEFAULT 0, -- [cite: 89]
+USE QuanLyBaiXe;
+GO
+
+
+IF OBJECT_ID('HinhAnhXe', 'U') IS NOT NULL DROP TABLE HinhAnhXe;
+IF OBJECT_ID('LuotGui', 'U') IS NOT NULL DROP TABLE LuotGui;
+IF OBJECT_ID('VeXe', 'U') IS NOT NULL DROP TABLE VeXe;
+IF OBJECT_ID('Xe', 'U') IS NOT NULL DROP TABLE Xe;
+IF OBJECT_ID('LoaiXe', 'U') IS NOT NULL DROP TABLE LoaiXe;
+GO
+
+
+CREATE TABLE LoaiXe
+(
+    LoaiXeId INT IDENTITY(1,1) PRIMARY KEY,
+    TenLoaiXe NVARCHAR(50) NOT NULL,
+    -- NVARCHAR lưu được tiếng Việt
+    GiaTienLuot DECIMAL(10, 2) NOT NULL DEFAULT 0,
     GiaTienThang DECIMAL(10, 2) NOT NULL DEFAULT 0
 );
 
--- 2. Bảng Xe
-CREATE TABLE Xe (
-    XeId INT AUTO_INCREMENT PRIMARY KEY,
-    BienSo VARCHAR(20) NOT NULL UNIQUE, -- Ràng buộc duy nhất cho biển số [cite: 72, 85]
+
+CREATE TABLE Xe
+(
+    XeId INT IDENTITY(1,1) PRIMARY KEY,
+    BienSo VARCHAR(20) NOT NULL UNIQUE,
     LoaiXeId INT NOT NULL,
     CONSTRAINT FK_Xe_LoaiXe FOREIGN KEY (LoaiXeId) REFERENCES LoaiXe(LoaiXeId)
 );
 
--- 3. Bảng Vé Xe
-CREATE TABLE VeXe (
-    VeXeId INT AUTO_INCREMENT PRIMARY KEY,
-    MaVe VARCHAR(50) NOT NULL UNIQUE, -- Mã thẻ từ hoặc vé giấy [cite: 20, 77]
-    LoaiVe VARCHAR(20) NOT NULL, -- Vé lượt hoặc Vé tháng [cite: 73, 97]
-    TrangThai VARCHAR(20) DEFAULT 'TRỐNG' -- TRỐNG, ĐANG SỬ DỤNG, HẾT HẠN [cite: 29, 102]
+
+CREATE TABLE VeXe
+(
+    VeXeId INT IDENTITY(1,1) PRIMARY KEY,
+    MaVe VARCHAR(50) NOT NULL UNIQUE,
+    LoaiVe NVARCHAR(20) NOT NULL,
+    TrangThai NVARCHAR(20) DEFAULT N'TRỐNG'
+
 );
 
--- 4. Bảng Lượt Gửi (Thực thể trung tâm)
-CREATE TABLE LuotGui (
-    LuotGuiId INT AUTO_INCREMENT PRIMARY KEY,
-    Thoigianvao DATETIME NOT NULL, -- Ghi nhận thời điểm vào [cite: 78]
-    Thoigianra DATETIME NULL, -- Có thể NULL khi xe đang trong bãi [cite: 86]
-    PhiGui DECIMAL(10, 2) DEFAULT 0, -- Tính toán phí dựa trên loại xe và thời gian 
+
+CREATE TABLE LuotGui
+(
+    LuotGuiId INT IDENTITY(1,1) PRIMARY KEY,
+    Thoigianvao DATETIME NOT NULL DEFAULT GETDATE(),
+    Thoigianra DATETIME NULL,
+    PhiGui DECIMAL(10, 2) DEFAULT 0,
     XeId INT NOT NULL,
     VeXeId INT NOT NULL,
     CONSTRAINT FK_LuotGui_Xe FOREIGN KEY (XeId) REFERENCES Xe(XeId),
     CONSTRAINT FK_LuotGui_VeXe FOREIGN KEY (VeXeId) REFERENCES VeXe(VeXeId)
 );
 
--- 5. Bảng Hình Ảnh Xe (Lưu trữ ảnh camera đối soát)
-CREATE TABLE HinhAnhXe (
-    HinhAnhId INT AUTO_INCREMENT PRIMARY KEY,
-    LuotGuiId INT NOT NULL, -- Liên kết với lượt gửi cụ thể
-    DuongDanAnh VARCHAR(255) NOT NULL, -- Đường dẫn đến file ảnh [cite: 139]
-    LoaiHinh VARCHAR(10) NOT NULL, -- 'VAO' hoặc 'RA' 
+CREATE TABLE HinhAnhXe
+(
+    HinhAnhId INT IDENTITY(1,1) PRIMARY KEY,
+    LuotGuiId INT NOT NULL,
+    DuongDanAnh VARCHAR(255) NOT NULL,
+    LoaiHinh VARCHAR(10) NOT NULL,
     CONSTRAINT FK_HinhAnh_LuotGui FOREIGN KEY (LuotGuiId) REFERENCES LuotGui(LuotGuiId)
 );
+ALTER TABLE Xe ADD MauXe NVARCHAR(30);
+GO
