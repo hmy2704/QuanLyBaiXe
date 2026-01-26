@@ -1,35 +1,78 @@
+USE QuanLyBaiXe;
+GO
 
-CREATE TABLE IF NOT EXISTS VaiTro (
-    VaiTroId INT AUTO_INCREMENT PRIMARY KEY,
-    TenVaiTro VARCHAR(50) NOT NULL UNIQUE
+
+IF OBJECT_ID('BaoCao_HoaDon', 'U') IS NOT NULL DROP TABLE BaoCao_HoaDon;
+IF OBJECT_ID('ChiTietHoaDon', 'U') IS NOT NULL DROP TABLE ChiTietHoaDon;
+IF OBJECT_ID('HoaDon', 'U') IS NOT NULL DROP TABLE HoaDon;
+
+IF OBJECT_ID('NhatKyHeThong', 'U') IS NOT NULL DROP TABLE NhatKyHeThong;
+IF OBJECT_ID('TaiKhoan', 'U') IS NOT NULL DROP TABLE TaiKhoan;
+IF OBJECT_ID('VaiTro', 'U') IS NOT NULL DROP TABLE VaiTro;
+IF OBJECT_ID('PhanQuyen', 'U') IS NOT NULL DROP TABLE PhanQuyen;
+IF OBJECT_ID('NhanVien', 'U') IS NOT NULL DROP TABLE NhanVien; 
+GO
+
+
+CREATE TABLE VaiTro
+(
+    VaiTroId INT IDENTITY(1,1) PRIMARY KEY,
+    TenVaiTro NVARCHAR(50) NOT NULL UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS NhatKyHeThong (
-    NhatKyId INT AUTO_INCREMENT PRIMARY KEY,
-    NguoiDungId INT,
-    HanhDong VARCHAR(255),
-    ThoiGian DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (NguoiDungId) REFERENCES NguoiDung(NguoiDungId)
+CREATE TABLE PhanQuyen
+(
+    PhanQuyenId INT IDENTITY(1,1) PRIMARY KEY,
+    TenQuyen NVARCHAR(50) NOT NULL UNIQUE,
+    MoTa NVARCHAR(255)
 );
- CREATE TABLE IF NOT EXISTS PhanQuyen (
-    PhanQuyenId INT AUTO_INCREMENT PRIMARY KEY,
-    TenQuyen VARCHAR(50) NOT NULL UNIQUE,
-    MoTa VARCHAR(255)
-);
-CREATE TABLE IF NOT EXISTS NhanVien (
-    NhanVienId INT AUTO_INCREMENT PRIMARY KEY,
-    HoTen VARCHAR(100) NOT NULL,
+
+CREATE TABLE NhanVien
+(
+    NhanVienId INT IDENTITY(1,1) PRIMARY KEY,
+    HoTen NVARCHAR(100) NOT NULL,
     SoDienThoai VARCHAR(15),
-    ChucVu VARCHAR(50),
-    TrangThai BOOLEAN DEFAULT TRUE
+    ChucVu NVARCHAR(50),
+    TrangThai BIT DEFAULT 1
 );
-CREATE TABLE IF NOT EXISTS TaiKhoan (
-    TaiKhoanId INT AUTO_INCREMENT PRIMARY KEY,
+
+CREATE TABLE TaiKhoan
+(
+    TaiKhoanId INT IDENTITY(1,1) PRIMARY KEY,
     TenDangNhap VARCHAR(50) NOT NULL UNIQUE,
     MatKhau VARCHAR(255) NOT NULL,
     NhanVienId INT NOT NULL,
     PhanQuyenId INT NOT NULL,
-    TrangThai BOOLEAN DEFAULT TRUE,
-    FOREIGN KEY (NhanVienId) REFERENCES NhanVien(NhanVienId),
-    FOREIGN KEY (PhanQuyenId) REFERENCES PhanQuyen(PhanQuyenId)
+    TrangThai BIT DEFAULT 1,
+    CONSTRAINT FK_TaiKhoan_NhanVien FOREIGN KEY (NhanVienId) REFERENCES NhanVien(NhanVienId),
+    CONSTRAINT FK_TaiKhoan_PhanQuyen FOREIGN KEY (PhanQuyenId) REFERENCES PhanQuyen(PhanQuyenId)
 );
+
+CREATE TABLE NhatKyHeThong
+(
+    NhatKyId INT IDENTITY(1,1) PRIMARY KEY,
+    TaiKhoanId INT,
+    HanhDong NVARCHAR(255),
+    ThoiGian DATETIME DEFAULT GETDATE(),
+    CONSTRAINT FK_NhatKy_TaiKhoan FOREIGN KEY (TaiKhoanId) REFERENCES TaiKhoan(TaiKhoanId)
+);
+GO
+
+INSERT INTO PhanQuyen
+    (TenQuyen, MoTa)
+VALUES
+    (N'Admin', N'Quản trị hệ thống'),
+    (N'NhanVien', N'Nhân viên vận hành');
+
+
+INSERT INTO NhanVien
+    (HoTen, SoDienThoai, ChucVu)
+VALUES
+    (N'Nguyễn Văn A', '0912345678', N'Quản lý');
+
+
+INSERT INTO TaiKhoan
+    (TenDangNhap, MatKhau, NhanVienId, PhanQuyenId)
+VALUES
+    ('admin', '123456', 1, 1);
+GO
