@@ -794,9 +794,8 @@ BaoCaoThongKe: Xuất báo cáo
 
 BaoCao_HoaDon: bảng phụ liên kết giữa hóa đơn và báo cáo
 
-7.5.1 Biểu đồ ERD Thanh toán và báo cáo
+1. 7.5.1 Biểu đồ ERD Thanh toán và báo cáo
 
 <p align="center">
   <img src="images/ERD_ThanhToan&BaoCao.png" width="400">
 </p>
-![1768805379468](image/Phan_tich_thiet_ke/1768805379468.png)
