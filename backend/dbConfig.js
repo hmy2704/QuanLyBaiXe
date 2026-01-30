@@ -4,7 +4,7 @@ const config = {
     server: 'localhost', 
     database: 'QuanLyBaiXe',
     options: {
-        trustedConnection: true, // THÊM DÒNG NÀY: Để dùng quyền Windows của bạn
+        trustedConnection: true, 
         encrypt: false, 
         trustServerCertificate: true,
         instanceName: 'SQLEXPRESS' 
