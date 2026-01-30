@@ -1,15 +1,15 @@
-const sql = require('mssql');
+const sql = require('mssql/msnodesqlv8');
 
 const config = {
-    server: 'ADMIN-PC\\SQLEXPRESS01',
+    server: 'localhost', 
     database: 'QuanLyBaiXe',
     options: {
-        encrypt: false,
+        trustedConnection: true, // THÊM DÒNG NÀY: Để dùng quyền Windows của bạn
+        encrypt: false, 
         trustServerCertificate: true,
+        instanceName: 'SQLEXPRESS' 
     },
-
-    driver: 'msnodesqlv8',
-    connectionString: 'Driver={SQL Server Native Client 11.0};Server=ADMIN-PC\\SQLEXPRESS01;Database=QuanLyBaiXe;Trusted_Connection=yes;'
+    driver: 'msnodesqlv8'
 };
 
 module.exports = config;
