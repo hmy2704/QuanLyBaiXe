@@ -1,5 +1,4 @@
-IF NOT EXISTS (SELECT *
-FROM sys.databases
+IF NOT EXISTS (SELECT *FROM sys.databases
 WHERE name = 'QuanLyBaiXe')
 BEGIN
     CREATE DATABASE QuanLyBaiXe;
