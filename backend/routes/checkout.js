@@ -49,7 +49,7 @@ router.post('/checkout', async (req, res) => {
 
         res.status(200).json({
             status: "OK",
-            message: "Thanh toán thành công!",
+            message: "Thanh toán đã thành công!",
             data: {
                 Vao: ThoiGianVao,
                 Ra: ThoiGianRa,
@@ -59,7 +59,7 @@ router.post('/checkout', async (req, res) => {
         });
 
     } catch (err) {
-        res.status(500).json({ message: "Lỗi hệ thống", error: err.message });
+        res.status(500).json({ message: "Đã lỗi hệ thống", error: err.message });
     }
 });
 

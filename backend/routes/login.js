@@ -28,7 +28,7 @@ router.post("/login", async (req, res) => {
                 user: user.recordset[0]
             });
         } else {
-            res.status(401).json({ message: "Sai tài khoản hoặc mật khẩu" });
+            res.status(401).json({ message: "Tài khoản không tồn tại hoặc sai tài khoản, mật khẩu" });
         }
     } catch (err) {
         res.status(500).json({ message: "Lỗi kết nối server", error: err.message });
