@@ -1,0 +1,28 @@
+{
+  "name": "quanlybaixe",
+  "version": "1.0.0",
+  "description": "1. Nguyễn Huyền My (Trưởng nhóm) - 2221050268\r 2. Nguyễn Như Quỳnh - 2221050677\r 3. Phùng Ngọc Châu - 2221050388\r 4. Nguyễn Thị Ngân - 2221050476\r 5. Mai Thị Vân Anh - 2221050449",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hmy2704/QuanLyBaiXe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hmy2704/QuanLyBaiXe/issues"
+  },
+  "homepage": "https://github.com/hmy2704/QuanLyBaiXe#readme",
+  "dependencies": {
+    "body-parser": "^2.2.2",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "msnodesqlv8": "^5.1.3",
+    "mssql": "^12.2.0"
+  }
+}

@@ -2,15 +2,14 @@ USE QuanLyBaiXe;
 GO
 
 
+IF OBJECT_ID('NhatKyHeThong', 'U') IS NOT NULL DROP TABLE NhatKyHeThong;
+IF OBJECT_ID('TaiKhoan', 'U') IS NOT NULL DROP TABLE TaiKhoan;
 IF OBJECT_ID('BaoCao_HoaDon', 'U') IS NOT NULL DROP TABLE BaoCao_HoaDon;
 IF OBJECT_ID('ChiTietHoaDon', 'U') IS NOT NULL DROP TABLE ChiTietHoaDon;
 IF OBJECT_ID('HoaDon', 'U') IS NOT NULL DROP TABLE HoaDon;
-
-IF OBJECT_ID('NhatKyHeThong', 'U') IS NOT NULL DROP TABLE NhatKyHeThong;
-IF OBJECT_ID('TaiKhoan', 'U') IS NOT NULL DROP TABLE TaiKhoan;
-IF OBJECT_ID('VaiTro', 'U') IS NOT NULL DROP TABLE VaiTro;
+IF OBJECT_ID('NhanVien', 'U') IS NOT NULL DROP TABLE NhanVien;
 IF OBJECT_ID('PhanQuyen', 'U') IS NOT NULL DROP TABLE PhanQuyen;
-IF OBJECT_ID('NhanVien', 'U') IS NOT NULL DROP TABLE NhanVien; 
+IF OBJECT_ID('VaiTro', 'U') IS NOT NULL DROP TABLE VaiTro;
 GO
 
 
@@ -58,12 +57,12 @@ CREATE TABLE NhatKyHeThong
 );
 GO
 
+
 INSERT INTO PhanQuyen
     (TenQuyen, MoTa)
 VALUES
     (N'Admin', N'Quản trị hệ thống'),
     (N'NhanVien', N'Nhân viên vận hành');
-
 
 INSERT INTO NhanVien
     (HoTen, SoDienThoai, ChucVu)
