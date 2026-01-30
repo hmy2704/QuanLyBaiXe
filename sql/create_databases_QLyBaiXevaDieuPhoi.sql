@@ -1,11 +1,13 @@
 USE QuanLyBaiXe;
 GO
 
+
 IF OBJECT_ID('LichSuDoXe', 'U') IS NOT NULL DROP TABLE LichSuDoXe;
 IF OBJECT_ID('ChoDoXe', 'U') IS NOT NULL DROP TABLE ChoDoXe;
 IF OBJECT_ID('KhuVuc', 'U') IS NOT NULL DROP TABLE KhuVuc;
 IF OBJECT_ID('BaiXe', 'U') IS NOT NULL DROP TABLE BaiXe;
 GO
+
 
 CREATE TABLE BaiXe
 (
@@ -18,7 +20,7 @@ CREATE TABLE BaiXe
 CREATE TABLE KhuVuc
 (
     KhuVucId INT IDENTITY(1,1) PRIMARY KEY,
-    BaiXeId INT,
+    BaiXeId INT NOT NULL,
     TenKhuVuc NVARCHAR(50) NOT NULL,
     LoaiXeChoPhep NVARCHAR(50),
     CONSTRAINT FK_KhuVuc_BaiXe FOREIGN KEY (BaiXeId) REFERENCES BaiXe(BaiXeId)
@@ -27,20 +29,37 @@ CREATE TABLE KhuVuc
 CREATE TABLE ChoDoXe
 (
     ChoDoId INT IDENTITY(1,1) PRIMARY KEY,
-    KhuVucId INT,
+    KhuVucId INT NOT NULL,
     MaSoCho VARCHAR(20) NOT NULL UNIQUE,
-    TrangThai BIT DEFAULT 1,
-    -- BIT thay cho BOOLEAN
+    TrangThai NVARCHAR(20) DEFAULT N'TRỐNG',
     CONSTRAINT FK_ChoDoXe_KhuVuc FOREIGN KEY (KhuVucId) REFERENCES KhuVuc(KhuVucId)
 );
 
 CREATE TABLE LichSuDoXe
 (
     LichSuId INT IDENTITY(1,1) PRIMARY KEY,
-    ChoDoId INT,
+    ChoDoId INT NOT NULL,
     BienSoXe VARCHAR(20) NOT NULL,
     ThoiGianVao DATETIME DEFAULT GETDATE(),
-    ThoiGianRa DATETIME,
+    ThoiGianRa DATETIME NULL,
     CONSTRAINT FK_LichSu_ChoDo FOREIGN KEY (ChoDoId) REFERENCES ChoDoXe(ChoDoId)
 );
+GO
+
+
+INSERT INTO BaiXe
+    (TenBaiXe, DiaChi, SucChuaTong)
+VALUES
+    (N'Bãi Xe Trung Tâm', N'123 Cầu Giấy', 100);
+INSERT INTO KhuVuc
+    (BaiXeId, TenKhuVuc, LoaiXeChoPhep)
+VALUES
+    (1, N'Khu A', N'Xe máy'),
+    (1, N'Khu B', N'Ô tô');
+INSERT INTO ChoDoXe
+    (KhuVucId, MaSoCho)
+VALUES
+    (1, 'A-01'),
+    (1, 'A-02'),
+    (2, 'B-01');
 GO
