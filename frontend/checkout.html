@@ -161,18 +161,7 @@
             border-radius: 8px;
             font-size: 15px;
             background: white;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus:not([readonly]),
-        .form-group select:focus:not([disabled]) {
-            outline: none;
-            border-color: #5b6fc4;
-            box-shadow: 0 0 0 3px rgba(91, 111, 196, 0.1);
-        }
-
-        .form-group input[type="datetime-local"] {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        
         }
 
         /* Custom Select Arrow */
@@ -303,7 +292,6 @@
                             type="text" 
                             id="maVe" 
                             name="maVe"
-                            readonly
                             style="background-color: #f3f4f6;"
                         >
                     </div>
@@ -313,14 +301,13 @@
                             type="text"
                             id="bienSoXe"
                             name="bienSoXe"
-                            readonly
                             style="background-color: rgb(250, 252, 252);"
                         >
                     </div>
 
                     <div class="form-group">
                         <label for="loaiXe">Loại xe:</label>
-                        <select id="loaiXe" name="loaiXe" required disabled style="background-color: #f3f4f6;">
+                        <select id="loaiXe" name="loaiXe" required style="background-color: #f3f4f6;">
                             <option value="">-- Chọn loại xe --</option>
                             <option value="Xe máy">Xe máy</option>
                             <option value="Xe đạp">Xe đạp</option>
@@ -330,7 +317,7 @@
 
                     <div class="form-group">
                         <label for="loaiVe">Loại vé:</label>
-                        <select id="loaiVe" name="loaiVe" required disabled style="background-color: #f3f4f6;">
+                        <select id="loaiVe" name="loaiVe" required style="background-color: #f3f4f6;">
                             <option value="">-- Chọn loại vé --</option>
                             <option value="Vé ngày">Vé ngày</option>
                             <option value="Vé tháng">Vé tháng</option>
@@ -345,7 +332,7 @@
                             id="thoiGianVao" 
                             name="thoiGianVao"
                             required
-                            readonly
+                            
                             style="background-color: #f3f4f6;"
                         >
                     </div>
