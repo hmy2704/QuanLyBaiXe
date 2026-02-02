@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Báo cáo thống kê bãi xe</title>
+  <link rel="stylesheet" href="baocao.css">
+</head>
+
+<body>
+
+<h1 style="text-align:center;"> Báo cáo thống kê bãi xe</h1>
+
+<!-- Thống kê nhanh -->
+<div class="stats">
+  <div class="card">
+    <h3>Tổng lượt gửi hôm nay</h3>
+    <p>128</p>
+  </div>
+  <div class="card">
+    <h3>Xe đang trong bãi</h3>
+    <p>42</p>
+  </div>
+  <div class="card">
+    <h3>Doanh thu hôm nay</h3>
+    <p>1.250.000đ</p>
+  </div>
+  <div class="card">
+    <h3>Vé tháng đang hoạt động</h3>
+    <p>56</p>
+  </div>
+</div>
+
+<!-- Form nhập thông tin -->
+<div class="card form-card">
+  <h3>Nhập thông tin gửi xe</h3>
+
+  <form class="filters">
+    <input type="text" placeholder="Biển số xe" required>
+
+    <select required>
+      <option value="">-- Loại xe --</option>
+      <option>Xe máy</option>
+      <option>Ô tô</option>
+    </select>
+
+    <div class="time-row">
+    <div>
+      <label><h3>Giờ xe vào</h3></label>
+      <input type="time" required>
+    </div>
+
+    <div>
+      <label><h3>Giờ xe ra</h3></label>
+      <input type="time">
+    </div>
+  </div>
+
+    <input type="text" placeholder="Phí gửi (VNĐ)">
+
+    <button type="submit">Lưu</button>
+  </form>
+</div>
+
+<!-- Bảng thống kê chi tiết -->
+<table>
+  <thead>
+    <tr>
+      <th>Biển số</th>
+      <th>Loại xe</th>
+      <th>Giờ vào</th>
+      <th>Giờ ra</th>
+      <th>Phí gửi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>59A-123.45</td>
+      <td>Xe máy</td>
+      <td>08:15</td>
+      <td>10:30</td>
+      <td>10.000đ</td>
+    </tr>
+    <tr>
+      <td>51G-678.90</td>
+      <td>Ô tô</td>
+      <td>09:00</td>
+      <td>11:20</td>
+      <td>40.000đ</td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
