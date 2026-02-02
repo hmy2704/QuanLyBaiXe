@@ -1,0 +1,52 @@
+.login_container {
+    margin: 100px auto;
+    background-color: #3366CC;
+    width: 80vw;
+    height: 70vh;
+    display: flex;
+
+}
+
+.login_form {
+    justify-content: flex-end;
+
+    background-color: #6294f6;
+    width: 40vw;
+    height: 70vh;
+}
+
+h2 {
+    text-align: center;
+    color: black;
+
+}
+
+label {
+    color: rgb(5, 5, 5);
+
+}
+
+.but_login {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+}
+
+tr {
+    height: 70px;
+}
+
+.logo {
+    width: 40vw;
+    height: 70vh;
+    background-color: rgb(255, 136, 0);
+}
+
+button {
+    border-radius: 3px;
+    width: 30%;
+    background-color: #3366CC;
+    color: white;
+    border: none;
+}
