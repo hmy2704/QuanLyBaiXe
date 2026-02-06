@@ -47,6 +47,12 @@
 </head>
 
 <body>
+    <script>
+        if (!localStorage.getItem('username')) {
+            alert("Bạn cần đăng nhập để truy cập!");
+            window.location.href = 'login.html'; 
+        }
+    </script>
     <div class="giaodien">
         <p style="text-align: center; padding-top : 25px; color:#3366CC; font-size: 30px;"> Hệ thống quản lý bãi gửi xe
         </p>
@@ -57,12 +63,35 @@
                 <button> <a href="xevao.html"> Ghi nhận xe vào</a></button>
             </form>
 
+
+            <button> <a href="xevao.html"> Ghi nhận xe vào</a></button>
+            <button> <a href="checkout.html"> Ghi nhận xe ra </a></button>
+            <button> <a href="baocao.html">Báo cáo thống kê</a></button>
+            <button> <a href="login.html">Đăng xuất</a></button>
             <button> <a href="checkout.html"> Ghi nhận xe ra </a></button>
 
             <button> <a href="baocao.html">Báo cáo</a></button>
             <button> <a href="dangnhap.html">Đăng xuất</a></button>
         </div>
     </div>
+    <script>
+        // 2. HIỂN THỊ TÊN NGƯỜI DÙNG
+        const user = localStorage.getItem('username');
+        if (user) {
+            document.getElementById('displayUser').innerText = "Nhân viên: " + user;
+        }
+
+        // 3. LOGIC ĐĂNG XUẤT
+        document.getElementById('btnLogout').addEventListener('click', function() {
+            if (confirm("Bạn có chắc chắn muốn đăng xuất?")) {
+                localStorage.clear(); // Xóa sạch bộ nhớ tạm
+                window.location.href = 'login.html'; // Quay về trang đăng nhập
+            }
+        });
+    </script>
+</body>
+
+</html>
 </body>
 
 </html>
