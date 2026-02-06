@@ -59,7 +59,7 @@ router.post('/checkout', async (req, res) => {
         });
 
     } catch (err) {
-        res.status(500).json({ message: "Đã lỗi hệ thống", error: err.message });
+        res.status(500).json({ message: "Lỗi hệ thống", error: err.message });
     }
 });
 
