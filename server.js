@@ -1,10 +1,14 @@
+const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const sql = require('mssql/msnodesqlv8');
 const config = require('./dbConfig');
 
+
 // Khai báo ứng dụng
 const app = express();
+app.use(cors());
+app.use(express.static('frontend'));
 const PORT = 3000;
 
 

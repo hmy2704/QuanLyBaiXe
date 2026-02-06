@@ -254,7 +254,7 @@
     </style>
 </head>
 <body>
-
+    <script src="common.js"></script>
     <div class="container">
         <div class="header">
             <h1>Trả xe - Checkout</h1>
@@ -295,6 +295,29 @@
                         alert("Vui lòng nhập mã vé!");
                         return;
                     }
+                    // Gọi API lấy thông tin xe dựa trên mã vé
+                    // Giả sử endpoint là: GET /api/ticket/:id
+                    const res = await callApi(`ticket/${maVe}`, 'GET');
+
+                    if (res.success) {
+                        const data = res.data;
+                        // Điền dữ liệu vào form
+                        document.getElementById('maVe').value = data.MaVe;
+                        document.getElementById('bienSoXe').value = data.BienSo;
+                        document.getElementById('loaiXe').value = data.LoaiXe;
+                        document.getElementById('loaiVe').value = data.LoaiVe;
+                        
+                        // Định dạng thời gian vào để hiển thị lên input datetime-local
+                        if (data.ThoiGianVao) {
+                            const dateVao = new Date(data.ThoiGianVao);
+                            dateVao.setMinutes(dateVao.getMinutes() - dateVao.getTimezoneOffset());
+                            document.getElementById('thoiGianVao').value = dateVao.toISOString().slice(0, 16);
+                        }
+                        
+                        alert("Đã tìm thấy thông tin xe!");
+                    } else {
+                        alert("Mã vé không tồn tại hoặc xe đã ra khỏi bãi!");
+                    }
                 }
                 
             </script>
@@ -327,7 +350,6 @@
                         <select id="loaiXe" name="loaiXe" required style="background-color: #f3f4f6;">
                             <option value="">-- Chọn loại xe --</option>
                             <option value="Xe máy">Xe máy</option>
-                            <option value="Xe đạp">Xe đạp</option>
                             <option value="Ô tô">Ô tô</option>
                         </select>
                     </div>
@@ -338,7 +360,6 @@
                             <option value="">-- Chọn loại vé --</option>
                             <option value="Vé ngày">Vé ngày</option>
                             <option value="Vé tháng">Vé tháng</option>
-                            <option value="Vé lượt">Vé lượt</option>
                         </select>
                     </div>
 
@@ -369,6 +390,40 @@
                     </button>
 
                 </form>
+            <script>
+                  // 4. Hàm GHI NHẬN XE RA (Submit Form)
+                async function handleSubmit(event) {
+                    event.preventDefault();
+
+                    const dataSubmit = {
+                        MaVe: document.getElementById('maVe').value,
+                        BienSo: document.getElementById('bienSoXe').value,
+                        ThoiGianVao: document.getElementById('thoiGianVao').value,
+                        ThoiGianRa: document.getElementById('thoiGianRa').value,
+                        LoaiXe: document.getElementById('loaiXe').value
+                    };
+
+                    if (!dataSubmit.MaVe) {
+                        alert("Vui lòng tra cứu thông tin trước khi ghi nhận!");
+                        return;
+                    }
+
+                    // Gọi API xử lý checkout
+                    const res = await callApi('checkout', 'POST', dataSubmit);
+
+                    if (res.success) {
+                        // Hiển thị số tiền phải thanh toán nếu có trả về từ server
+                        const phi = res.tongTien ? res.tongTien.toLocaleString() + 'đ' : 'theo bảng giá';
+                        alert(`Thanh toán thành công! \nSố tiền phí: ${phi}`);
+            
+                        // Reset form sau khi thành công
+                        document.getElementById('checkoutForm').reset();
+                        document.getElementById('ticketInput').value = '';
+                    } else {
+                        alert("Lỗi khi ghi nhận xe ra: " + res.message);
+                    }
+                }
+            </script>
             </div>
         </div>
     </div>
