@@ -5,47 +5,40 @@ const config = require('../../dbConfig');
 
 router.post('/checkin', async (req, res) => {
     try {
-        // Lấy dữ liệu từ Postman
-        const { VeGuiId, BienSo, MauXe } = req.body; 
+        // Postman gửi lên key gì thì phải lấy đúng key đó ở đây
+        const { VeGuiId, BienSo, MauXe } = req.body;
 
         let pool = await sql.connect(config);
 
-        // BƯỚC 1: Kiểm tra vé có TRỐNG không (Khớp với bảng VeXe và giá trị N'TRỐNG')
+        // BƯỚC 1: Tìm vé dựa trên VeGuiId mà bạn gửi từ Postman
         let veCheck = await pool.request()
-            .input('veId', sql.Int, VeGuiId)
-            .query("SELECT VeXeId FROM VeXe WHERE VeXeId = @veId AND TrangThai = N'TRỐNG'");
+            .input('veld', sql.Int, VeGuiId) // Sử dụng đúng biến VeGuiId đã lấy ở trên
+            .query("SELECT VeXeId FROM VeXe WHERE VeXeld = @veId AND TrangThai = N'Trống'");
 
         if (veCheck.recordset.length === 0) {
             return res.status(400).json({ message: "Vé không tồn tại hoặc đã có xe dùng!" });
         }
 
-        const vId = veCheck.recordset[0].VeXeId;
+        const vId = veCheck.recordset[0].VeXeld;
 
-        // BƯỚC 2: Xử lý logic SQL
+        // BƯỚC 2: INSERT & UPDATE
         await pool.request()
-            .input('vId', sql.Int, vId)
+            .input('vld', sql.Int, vId)
             .input('bs', sql.VarChar, BienSo)
             .input('mx', sql.NVarChar, MauXe)
             .query(`
-                -- 1. Nếu xe chưa tồn tại trong bảng Xe, thêm mới (mặc định LoaiXeId = 1 - Xe máy)
                 IF NOT EXISTS (SELECT 1 FROM Xe WHERE BienSo = @bs)
-                    INSERT INTO Xe (BienSo, MauXe, LoaiXeId) VALUES (@bs, @mx, 1);
-                ELSE
-                    UPDATE Xe SET MauXe = @mx WHERE BienSo = @bs; -- Cập nhật màu xe nếu cần
+                    INSERT INTO Xe (BienSo, LoaiXeId) VALUES (@bs, 1);
 
-                -- 2. Lấy XeId chính xác của xe đó
                 DECLARE @CurrentXeId INT = (SELECT XeId FROM Xe WHERE BienSo = @bs);
 
-                -- 3. Chèn vào bảng LuotGui 
-                -- (Lưu ý: Bỏ TrangThaiThanhToan và MauXe vì bảng LuotGui của bạn không có 2 cột này)
-                INSERT INTO LuotGui (VeXeId, ThoiGianVao, XeId, PhiGui) 
-                VALUES (@vId, GETDATE(), @CurrentXeId, 0);
+                INSERT INTO LuotGui (VeXeld, ThoiGianVao, MauXe, TrangThaiThanhToan, XeId) 
+                VALUES (@vId, GETDATE(), @mx, 0, @CurrentXeld);
 
-                -- 4. Cập nhật trạng thái vé thành 'ĐANG SỬ DỤNG'
-                UPDATE VeXe SET TrangThai = N'ĐANG SỬ DỤNG' WHERE VeXeId = @vId;
+                UPDATE VeXe SET TrangThai = N'Đang sử dụng' WHERE VeXeld = @vId;
             `);
 
-        res.status(200).json({ status: "OK", message: "Check-in thành công!" });
+        res.status(200).json({ status: "OK", message: "Xe vào thành công!" });
 
     } catch (err) {
         console.error("Lỗi chi tiết:", err.message);

@@ -1,18 +1,39 @@
 <!DOCTYPE html>
+<html lang="vi">
 <html>
 
 <head>
-    <title>Trang Đăng Nhập</title>
+    <meta charset="UTF-8">
+    <title>Trang Đăng Nhập - Hệ thống Quản lý Bãi Xe</title>
     <link rel="stylesheet" href="login.css">
+    <style>
+        /* Thêm một chút CSS để bảng trông cân đối hơn nếu file login.css chưa có */
+        table { width: 100%; border-spacing: 10px; }
+        th { text-align: left; font-weight: normal; }
+        input { width: 100%; padding: 8px; box-sizing: border-box; }
+        .but_login { text-align: center; margin-top: 20px; }
+        button { padding: 10px 30px; cursor: pointer; background-color: #3366CC; color: white; border: none; border-radius: 5px; font-weight: bold; }
+    </style>
 </head>
 
 <body>
     <div class="login_container">
         <div class="logo">
+            <img src="anh_xe.jpg" alt="Logo" width="400" height="470">
             <img src="anh_xe.jpg" alt="Logo" width="700" height="550">
         </div>
+        
         <div class="login_form">
             <h2>Đăng Nhập</h2>
+            <form action="main.html" method="get">
+                <table>
+                    <tr>
+                        <th><label for="username">Tên Đăng Nhập:</label></th>
+                        <td><input type="text" id="username" name="username" required></td>
+                    </tr>
+                    <tr>
+                        <th><label for="password">Mật Khẩu:</label></th>
+                        <td><input type="password" id="password" name="password" required></td>
             <form id="formLogin">
                 <table>
                     <tr>
@@ -68,5 +89,4 @@
         });
     </script>
 </body>
-
 </html>
