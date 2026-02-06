@@ -8,7 +8,16 @@
 
 <body>
 
-<h1 style="text-align:center;"> Báo cáo thống kê bãi xe</h1>
+<div class="header">
+  <h3>Quản lý bãi xe</h3>
+
+  <ul class="nav">
+  
+    <li><a href="main.html">Trang chủ</a></li>
+    <li ><a href="login.html">Đăng xuất</a></li>
+  </ul>
+</div>
+
 
 <!-- Thống kê nhanh -->
 <div class="stats">
@@ -29,38 +38,6 @@
     <p>56</p>
   </div>
 </div>
-
-<!-- Form nhập thông tin -->
-<div class="card form-card">
-  <h3>Nhập thông tin gửi xe</h3>
-
-  <form class="filters">
-    <input type="text" placeholder="Biển số xe" required>
-
-    <select required>
-      <option value="">-- Loại xe --</option>
-      <option>Xe máy</option>
-      <option>Ô tô</option>
-    </select>
-
-    <div class="time-row">
-    <div>
-      <label><h3>Giờ xe vào</h3></label>
-      <input type="time" required>
-    </div>
-
-    <div>
-      <label><h3>Giờ xe ra</h3></label>
-      <input type="time">
-    </div>
-  </div>
-
-    <input type="text" placeholder="Phí gửi (VNĐ)">
-
-    <button type="submit">Lưu</button>
-  </form>
-</div>
-
 <!-- Bảng thống kê chi tiết -->
 <table>
   <thead>
@@ -88,7 +65,78 @@
       <td>40.000đ</td>
     </tr>
   </tbody>
+  
 </table>
+<!-- Form nhập thông tin -->
+<div class="card form-card">
+  <h3>Chỉnh sửa thông tin xe</h3>
 
+
+<form class="filters">
+  <input type="text" id="bienSo" placeholder="Biển số xe" required>
+
+  <select id="loaiXe" >
+    <option value="">-- Loại xe --</option>
+    <option>Xe máy</option>
+    <option>Ô tô</option>
+  </select>
+
+  <div class="time-row">
+    <div>
+      <h3>Giờ xe vào</h3>
+      <input type="time" id="gioVao" required>
+    </div>
+
+    <div>
+      <h3>Giờ xe ra</h3>
+      <input type="time" id="gioRa">
+    </div>
+  </div>
+
+  <input type="text" id="phiGui" placeholder="Phí gửi (VNĐ)">
+
+  <button type="submit">Lưu</button>
+</form>
+</div>
+
+<script>
+
+
+
+let selectedRow = null;
+
+const rows = document.querySelectorAll("table tbody tr");
+
+rows.forEach(row => {
+  row.addEventListener("click", () => {
+    selectedRow = row;
+
+    const cells = row.querySelectorAll("td");
+
+    document.getElementById("bienSo").value = cells[0].innerText;
+    document.getElementById("loaiXe").value = cells[1].innerText;
+    document.getElementById("gioVao").value = cells[2].innerText;
+    document.getElementById("gioRa").value = cells[3].innerText;
+    document.getElementById("phiGui").value = cells[4].innerText;
+  });
+});
+
+document.querySelector(".filters").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  if (!selectedRow) {
+    alert("Vui lòng chọn xe trong bảng trước!");
+    return;
+  }
+
+  const cells = selectedRow.querySelectorAll("td");
+
+  cells[0].innerText = document.getElementById("bienSo").value;
+  cells[1].innerText = document.getElementById("loaiXe").value;
+  cells[2].innerText = document.getElementById("gioVao").value;
+  cells[3].innerText = document.getElementById("gioRa").value;
+  cells[4].innerText = document.getElementById("phiGui").value;
+});
+</script>
 </body>
 </html>
