@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="checkout.css">
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #3344cc 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+
+        .header {
+            background: linear-gradient(135deg, #5b6fc4 0%, #4a5ba8 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .marking-rate {
+            background: linear-gradient(135deg, #e0e7ff 0%, #ddd6fe 100%);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            text-align: center;
+            color: #3730a3;
+            font-size: 14px;
+            border-left: 4px solid #667eea;
+        }
+
+        .marking-rate strong {
+            font-weight: 700;
+        }
+
+        .search-section {
+            margin-bottom: 30px;
+        }
+
+        .search-lable {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-box button {
+            padding: 14px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .search-box button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .search-box button:active {
+            transform: translateY(0);
+        }
+
+        .vehicleInfoSection {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+            animation: slideIn 0.4s ease;
+        }
+
+        .section-title {
+            color: #2c3e7d;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+        
+        }
+
+        /* Custom Select Arrow */
+        select {
+            appearance: none;
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px;
+            padding-right: 40px;
+        }
+
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #5b6fc4 0%, #4a5ba8 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(91, 111, 196, 0.3);
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #4a5ba8 0%, #3a4a8f 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(91, 111, 196, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideIn 0.4s ease;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid #10b981;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+        }
+
+        .alert-info {
+            background: #dbeafe;
+            color: #1e40af;
+            border-left: 4px solid #3b82f6;
+        }
+
+        /* Loading Spinner */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Trả xe - Checkout</h1>
+            <p>Hệ thống thanh toán bãi gửi xe tự động</p>
+        </div>
+        <div class="main-content">
+            <div class="marking-rate">
+                <strong>Bảng giá:</strong> 5.000đ/tiếng | Hệ thống tính tiền bãi theo giờ
+            </div>
+
+            <!-- tra cứu thông tin bằng mã vé -->
+            <div class="search-section">
+                <label class="search-lable">Mã vé gửi xe</label>
+                <div class="search-box">
+                <input
+                        type="type"
+                        id="ticketInput" 
+                        placeholder="Nhập mã vé" 
+                        onkeypress="handleKeyPress(event)"
+                >
+                <button onclick="searchTicket()">
+                    <span>Tra cứu</span>
+                </button>
+                </div>
+            </div>
+
+
+            <!-- Hiển thị giao diện thông tin vé xe  -->
+            <div class="vehicleInfoSection">
+                <h3 class="section-title">Thông tin xe</h3>
+
+                <form id="checkoutForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="maVe">Mã vé:</label>
+                        <input 
+                            type="text" 
+                            id="maVe" 
+                            name="maVe"
+                            style="background-color: #f3f4f6;"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="bienSoXe">Biển số xe:</label>
+                        <input 
+                            type="text"
+                            id="bienSoXe"
+                            name="bienSoXe"
+                            style="background-color: rgb(250, 252, 252);"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loaiXe">Loại xe:</label>
+                        <select id="loaiXe" name="loaiXe" required style="background-color: #f3f4f6;">
+                            <option value="">-- Chọn loại xe --</option>
+                            <option value="Xe máy">Xe máy</option>
+                            <option value="Xe đạp">Xe đạp</option>
+                            <option value="Ô tô">Ô tô</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loaiVe">Loại vé:</label>
+                        <select id="loaiVe" name="loaiVe" required style="background-color: #f3f4f6;">
+                            <option value="">-- Chọn loại vé --</option>
+                            <option value="Vé ngày">Vé ngày</option>
+                            <option value="Vé tháng">Vé tháng</option>
+                            <option value="Vé lượt">Vé lượt</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="thoiGianVao">Thời gian vào:</label>
+                        <input
+                            type="datetime-local" 
+                            id="thoiGianVao" 
+                            name="thoiGianVao"
+                            required
+                            
+                            style="background-color: #f3f4f6;"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="thoiGianRa">Thời gian ra:</label>
+                        <input 
+                            type="datetime-local" 
+                            id="thoiGianRa"
+                            name="thoiGianRa"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        Ghi nhận xe ra
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

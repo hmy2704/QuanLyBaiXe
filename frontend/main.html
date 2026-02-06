@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main chính</title>
 
     <style>
-        body{
-            margin:0;
+        body {
+            margin: 0;
             padding: 0;
             background-image: url('background.png');
             background-repeat: no-repeat;
             background-size: 100% 200%;
             font-family: 'Poppins', sans-serif;
         }
-        .giaodien{
+
+        .giaodien {
             background-color: #DCDCDC;
             width: 500px;
-            margin:auto;
-            margin-top:130px;
+            margin: auto;
+            margin-top: 130px;
             border-radius: 10px;
             box-shadow: 0 0 0 1px #8B8989;
             height: 350px;
         }
-        button{
+
+        button {
             background-color: #3366CC;
             width: 92%;
             color: white;
@@ -34,26 +37,61 @@
             padding: 8px;
             border-radius: 3px;
             margin-top: 10px;
-        } 
-        a{
-            color:white;
+        }
+
+        a {
+            color: white;
             text-decoration: none;
         }
     </style>
 </head>
 
 <body>
+    <script>
+        if (!localStorage.getItem('username')) {
+            alert("Bạn cần đăng nhập để truy cập!");
+            window.location.href = 'login.html'; 
+        }
+    </script>
     <div class="giaodien">
-        <p style ="text-align: center; padding-top : 25px; color:#3366CC; font-size: 30px;"> Hệ thống quản lý bãi gửi xe </p>
-        <div style ="padding-left: 40px; font-size: 15px;">
+        <p style="text-align: center; padding-top : 25px; color:#3366CC; font-size: 30px;"> Hệ thống quản lý bãi gửi xe
+        </p>
+        <div style="padding-left: 40px; font-size: 15px;">
             <button style="width:46%"> <a href="xevao.html"> Thừa</a></button>
             <button style="width:45%"> <a href="xevao.html"> Thiếu</a></button>
+            <form action="xevao.html" method="post">
+                <button> <a href="xevao.html"> Ghi nhận xe vào</a></button>
+            </form>
+
 
             <button> <a href="xevao.html"> Ghi nhận xe vào</a></button>
             <button> <a href="checkout.html"> Ghi nhận xe ra </a></button>
-            <button> <a href="baocao.html">TBáo cáo thống kê</a></button>
+            <button> <a href="baocao.html">Báo cáo thống kê</a></button>
             <button> <a href="login.html">Đăng xuất</a></button>
+            <button> <a href="checkout.html"> Ghi nhận xe ra </a></button>
+
+            <button> <a href="baocao.html">Báo cáo</a></button>
+            <button> <a href="dangnhap.html">Đăng xuất</a></button>
         </div>
-    </div> 
+    </div>
+    <script>
+        // 2. HIỂN THỊ TÊN NGƯỜI DÙNG
+        const user = localStorage.getItem('username');
+        if (user) {
+            document.getElementById('displayUser').innerText = "Nhân viên: " + user;
+        }
+
+        // 3. LOGIC ĐĂNG XUẤT
+        document.getElementById('btnLogout').addEventListener('click', function() {
+            if (confirm("Bạn có chắc chắn muốn đăng xuất?")) {
+                localStorage.clear(); // Xóa sạch bộ nhớ tạm
+                window.location.href = 'login.html'; // Quay về trang đăng nhập
+            }
+        });
+    </script>
 </body>
+
+</html>
+</body>
+
 </html>
