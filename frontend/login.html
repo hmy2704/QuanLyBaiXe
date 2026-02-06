@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
+<html>
+
 <head>
     <meta charset="UTF-8">
     <title>Trang Đăng Nhập - Hệ thống Quản lý Bãi Xe</title>
@@ -18,6 +20,7 @@
     <div class="login_container">
         <div class="logo">
             <img src="anh_xe.jpg" alt="Logo" width="400" height="470">
+            <img src="anh_xe.jpg" alt="Logo" width="700" height="550">
         </div>
         
         <div class="login_form">
@@ -31,13 +34,59 @@
                     <tr>
                         <th><label for="password">Mật Khẩu:</label></th>
                         <td><input type="password" id="password" name="password" required></td>
+            <form id="formLogin">
+                <table>
+                    <tr>
+                        <th><label for="username">Tên Đăng Nhập:</label></th>
+                        <th><input type="text" id="username" required></th>
+                    </tr>
+                    <tr>
+                        <th><label for="password">Mật Khẩu:</label></th>
+                        <th><input type="password" id="password" required></th>
                     </tr>
                 </table>
                 <div class="but_login">
-                    <button type="submit">Đăng Nhập</button>
+                    <button type="submit" id="btnLogin">Đăng Nhập</button>
                 </div>
             </form>
         </div>
     </div>
+
+    <script>
+        document.getElementById('formLogin').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+
+            try {
+
+                const res = await fetch('http://localhost:3000/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ TenDangNhap: user, MatKhau: pass })
+                });
+
+
+                if (!res.ok) {
+                    const errorData = await res.json();
+                    alert("Lỗi: " + errorData.message);
+                    return;
+                }
+
+                const data = await res.json();
+                if (data.success) {
+                    alert("Đăng nhập thành công!");
+
+                    localStorage.setItem('username', data.user.TenDangNhap);
+                    localStorage.setItem('role', data.user.TenQuyen);
+                    window.location.href = 'main.html';
+                }
+            } catch (err) {
+                console.error("Chi tiết lỗi:", err);
+                alert("Không thể kết nối đến Server. Hãy kiểm tra xem Server Node.js đã chạy chưa!");
+            }
+        });
+    </script>
 </body>
 </html>
