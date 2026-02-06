@@ -15,8 +15,8 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #3344cc 0%, #764ba2 100%);
-            min-height: 100vh;
+            background-image: url(background.png);
+            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -34,7 +34,7 @@
 
 
         .header {
-            background: linear-gradient(135deg, #5b6fc4 0%, #4a5ba8 100%);
+            background: linear-gradient(135deg, #acb6e2 0%, #8290cf 100%);
             color: white;
             padding: 25px;
             text-align: center;
@@ -254,6 +254,7 @@
     </style>
 </head>
 <body>
+
     <div class="container">
         <div class="header">
             <h1>Trả xe - Checkout</h1>
@@ -280,7 +281,23 @@
                 </div>
             </div>
 
+            <script>
+                 function handleKeyPress(event) {
+                    if (event.key === "Enter") {
+                        searchTicket();
+                        }
+                    }
 
+                // 3. Hàm TRA CỨU thông tin vé
+                async function searchTicket() {
+                    const maVe = document.getElementById('ticketInput').value.trim();
+                    if (!maVe) {
+                        alert("Vui lòng nhập mã vé!");
+                        return;
+                    }
+                }
+                
+            </script>
             <!-- Hiển thị giao diện thông tin vé xe  -->
             <div class="vehicleInfoSection">
                 <h3 class="section-title">Thông tin xe</h3>
@@ -350,6 +367,7 @@
                     <button type="submit" class="submit-btn">
                         Ghi nhận xe ra
                     </button>
+
                 </form>
             </div>
         </div>
