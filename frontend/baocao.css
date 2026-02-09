@@ -5,7 +5,7 @@
   width: 100%;
   display: flex;
 
-  background: #3366cc;
+  background: #4873c9;
   padding: 14px 24px;
   color: white;
   z-index: 1000;
@@ -24,9 +24,9 @@
  
   border: none;
   cursor: pointer;
-   padding: 10px 14px;
+   padding: 10px 10px;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #2563eb;
   font-size: 14px;
 }
 .nav li a {
@@ -35,14 +35,14 @@
   
 }
 
-.nav li a:hover {
+.nav li:hover {
   /* text-decoration: underline; */
   background: #1e4fd8;
 }
 
 
 body {
-  margin-top :70px;
+  margin-top :100px;
   background: #7992aa;
   padding: 24px;
   color: #333;
