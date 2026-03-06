@@ -71,9 +71,47 @@
 
         <button onclick="ghiNhan()">Ghi nhận xe ra</button>
 
+
+        <script>
+            // tìm kiếm theo mã vé
+            async function timXe() {
+
+                let maVe = document.getElementById("maVe").value;
+
+                let res = await fetch("http://localhost:3000/api/xera/" + maVe);
+
+                let data = await res.json();
+
+                document.getElementById("bienSo").value = data.BienSo;
+                document.getElementById("loaiXe").value = data.TenLoaiXe;
+
+                document.getElementById("vao").value =
+                    new Date(data.ThoiGianVao).toISOString().slice(0, 16);
+
+            }
+
+            // tính tiền tự động 
+            function tinhTien() {
+
+                let vao = new Date(document.getElementById("vao").value);
+                let ra = new Date(document.getElementById("ra").value);
+
+                let hours = (ra - vao) / (1000 * 60 * 60);
+
+                let gio = Math.ceil(hours);
+
+                let tien = gio * 5000;
+
+                document.getElementById("gio").value = gio;
+
+                document.getElementById("tien").value =
+                    tien.toLocaleString() + " VND";
+
+            }
+        </script>
     </div>
 
-    <script src="xera.js"></script>
+
 
 </body>
 
