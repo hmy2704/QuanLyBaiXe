@@ -8,6 +8,8 @@
         body {
             font-family: sans-serif;
             padding: 20px;
+            background-image: url('background.png');
+
         }
 
         table {
@@ -18,7 +20,7 @@
 
         th,
         td {
-            border: 1px solid #ccc;
+            border: 1px solid #DCDCDC;
             padding: 10px;
             text-align: left;
         }
@@ -26,17 +28,43 @@
         .form-add {
             margin-bottom: 20px;
             padding: 15px;
-            background: #f4f4f4;
+            background: #DCDCDC;
+        }
+        th{
+            background-color: #3366CC;
+            color: white;
+        }
+        a{
+            text-decoration: none;
+            color: white;
+            background-color: red;
+            text-align:center;
+            margin-left: 800px;
+            height: 1%;
+            border-radius: 5px;
+            padding: 2px;
+            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
-    <h2>Quản lý nhân viên</h2>
+    <div style="display: flex;">
+        <h2>Quản lý nhân viên</h2>
+        <a href="d:\New folder\QuanLyBaiXe\frontend\main.html">
+           <p >Trang chủ</p> 
+        </a>
+    </div>
+   
     <div id="divThem" class="form-add" style="display:none;">
         <h3>Thêm nhân viên mới</h3>
         <input type="text" id="hoTen" placeholder="Họ tên">
-        <input type="text" id="sdt" placeholder="Số điện thoại">
+        <input type="int" id="sdt" placeholder="Số điện thoại">
+        <label>Chức vụ:</label>
+        <select id="chucVu" required>
+            <option value="Nhân viên">Nhân viên</option>
+            <option value="Quản lý">Quản lý</option>
+        </select>
         <button onclick="themNV()">Thêm nhân viên</button>
     </div>
     <table>
@@ -59,37 +87,72 @@
             try {
                 const res = await fetch('http://localhost:3000/api/nhanvien');
                 const data = await res.json();
+
+                console.log("Dữ liệu nhận được từ Server:", data); // 
+
                 const body = document.getElementById('tableBody');
                 body.innerHTML = '';
-                data.forEach(nv => {
-                    body.innerHTML += `<tr>
-                        <td>${nv.NhanVienId}</td><td>${nv.HoTen}</td><td>${nv.SoDienThoai}</td><td>${nv.ChucVu}</td>
-                        <td class="admin-only" style="display:none;">
-                            <button onclick="xoaNV(${nv.NhanVienId})">Xóa</button>
-                        </td>
-                    </tr>`;
-                });
 
-                if (role === 'Admin') {
-                    document.getElementById('divThem').style.display = 'block';
-                    document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'table-cell');
+
+                if (Array.isArray(data)) {
+                    data.forEach(nv => {
+
+                        body.innerHTML += `<tr>
+                    <td>${nv.NhanVienId}</td>
+                    <td>${nv.HoTen}</td>
+                    <td>${nv.SoDienThoai}</td>
+                    <td>${nv.ChucVu}</td>
+                    <td class="admin-only">
+            <button onclick="xoaNV(${nv.NhanVienId})">Xóa</button>
+        </td>
+                </tr>`;
+                    });
                 }
-            } catch (err) { console.error(err); }
+            } catch (err) { console.error("Lỗi:", err); }
+
+            if (role === 'Admin') {
+
+                const divThem = document.getElementById('divThem');
+                if (divThem) {
+                    divThem.style.display = 'block';
+                }
+
+
+                document.querySelectorAll('.admin-only').forEach(el => {
+                    el.style.display = 'table-cell';
+                });
+            }
         }
+
 
         async function themNV() {
+            const hoTen = document.getElementById('hoTen').value;
+            const sdt = document.getElementById('sdt').value;
+            const chucVu = document.getElementById('chucVu').value;
+
+            if (!hoTen || !sdt) {
+                alert("Vui lòng điền đủ thông tin!");
+                return;
+            }
+
+            const dataNV = { HoTen: hoTen, SoDienThoai: sdt, ChucVu: chucVu };
+
             const res = await fetch('http://localhost:3000/api/nhanvien', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'x-user-role': role },
-                body: JSON.stringify({
-                    HoTen: document.getElementById('hoTen').value,
-                    SoDienThoai: document.getElementById('sdt').value
-                })
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-user-role': localStorage.getItem('role').trim()
+                },
+                body: JSON.stringify(dataNV)
             });
-            if (res.ok) { alert("Thêm thành công!"); loadNhanVien(); }
-            else alert("Lỗi phân quyền hoặc dữ liệu!");
-        }
 
+            if (res.ok) {
+                alert("Thêm thành công!");
+                loadNhanVien();
+            } else {
+                alert("Lỗi khi thêm!");
+            }
+        }
         async function xoaNV(id) {
             const res = await fetch(`http://localhost:3000/api/nhanvien/${id}`, {
                 method: 'DELETE',

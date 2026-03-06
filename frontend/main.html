@@ -87,18 +87,18 @@
         if (user) {
             document.getElementById('displayUser').innerText = "Chào, " + user + " (" + role + ")";
         }
-        // Nếu là 'QuanLy', hiện tất cả các nút có class 'admin-only'
+
         if (role === 'Admin') {
             const adminButtons = document.querySelectorAll('.admin-only');
             adminButtons.forEach(btn => {
-                btn.style.display = 'block'; // Hiện nút lên
+                btn.style.display = 'block';
             });
         }
         // 3. LOGIC ĐĂNG XUẤT
         document.getElementById('btnLogout').addEventListener('click', function () {
             if (confirm("Bạn có chắc chắn muốn đăng xuất?")) {
-                localStorage.clear(); // Xóa sạch bộ nhớ tạm
-                window.location.href = 'login.html'; // Quay về trang đăng nhập
+                localStorage.clear();
+                window.location.href = 'login.html';
             }
         });
     </script>
