@@ -7,7 +7,7 @@ const config = require('./dbConfig');
 
 // Khai báo ứng dụng
 const app = express();
-// Thêm đoạn này vào ngay dưới 'const app = express();'
+
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
