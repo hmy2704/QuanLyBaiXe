@@ -42,33 +42,44 @@
 
             const user = document.getElementById('username').value;
             const pass = document.getElementById('password').value;
+            const btn = document.getElementById('btnLogin');
+
+            // Hiệu ứng đang xử lý
+            btn.innerText = "Đang xác thực...";
+            btn.disabled = true;
 
             try {
-
                 const res = await fetch('http://localhost:3000/api/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ TenDangNhap: user, MatKhau: pass })
                 });
 
+                const data = await res.json();
 
                 if (!res.ok) {
-                    const errorData = await res.json();
-                    alert("Lỗi: " + errorData.message);
+                    alert("Lỗi: " + (data.message || "Đăng nhập thất bại"));
+                    btn.innerText = "Đăng Nhập";
+                    btn.disabled = false;
                     return;
                 }
 
-                const data = await res.json();
                 if (data.success) {
-                    alert("Đăng nhập thành công!");
+                    // 1. Lưu thông tin quan trọng vào LocalStorage
+                    // Khớp với cấu trúc dữ liệu "sạch" từ Backend mới: user { username, role }
+                    localStorage.setItem('username', data.user.username);
+                    localStorage.setItem('role', data.user.role);
 
-                    localStorage.setItem('username', data.user.TenDangNhap);
-                    localStorage.setItem('role', data.user.TenQuyen);
+                    // 2. Thông báo và chuyển hướng
+                    alert("Chào mừng " + data.user.username + " quay trở lại!");
                     window.location.href = 'main.html';
                 }
+
             } catch (err) {
-                console.error("Chi tiết lỗi:", err);
-                alert("Không thể kết nối đến Server. Hãy kiểm tra xem Server Node.js đã chạy chưa!");
+                console.error("Chi tiết lỗi kết nối:", err);
+                alert("Không thể kết nối đến Server. Hãy kiểm tra xem Backend đã chạy chưa (npm start)!");
+                btn.innerText = "Đăng Nhập";
+                btn.disabled = false;
             }
         });
     </script>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý nhân viên</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .form-add {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f4f4f4;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Quản lý nhân viên</h2>
+    <div id="divThem" class="form-add" style="display:none;">
+        <h3>Thêm nhân viên mới</h3>
+        <input type="text" id="hoTen" placeholder="Họ tên">
+        <input type="text" id="sdt" placeholder="Số điện thoại">
+        <button onclick="themNV()">Thêm nhân viên</button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Họ tên</th>
+                <th>SĐT</th>
+                <th>Chức vụ</th>
+                <th class="admin-only" style="display:none;">Hành động</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <script>
+        const role = (localStorage.getItem('role') || "").trim();
+
+        async function loadNhanVien() {
+            try {
+                const res = await fetch('http://localhost:3000/api/nhanvien');
+                const data = await res.json();
+                const body = document.getElementById('tableBody');
+                body.innerHTML = '';
+                data.forEach(nv => {
+                    body.innerHTML += `<tr>
+                        <td>${nv.NhanVienId}</td><td>${nv.HoTen}</td><td>${nv.SoDienThoai}</td><td>${nv.ChucVu}</td>
+                        <td class="admin-only" style="display:none;">
+                            <button onclick="xoaNV(${nv.NhanVienId})">Xóa</button>
+                        </td>
+                    </tr>`;
+                });
+
+                if (role === 'Admin') {
+                    document.getElementById('divThem').style.display = 'block';
+                    document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'table-cell');
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        async function themNV() {
+            const res = await fetch('http://localhost:3000/api/nhanvien', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'x-user-role': role },
+                body: JSON.stringify({
+                    HoTen: document.getElementById('hoTen').value,
+                    SoDienThoai: document.getElementById('sdt').value
+                })
+            });
+            if (res.ok) { alert("Thêm thành công!"); loadNhanVien(); }
+            else alert("Lỗi phân quyền hoặc dữ liệu!");
+        }
+
+        async function xoaNV(id) {
+            const res = await fetch(`http://localhost:3000/api/nhanvien/${id}`, {
+                method: 'DELETE',
+                headers: { 'x-user-role': role }
+            });
+            if (res.ok) loadNhanVien();
+        }
+
+        loadNhanVien();
+    </script>
+</body>
+
+</html>
