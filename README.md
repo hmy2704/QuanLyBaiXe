@@ -1,5 +1,5 @@
 # QuanLyBaiXe
-# Nhóm 10 - Quản lý bãi gửi xe thông minh
+# Nhóm 10 - Quản lý bãi gửi xe bán thủ công
 ## Thành viên nhóm:
 1. Nguyễn Huyền My (Trưởng nhóm) - 2221050268
 2. Nguyễn Như Quỳnh - 2221050677

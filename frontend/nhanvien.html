@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý nhân viên</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background-image: url('background.png');
+
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #DCDCDC;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .form-add {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #DCDCDC;
+        }
+        th{
+            background-color: #3366CC;
+            color: white;
+        }
+        a{
+            text-decoration: none;
+            color: white;
+            background-color: red;
+            text-align:center;
+            margin-left: 800px;
+            height: 1%;
+            border-radius: 5px;
+            padding: 2px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="display: flex;">
+        <h2>Quản lý nhân viên</h2>
+        <a href="d:\New folder\QuanLyBaiXe\frontend\main.html">
+           <p >Trang chủ</p> 
+        </a>
+    </div>
+   
+    <div id="divThem" class="form-add" style="display:none;">
+        <h3>Thêm nhân viên mới</h3>
+        <input type="text" id="hoTen" placeholder="Họ tên">
+        <input type="int" id="sdt" placeholder="Số điện thoại">
+        <label>Chức vụ:</label>
+        <select id="chucVu" required>
+            <option value="Nhân viên">Nhân viên</option>
+            <option value="Quản lý">Quản lý</option>
+        </select>
+        <button onclick="themNV()">Thêm nhân viên</button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Họ tên</th>
+                <th>SĐT</th>
+                <th>Chức vụ</th>
+                <th class="admin-only" style="display:none;">Hành động</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <script>
+        const role = (localStorage.getItem('role') || "").trim();
+
+        async function loadNhanVien() {
+            try {
+                const res = await fetch('http://localhost:3000/api/nhanvien');
+                const data = await res.json();
+
+                console.log("Dữ liệu nhận được từ Server:", data); // 
+
+                const body = document.getElementById('tableBody');
+                body.innerHTML = '';
+
+
+                if (Array.isArray(data)) {
+                    data.forEach(nv => {
+
+                        body.innerHTML += `<tr>
+                    <td>${nv.NhanVienId}</td>
+                    <td>${nv.HoTen}</td>
+                    <td>${nv.SoDienThoai}</td>
+                    <td>${nv.ChucVu}</td>
+                    <td class="admin-only">
+            <button onclick="xoaNV(${nv.NhanVienId})">Xóa</button>
+        </td>
+                </tr>`;
+                    });
+                }
+            } catch (err) { console.error("Lỗi:", err); }
+
+            if (role === 'Admin') {
+
+                const divThem = document.getElementById('divThem');
+                if (divThem) {
+                    divThem.style.display = 'block';
+                }
+
+
+                document.querySelectorAll('.admin-only').forEach(el => {
+                    el.style.display = 'table-cell';
+                });
+            }
+        }
+
+
+        async function themNV() {
+            const hoTen = document.getElementById('hoTen').value;
+            const sdt = document.getElementById('sdt').value;
+            const chucVu = document.getElementById('chucVu').value;
+
+            if (!hoTen || !sdt) {
+                alert("Vui lòng điền đủ thông tin!");
+                return;
+            }
+
+            const dataNV = { HoTen: hoTen, SoDienThoai: sdt, ChucVu: chucVu };
+
+            const res = await fetch('http://localhost:3000/api/nhanvien', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-user-role': localStorage.getItem('role').trim()
+                },
+                body: JSON.stringify(dataNV)
+            });
+
+            if (res.ok) {
+                alert("Thêm thành công!");
+                loadNhanVien();
+            } else {
+                alert("Lỗi khi thêm!");
+            }
+        }
+        async function xoaNV(id) {
+            const res = await fetch(`http://localhost:3000/api/nhanvien/${id}`, {
+                method: 'DELETE',
+                headers: { 'x-user-role': role }
+            });
+            if (res.ok) loadNhanVien();
+        }
+
+        loadNhanVien();
+    </script>
+</body>
+
+</html>
