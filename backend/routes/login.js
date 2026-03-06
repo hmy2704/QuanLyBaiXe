@@ -5,29 +5,33 @@ const config = require("../../dbConfig");
 
 router.post("/login", async (req, res) => {
     try {
-
         const { TenDangNhap, MatKhau } = req.body;
-
         let pool = await sql.connect(config);
 
-        let user = await pool.request()
+        let userResult = await pool.request()
             .input('u', sql.VarChar, TenDangNhap)
             .input('p', sql.VarChar, MatKhau)
             .query(`
-                SELECT T.*, P.TenQuyen 
+                SELECT T.TaiKhoanId, T.TenDangNhap, P.TenQuyen 
                 FROM TaiKhoan T 
                 JOIN PhanQuyen P ON T.PhanQuyenId = P.PhanQuyenId 
                 WHERE T.TenDangNhap = @u AND T.MatKhau = @p
             `);
 
-        if (user.recordset.length > 0) {
+        if (userResult.recordset.length > 0) {
+            const user = userResult.recordset[0];
+
+
             res.json({
                 success: true,
                 message: "Đăng nhập thành công!",
-                user: user.recordset[0]
+                user: {
+                    id: user.TaiKhoanId,
+                    username: user.TenDangNhap,
+                    role: user.TenQuyen
+                }
             });
         } else {
-
             res.status(401).json({
                 success: false,
                 message: "Tài khoản không tồn tại hoặc sai mật khẩu"

@@ -37,10 +37,11 @@
             padding: 8px;
             border-radius: 3px;
             margin-top: 10px;
-          
-        } 
-        a{
-            color:white;
+
+        }
+
+        a {
+            color: white;
         }
 
         a {
@@ -54,7 +55,7 @@
     <script>
         if (!localStorage.getItem('username')) {
             alert("Bạn cần đăng nhập để truy cập!");
-            window.location.href = 'login.html'; 
+            window.location.href = 'login.html';
         }
     </script>
     <div class="giaodien">
@@ -64,36 +65,37 @@
         <div id="displayUser" class="welcom-user"></div>
 
         <div style="padding-left: 40px; font-size: 15px;">
-            <button style="width:46%"> <a href="xevao.html"> Thừa</a></button>
-            <button style="width:45%"> <a href="xevao.html"> Thiếu</a></button>
             <form action="xevao.html" method="post">
                 <button> <a href="xevao.html"> Ghi nhận xe vào</a></button>
             </form>
-
-
-            <button> <a href="xevao.html"> Ghi nhận xe vào</a></button>
-            <button> <a href="xera.html"> Ghi nhận xe ra </a></button>
-            <button> <a href="themmoi.html">Thêm mới vé xe</a></button>
-            <button> <a href="dangnhap.html">Đăng xuất</a></button>
-            <button> <a href="baocao.html"> Báo cáo thống kê</a></button>
-            <button> <a href="login.html">Đăng xuất</a></button>
             <button> <a href="checkout.html"> Ghi nhận xe ra </a></button>
             <button> <a href="themmoi.html">Thêm mới vé xe</a></button>
-            <button> <a href="login.html">Đăng xuất</a></button>
+            <button class="admin-only"> <a href="nhanvien.html">Quản lý nhân viên</a></button>
             <button> <a href="baocao.html">Báo cáo thống kê</a></button>
             <button id="btnLogout"> <a href="#">Đăng xuất</a></button>
 
         </div>
     </div>
     <script>
-        // 2. HIỂN THỊ TÊN NGƯỜI DÙNG
+        // 1. Kiểm tra quyền khi trang vừa load
+        const role = localStorage.getItem('role');
+
+
+
+        // 2. HIỂN THỊ TÊN VÀ QUYỀN
         const user = localStorage.getItem('username');
         if (user) {
-            document.getElementById('displayUser').innerText = "Nhân viên: " + user;
+            document.getElementById('displayUser').innerText = "Chào, " + user + " (" + role + ")";
         }
-
+        // Nếu là 'QuanLy', hiện tất cả các nút có class 'admin-only'
+        if (role === 'Admin') {
+            const adminButtons = document.querySelectorAll('.admin-only');
+            adminButtons.forEach(btn => {
+                btn.style.display = 'block'; // Hiện nút lên
+            });
+        }
         // 3. LOGIC ĐĂNG XUẤT
-        document.getElementById('btnLogout').addEventListener('click', function() {
+        document.getElementById('btnLogout').addEventListener('click', function () {
             if (confirm("Bạn có chắc chắn muốn đăng xuất?")) {
                 localStorage.clear(); // Xóa sạch bộ nhớ tạm
                 window.location.href = 'login.html'; // Quay về trang đăng nhập
