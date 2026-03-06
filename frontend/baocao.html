@@ -39,35 +39,67 @@
     <p>56</p>
   </div>
 </div>
+<div class="card">
+  <h3>Lọc báo cáo</h3>
+
+<div class="filters">
+
+<input type="text" id="filterBienSo" placeholder="Tìm biển số">
+
+<select id="filterLoaiXe">
+<option value="">Tất cả loại xe</option>
+<option>Xe máy</option>
+<option>Ô tô</option>
+</select>
+
+<label>Từ ngày</label>
+<input type="date" id="fromDate">
+
+<label>Đến ngày</label>
+<input type="date" id="toDate">
+
+<button id="btnFilter" onclick="filterTable()">Lọc</button>
+<button id="btnReset" onclick="resetFilter()" style="display:none;">Reset</button>
+
+</div>
+</div>
+
 <!-- Bảng thống kê chi tiết -->
 <table>
   <thead>
     <tr>
+      
       <th>Biển số</th>
       <th>Loại xe</th>
       <th>Giờ vào</th>
       <th>Giờ ra</th>
       <th>Phí gửi</th>
+      <th>Ngày</th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      
       <td>59A-123.45</td>
       <td>Xe máy</td>
       <td>08:15</td>
       <td>10:30</td>
       <td>10.000đ</td>
+      <td>2026/06/05</td>
     </tr>
     <tr>
+     
       <td>51G-678.90</td>
       <td>Ô tô</td>
       <td>09:00</td>
       <td>11:20</td>
       <td>40.000đ</td>
+       <td>2026/01/09</td>
     </tr>
   </tbody>
   
 </table>
+<p id="noData" style="display:none;color:red">Không có dữ liệu</p>
 <!-- Form nhập thông tin -->
 <div class="card form-card">
   <h3>Chỉnh sửa thông tin xe</h3>
@@ -138,6 +170,64 @@ document.querySelector(".filters").addEventListener("submit", function (e) {
   cells[3].innerText = document.getElementById("gioRa").value;
   cells[4].innerText = document.getElementById("phiGui").value;
 });
+function filterTable() {
+
+let bienSo = document.getElementById("filterBienSo").value.toLowerCase();
+let loaiXe = document.getElementById("filterLoaiXe").value;
+let fromDate = document.getElementById("fromDate").value;
+let toDate = document.getElementById("toDate").value;
+
+let rows = document.querySelectorAll("table tbody tr");
+
+rows.forEach(row => {
+
+let cells = row.querySelectorAll("td");
+
+let ngay = cells[5].innerText;
+let bs = cells[0].innerText.toLowerCase();
+let lx = cells[1].innerText;
+
+let show = true;
+
+let dateParts = ngay.split("/");
+let formattedDate = dateParts[0] + "-" + dateParts[1] + "-" + dateParts[2];
+
+if (bienSo && !bs.includes(bienSo)) show = false;
+
+if (loaiXe && lx !== loaiXe) show = false;
+
+if (fromDate && formattedDate < fromDate) show = false;
+
+if (toDate && formattedDate > toDate) show = false;
+
+row.style.display = show ? "" : "none";
+
+});
+document.getElementById("btnFilter").style.display = "none";
+document.getElementById("btnReset").style.display = "inline-block";
+let visibleRows = [...rows].filter(r => r.style.display !== "none");
+
+document.getElementById("noData").style.display =
+visibleRows.length === 0 ? "block" : "none";
+}
+function resetFilter(){
+
+document.getElementById("filterBienSo").value = "";
+document.getElementById("filterLoaiXe").value = "";
+document.getElementById("fromDate").value = "";
+document.getElementById("toDate").value = "";
+
+let rows = document.querySelectorAll("table tbody tr");
+
+rows.forEach(row=>{
+row.style.display = "";
+})
+document.getElementById("btnFilter").style.display = "inline-block";
+document.getElementById("btnReset").style.display = "none";
+document.getElementById("noData").style.display = "none";
+}
+
 </script>
+
 </body>
 </html>
