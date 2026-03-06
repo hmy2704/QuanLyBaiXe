@@ -10,18 +10,22 @@ router.get('/nhanvien', async (req, res) => {
 });
 
 router.post('/nhanvien', async (req, res) => {
-    const role = req.header('x-user-role');
-    if (role !== 'Admin') return res.status(403).json({ message: "Chỉ Admin mới có quyền!" });
+
+    console.log("Dữ liệu từ client:", req.body);
+
+    const { HoTen, SoDienThoai, ChucVu } = req.body;
 
     try {
         await global.pool.request()
-            .input('HoTen', req.body.HoTen)
-            .input('SoDienThoai', req.body.SoDienThoai)
-            .query("INSERT INTO NhanVien (HoTen, SoDienThoai) VALUES (@HoTen, @SoDienThoai)");
-        res.json({ message: "OK" });
-    } catch (err) { res.status(500).json(err); }
+            .input('HoTen', HoTen)
+            .input('SoDienThoai', SoDienThoai)
+            .input('ChucVu', ChucVu)
+            .query("INSERT INTO NhanVien (HoTen, SoDienThoai, ChucVu) VALUES (@HoTen, @SoDienThoai, @ChucVu)");
+        res.json({ message: "Thêm thành công" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
-
 router.delete('/nhanvien/:id', async (req, res) => {
     const role = req.header('x-user-role');
     if (role !== 'Admin') return res.status(403).json({ message: "Không có quyền!" });
