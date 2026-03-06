@@ -44,7 +44,7 @@
             const pass = document.getElementById('password').value;
             const btn = document.getElementById('btnLogin');
 
-            // Hiệu ứng đang xử lý
+
             btn.innerText = "Đang xác thực...";
             btn.disabled = true;
 
@@ -65,12 +65,11 @@
                 }
 
                 if (data.success) {
-                    // 1. Lưu thông tin quan trọng vào LocalStorage
-                    // Khớp với cấu trúc dữ liệu "sạch" từ Backend mới: user { username, role }
+
                     localStorage.setItem('username', data.user.username);
                     localStorage.setItem('role', data.user.role);
 
-                    // 2. Thông báo và chuyển hướng
+
                     alert("Chào mừng " + data.user.username + " quay trở lại!");
                     window.location.href = 'main.html';
                 }
