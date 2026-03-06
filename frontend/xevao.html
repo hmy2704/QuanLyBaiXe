@@ -274,7 +274,7 @@
 
     <div class="user-info">Nhân viên trực: Phùng Ngọc Châu</div>
 
-    <script>
+  <script>
         function capNhatGio() {
             const now = new Date();
             now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
@@ -282,8 +282,8 @@
         }
 
         window.onload = function() {
-           capNhatGio();
-           document.getElementById('bienSo').focus();
+            capNhatGio();
+            document.getElementById('bienSo').focus();
         };
 
         function ghiNhanXe() {
@@ -296,7 +296,7 @@
                 alert("Vui lòng nhập đầy đủ Biển số và Mã vé!");
                 return;
             }
-        }
+
             const table = document.getElementById("tableDanhSach").getElementsByTagName('tbody')[0];
             const newRow = table.insertRow(0);
             newRow.insertCell(0).innerHTML = `<b>${bienSo}</b>`;
