@@ -10,7 +10,9 @@
   color: white;
   z-index: 1000;
 }
-
+.card {
+  margin-bottom: 50px;;
+}
 .nav {
   margin-top: 20px;
   list-style: none;
