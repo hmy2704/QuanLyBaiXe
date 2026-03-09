@@ -2,7 +2,7 @@
 
 async function callApi(endpoint, method = 'GET', bodyData = null) {
 
-    const BASE_URL = 'http://localhost:3000/api';
+    const BASE_URL = 'http://10.101.9.233:3000/api';
 
     try {
         const options = {
