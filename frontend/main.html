@@ -84,10 +84,6 @@
 
         // 2. HIỂN THỊ TÊN VÀ QUYỀN
         const user = localStorage.getItem('username');
-        if (user) {
-            document.getElementById('displayUser').innerText = "Chào, " + user + " (" + role + ")";
-        }
-
         if (role === 'Admin') {
             const adminButtons = document.querySelectorAll('.admin-only');
             adminButtons.forEach(btn => {
