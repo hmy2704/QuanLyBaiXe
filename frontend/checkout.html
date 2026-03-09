@@ -5,9 +5,63 @@
     <meta charset="UTF-8">
     <title>Ghi nhận xe ra</title>
     <style>
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+
+            background: #4873c9;
+            padding: 14px 24px;
+            color: white;
+            z-index: 1000;
+        }
+
+        .card {
+            margin-bottom: 50px;
+            ;
+        }
+
+        .nav {
+            margin-top: 20px;
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin-left: 70%;
+
+        }
+
+        .nav li {
+            background: #2563eb;
+
+            border: none;
+            cursor: pointer;
+            padding: 10px 10px;
+            border-radius: 8px;
+            border: 1px solid #2563eb;
+            font-size: 14px;
+        }
+
+        .nav li a {
+            color: white;
+            text-decoration: none;
+
+        }
+
+        .nav li:hover {
+            /* text-decoration: underline; */
+            background: #1e4fd8;
+        }
+
         body {
-            font-family: Arial;
-            background: linear-gradient(90deg, #6c7ae0, #a7b5f0);
+            margin: 0;
+            padding: 0;
+            background: #f0f2f5 url("background.png") fixed center/cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
         }
 
         .container {
@@ -15,6 +69,7 @@
             margin: 50px auto;
             background: white;
             padding: 30px;
+            margin-top: 110px;
             border-radius: 10px;
         }
 
@@ -23,6 +78,7 @@
             padding: 8px;
             margin-bottom: 10px;
         }
+
 
         button {
             width: 100%;
@@ -41,11 +97,19 @@
 </head>
 
 <body>
+    <div class="header">
+        <h3>Quản lý bãi xe</h3>
 
+        <ul class="nav">
+
+            <li><a href="main.html">Trang chủ</a></li>
+            <li><a href="login.html">Đăng xuất</a></li>
+        </ul>
+    </div>
     <div class="container">
-
-        <h2>GHI NHẬN XE RA</h2>
-
+        <div class="navbar">
+            <h2>GHI NHẬN XE RA</h2>
+        </div>
         <div class="search">
             <input type="text" id="maVe" placeholder="Nhập mã vé">
             <button onclick="timXe()">Tìm kiếm</button>
@@ -73,45 +137,84 @@
 
 
         <script>
-            // tìm kiếm theo mã vé
+            /// tìm xe theo mã vé
             async function timXe() {
 
                 let maVe = document.getElementById("maVe").value;
 
-                let res = await fetch("http://localhost:3000/api/xera/" + maVe);
+                if (!maVe) {
+                    alert("Nhập mã vé");
+                    return;
+                }
 
-                let data = await res.json();
+                try {
 
-                document.getElementById("bienSo").value = data.BienSo;
-                document.getElementById("loaiXe").value = data.TenLoaiXe;
+                    let res = await fetch("http://localhost:3000/api/xera/" + maVe);
 
-                document.getElementById("vao").value =
-                    new Date(data.ThoiGianVao).toISOString().slice(0, 16);
+                    let data = await res.json();
+
+                    document.getElementById("bienSo").value = data.BienSo;
+                    document.getElementById("loaiXe").value = data.TenLoaiXe;
+
+                    document.getElementById("vao").value =
+                        new Date(data.ThoiGianVao).toISOString().slice(0, 16);
+
+                } catch (err) {
+                    alert("Không tìm thấy xe");
+                }
+
+            }
+
+
+            // ghi nhận xe ra (checkout)
+            async function ghiNhan() {
+
+                let maVe = document.getElementById("maVe").value;
+
+                if (!maVe) {
+                    alert("Nhập mã vé");
+                    return;
+                }
+
+                try {
+
+                    let res = await fetch("http://localhost:3000/api/checkout", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            VeGuiId: maVe
+                        })
+                    });
+
+                    let data = await res.json();
+
+                    if (data.status === "OK") {
+
+                        document.getElementById("ra").value =
+                            new Date(data.data.Ra).toISOString().slice(0, 16);
+
+                        document.getElementById("gio").value = data.data.TongGio;
+
+                        document.getElementById("tien").value =
+                            data.data.TongTien.toLocaleString() + " VND";
+
+                        alert(data.message);
+
+                    } else {
+                        alert(data.message);
+                    }
+
+                } catch (err) {
+                    alert("Lỗi kết nối server");
+                }
 
             }
 
-            // tính tiền tự động 
-            function tinhTien() {
 
-                let vao = new Date(document.getElementById("vao").value);
-                let ra = new Date(document.getElementById("ra").value);
-
-                let hours = (ra - vao) / (1000 * 60 * 60);
-
-                let gio = Math.ceil(hours);
-
-                let tien = gio * 5000;
-
-                document.getElementById("gio").value = gio;
-
-                document.getElementById("tien").value =
-                    tien.toLocaleString() + " VND";
-
-            }
         </script>
     </div>
-
-
 
 </body>
 
