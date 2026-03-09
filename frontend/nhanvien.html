@@ -30,15 +30,17 @@
             padding: 15px;
             background: #DCDCDC;
         }
-        th{
+
+        th {
             background-color: #3366CC;
             color: white;
         }
-        a{
+
+        a {
             text-decoration: none;
             color: white;
             background-color: red;
-            text-align:center;
+            text-align: center;
             margin-left: 800px;
             height: 1%;
             border-radius: 5px;
@@ -52,10 +54,10 @@
     <div style="display: flex;">
         <h2>Quản lý nhân viên</h2>
         <a href="d:\New folder\QuanLyBaiXe\frontend\main.html">
-           <p >Trang chủ</p> 
+            <p>Trang chủ</p>
         </a>
     </div>
-   
+
     <div id="divThem" class="form-add" style="display:none;">
         <h3>Thêm nhân viên mới</h3>
         <input type="text" id="hoTen" placeholder="Họ tên">
@@ -85,7 +87,7 @@
 
         async function loadNhanVien() {
             try {
-                const res = await fetch('http://localhost:3000/api/nhanvien');
+                const res = await fetch('http://10.101.9.233:3000/api/nhanvien');
                 const data = await res.json();
 
                 console.log("Dữ liệu nhận được từ Server:", data); // 
