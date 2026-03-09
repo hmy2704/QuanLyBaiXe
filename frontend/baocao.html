@@ -77,26 +77,7 @@
       <th>Ngày</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      
-      <td>59A-123.45</td>
-      <td>Xe máy</td>
-      <td>08:15</td>
-      <td>10:30</td>
-      <td>10.000đ</td>
-      <td>2026/06/05</td>
-    </tr>
-    <tr>
-     
-      <td>51G-678.90</td>
-      <td>Ô tô</td>
-      <td>09:00</td>
-      <td>11:20</td>
-      <td>40.000đ</td>
-       <td>2026/01/09</td>
-    </tr>
-  </tbody>
+  <tbody id="reportBody"></tbody>
   
 </table>
 <p id="noData" style="display:none;color:red">Không có dữ liệu</p>
@@ -126,7 +107,7 @@
     </div>
   </div>
 
-  <input type="text" id="phiGui" placeholder="Phí gửi (VNĐ)">
+  <input type="text" id="tongTien" placeholder="Phí gửi (VNĐ)">
 
   <button type="submit">Lưu</button>
 </form>
@@ -134,42 +115,30 @@
 
 <script>
 
-
-
 let selectedRow = null;
 
-const rows = document.querySelectorAll("table tbody tr");
+// FORM SUBMIT
+document.querySelector(".form-card form").addEventListener("submit", function (e) {
 
-rows.forEach(row => {
-  row.addEventListener("click", () => {
-    selectedRow = row;
+e.preventDefault();
 
-    const cells = row.querySelectorAll("td");
+if (!selectedRow) {
+alert("Vui lòng chọn xe trong bảng trước!");
+return;
+}
 
-    document.getElementById("bienSo").value = cells[0].innerText;
-    document.getElementById("loaiXe").value = cells[1].innerText;
-    document.getElementById("gioVao").value = cells[2].innerText;
-    document.getElementById("gioRa").value = cells[3].innerText;
-    document.getElementById("phiGui").value = cells[4].innerText;
-  });
+const cells = selectedRow.querySelectorAll("td");
+
+cells[0].innerText = document.getElementById("bienSo").value;
+cells[1].innerText = document.getElementById("loaiXe").value;
+cells[2].innerText = document.getElementById("gioVao").value;
+cells[3].innerText = document.getElementById("gioRa").value;
+cells[4].innerText = document.getElementById("tongTien").value;
+
 });
 
-document.querySelector(".filters").addEventListener("submit", function (e) {
-  e.preventDefault();
 
-  if (!selectedRow) {
-    alert("Vui lòng chọn xe trong bảng trước!");
-    return;
-  }
-
-  const cells = selectedRow.querySelectorAll("td");
-
-  cells[0].innerText = document.getElementById("bienSo").value;
-  cells[1].innerText = document.getElementById("loaiXe").value;
-  cells[2].innerText = document.getElementById("gioVao").value;
-  cells[3].innerText = document.getElementById("gioRa").value;
-  cells[4].innerText = document.getElementById("phiGui").value;
-});
+// FILTER TABLE
 function filterTable() {
 
 let bienSo = document.getElementById("filterBienSo").value.toLowerCase();
@@ -190,7 +159,7 @@ let lx = cells[1].innerText;
 let show = true;
 
 let dateParts = ngay.split("/");
-let formattedDate = dateParts[0] + "-" + dateParts[1] + "-" + dateParts[2];
+let formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
 
 if (bienSo && !bs.includes(bienSo)) show = false;
 
@@ -203,13 +172,19 @@ if (toDate && formattedDate > toDate) show = false;
 row.style.display = show ? "" : "none";
 
 });
+
 document.getElementById("btnFilter").style.display = "none";
 document.getElementById("btnReset").style.display = "inline-block";
+
 let visibleRows = [...rows].filter(r => r.style.display !== "none");
 
 document.getElementById("noData").style.display =
 visibleRows.length === 0 ? "block" : "none";
+
 }
+
+
+// RESET FILTER
 function resetFilter(){
 
 document.getElementById("filterBienSo").value = "";
@@ -222,10 +197,68 @@ let rows = document.querySelectorAll("table tbody tr");
 rows.forEach(row=>{
 row.style.display = "";
 })
+
 document.getElementById("btnFilter").style.display = "inline-block";
 document.getElementById("btnReset").style.display = "none";
 document.getElementById("noData").style.display = "none";
+
 }
+
+
+// LOAD REPORT
+async function loadReport(){
+
+let res = await fetch("http://localhost:3000/report/all");
+let data = await res.json();
+
+let tbody = document.getElementById("reportBody");
+
+tbody.innerHTML = "";
+
+data.DanhSachBaoCao.forEach(xe => {
+
+let vao = new Date(xe.ThoiGianVao);
+let ra = xe.ThoiGianRa ? new Date(xe.ThoiGianRa) : null;
+
+let gioVao = vao.toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"});
+let gioRa = ra ? ra.toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit"}) : "Chưa ra";
+
+let ngay = vao.toLocaleDateString("vi-VN");
+
+// TẠO ROW
+let row = document.createElement("tr");
+
+row.innerHTML = `
+<td>${xe.BienSo}</td>
+<td>${xe.LoaiXe}</td>
+<td>${gioVao}</td>
+<td>${gioRa}</td>
+<td>${xe.TongTien ? xe.TongTien.toLocaleString() + "đ" : "0đ"}</td>
+<td>${ngay}</td>
+`;
+
+// CLICK ROW
+row.onclick = function(){
+
+selectedRow = row;
+
+let cells = row.querySelectorAll("td");
+
+document.getElementById("bienSo").value = cells[0].innerText;
+document.getElementById("loaiXe").value = cells[1].innerText;
+document.getElementById("gioVao").value = cells[2].innerText;
+document.getElementById("gioRa").value = cells[3].innerText;
+document.getElementById("tongTien").value = cells[4].innerText;
+
+};
+
+tbody.appendChild(row);
+
+});
+
+}
+
+loadReport();
 
 </script>
 
