@@ -1,431 +1,221 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
-    <link rel="stylesheet" href="checkout.css">
+    <title>Ghi nhận xe ra</title>
     <style>
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            background: #4873c9;
+            padding: 14px 24px;
+            color: white;
+            z-index: 1000;
+        }
+
+        .card {
+            margin-bottom: 50px;
+            ;
+        }
+
+        .nav {
+            margin-top: 20px;
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin-left: 70%;
+
+        }
+
+        .nav li {
+            background: #2563eb;
+
+            border: none;
+            cursor: pointer;
+            padding: 10px 10px;
+            border-radius: 8px;
+            border: 1px solid #2563eb;
+            font-size: 14px;
+        }
+
+        .nav li a {
+            color: white;
+            text-decoration: none;
+
+        }
+
+        .nav li:hover {
+            /* text-decoration: underline; */
+            background: #1e4fd8;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url(background.png);
-            background-size: cover;
+            margin: 0;
+            padding: 0;
+            background: #f0f2f5 url("background.png") fixed center/cover;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            padding: 20px;
+            font-family: 'Poppins', sans-serif;
         }
 
         .container {
-            width: 100%;
-            max-width: 600px;
+            width: 400px;
+            margin: 50px auto;
             background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
-
-
-        .header {
-            background: linear-gradient(135deg, #acb6e2 0%, #8290cf 100%);
-            color: white;
-            padding: 25px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .main-content {
             padding: 30px;
+            margin-top: 110px;
+            border-radius: 10px;
         }
 
-        .marking-rate {
-            background: linear-gradient(135deg, #e0e7ff 0%, #ddd6fe 100%);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            text-align: center;
-            color: #3730a3;
-            font-size: 14px;
-            border-left: 4px solid #667eea;
-        }
-
-        .marking-rate strong {
-            font-weight: 700;
-        }
-
-        .search-section {
-            margin-bottom: 30px;
-        }
-
-        .search-lable {
-            display: block;
-            font-weight: 600;
-            color: #333;
+        input {
+            width: 100%;
+            padding: 8px;
             margin-bottom: 10px;
-            font-size: 15px;
         }
 
-        .search-box {
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #4e66b3;
+            color: white;
+            border: none;
+        }
+
+        .search {
             display: flex;
             gap: 10px;
-        }
-
-        .search-box input {
-            flex: 1;
-            padding: 14px 18px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-
-        .search-box input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-
-        .search-box button {
-            padding: 14px 30px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            white-space: nowrap;
-        }
-
-        .search-box button:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .search-box button:active {
-            transform: translateY(0);
-        }
-
-        .vehicleInfoSection {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 25px;
-            margin-top: 20px;
-            animation: slideIn 0.4s ease;
-        }
-
-        .section-title {
-            color: #2c3e7d;
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        /* Form Styles */
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            display: block;
-            color: #333;
-            font-size: 15px;
-            font-weight: 500;
-            margin-bottom: 8px;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 15px;
-            background: white;
-        
-        }
-
-        /* Custom Select Arrow */
-        select {
-            appearance: none;
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 20px;
-            padding-right: 40px;
-        }
-
-
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #5b6fc4 0%, #4a5ba8 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(91, 111, 196, 0.3);
-        }
-
-        .submit-btn:hover {
-            background: linear-gradient(135deg, #4a5ba8 0%, #3a4a8f 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(91, 111, 196, 0.4);
-        }
-
-        .submit-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Alert Messages */
-        .alert {
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-            animation: slideIn 0.4s ease;
-        }
-
-        .alert.show {
-            display: block;
-        }
-
-        .alert-success {
-            background: #d1fae5;
-            color: #065f46;
-            border-left: 4px solid #10b981;
-        }
-
-        .alert-error {
-            background: #fee2e2;
-            color: #991b1b;
-            border-left: 4px solid #ef4444;
-        }
-
-        .alert-info {
-            background: #dbeafe;
-            color: #1e40af;
-            border-left: 4px solid #3b82f6;
-        }
-
-        /* Loading Spinner */
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 20px;
-            color: #667eea;
-        }
-
-        .loading.show {
-            display: block;
-        }
-
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #667eea;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 10px;
+            margin-bottom: 15px;
         }
     </style>
 </head>
+
 <body>
-    <script src="common.js"></script>
-    <div class="container">
-        <div class="header">
-            <h1>Trả xe - Checkout</h1>
-            <p>Hệ thống thanh toán bãi gửi xe tự động</p>
-        </div>
-        <div class="main-content">
-            <div class="marking-rate">
-                <strong>Bảng giá:</strong> 5.000đ/tiếng | Hệ thống tính tiền bãi theo giờ
-            </div>
+    <div class="header">
+        <h3>Quản lý bãi xe</h3>
 
-            <!-- tra cứu thông tin bằng mã vé -->
-            <div class="search-section">
-                <label class="search-lable">Mã vé gửi xe</label>
-                <div class="search-box">
-                <input
-                        type="type"
-                        id="ticketInput" 
-                        placeholder="Nhập mã vé" 
-                        onkeypress="handleKeyPress(event)"
-                >
-                <button onclick="searchTicket()">
-                    <span>Tra cứu</span>
-                </button>
-                </div>
-            </div>
+        <ul class="nav">
 
-            <script>
-                 function handleKeyPress(event) {
-                    if (event.key === "Enter") {
-                        searchTicket();
-                        }
-                    }
-
-                // 3. Hàm TRA CỨU thông tin vé
-                async function searchTicket() {
-                    const maVe = document.getElementById('ticketInput').value.trim();
-                    if (!maVe) {
-                        alert("Vui lòng nhập mã vé!");
-                        return;
-                    }
-                    // Gọi API lấy thông tin xe dựa trên mã vé
-                    // Giả sử endpoint là: GET /api/ticket/:id
-                    const res = await callApi(`ticket/${maVe}`, 'GET');
-
-                    if (res.success) {
-                        const data = res.data;
-                        // Điền dữ liệu vào form
-                        document.getElementById('maVe').value = data.MaVe;
-                        document.getElementById('bienSoXe').value = data.BienSo;
-                        document.getElementById('loaiXe').value = data.LoaiXe;
-                        document.getElementById('loaiVe').value = data.LoaiVe;
-                        
-                        // Định dạng thời gian vào để hiển thị lên input datetime-local
-                        if (data.ThoiGianVao) {
-                            const dateVao = new Date(data.ThoiGianVao);
-                            dateVao.setMinutes(dateVao.getMinutes() - dateVao.getTimezoneOffset());
-                            document.getElementById('thoiGianVao').value = dateVao.toISOString().slice(0, 16);
-                        }
-                        
-                        alert("Đã tìm thấy thông tin xe!");
-                    } else {
-                        alert("Mã vé không tồn tại hoặc xe đã ra khỏi bãi!");
-                    }
-                }
-                
-            </script>
-            <!-- Hiển thị giao diện thông tin vé xe  -->
-            <div class="vehicleInfoSection">
-                <h3 class="section-title">Thông tin xe</h3>
-
-                <form id="checkoutForm" onsubmit="handleSubmit(event)">
-                    <div class="form-group">
-                        <label for="maVe">Mã vé:</label>
-                        <input 
-                            type="text" 
-                            id="maVe" 
-                            name="maVe"
-                            style="background-color: #f3f4f6;"
-                        >
-                    </div>
-                    <div class="form-group">
-                        <label for="bienSoXe">Biển số xe:</label>
-                        <input 
-                            type="text"
-                            id="bienSoXe"
-                            name="bienSoXe"
-                            style="background-color: rgb(250, 252, 252);"
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="loaiXe">Loại xe:</label>
-                        <select id="loaiXe" name="loaiXe" required style="background-color: #f3f4f6;">
-                            <option value="">-- Chọn loại xe --</option>
-                            <option value="Xe máy">Xe máy</option>
-                            <option value="Ô tô">Ô tô</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="loaiVe">Loại vé:</label>
-                        <select id="loaiVe" name="loaiVe" required style="background-color: #f3f4f6;">
-                            <option value="">-- Chọn loại vé --</option>
-                            <option value="Vé ngày">Vé ngày</option>
-                            <option value="Vé tháng">Vé tháng</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="thoiGianVao">Thời gian vào:</label>
-                        <input
-                            type="datetime-local" 
-                            id="thoiGianVao" 
-                            name="thoiGianVao"
-                            required
-                            
-                            style="background-color: #f3f4f6;"
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="thoiGianRa">Thời gian ra:</label>
-                        <input 
-                            type="datetime-local" 
-                            id="thoiGianRa"
-                            name="thoiGianRa"
-                            required
-                        >
-                    </div>
-
-                    <button type="submit" class="submit-btn">
-                        Ghi nhận xe ra
-                    </button>
-
-                </form>
-            <script>
-                  // 4. Hàm GHI NHẬN XE RA (Submit Form)
-                async function handleSubmit(event) {
-                    event.preventDefault();
-
-                    const dataSubmit = {
-                        MaVe: document.getElementById('maVe').value,
-                        BienSo: document.getElementById('bienSoXe').value,
-                        ThoiGianVao: document.getElementById('thoiGianVao').value,
-                        ThoiGianRa: document.getElementById('thoiGianRa').value,
-                        LoaiXe: document.getElementById('loaiXe').value
-                    };
-
-                    if (!dataSubmit.MaVe) {
-                        alert("Vui lòng tra cứu thông tin trước khi ghi nhận!");
-                        return;
-                    }
-
-                    // Gọi API xử lý checkout
-                    const res = await callApi('checkout', 'POST', dataSubmit);
-
-                    if (res.success) {
-                        // Hiển thị số tiền phải thanh toán nếu có trả về từ server
-                        const phi = res.tongTien ? res.tongTien.toLocaleString() + 'đ' : 'theo bảng giá';
-                        alert(`Thanh toán thành công! \nSố tiền phí: ${phi}`);
-            
-                        // Reset form sau khi thành công
-                        document.getElementById('checkoutForm').reset();
-                        document.getElementById('ticketInput').value = '';
-                    } else {
-                        alert("Lỗi khi ghi nhận xe ra: " + res.message);
-                    }
-                }
-            </script>
-            </div>
-        </div>
+            <li><a href="main.html">Trang chủ</a></li>
+            <li><a href="login.html">Đăng xuất</a></li>
+        </ul>
     </div>
+    <div class="container">
+        <div class="navbar">
+            <h2>GHI NHẬN XE RA</h2>
+        </div>
+        <div class="search">
+            <input type="text" id="maVe" placeholder="Nhập mã vé">
+            <button onclick="timXe()">Tìm kiếm</button>
+        </div>
+
+        <label>Biển số xe</label>
+        <input id="bienSo" readonly>
+
+        <label>Loại xe</label>
+        <input id="loaiXe" readonly>
+
+        <label>Thời gian vào</label>
+        <input type="datetime-local" id="vao" readonly>
+
+        <label>Thời gian ra</label>
+        <input type="datetime-local" id="ra" onchange="tinhTien()">
+
+        <label>Số giờ</label>
+        <input id="gio" readonly>
+
+        <label>Tiền</label>
+        <input id="tien" readonly>
+
+        <button onclick="ghiNhan()">Ghi nhận xe ra</button>
+
+
+        <script>
+            /// tìm xe theo mã vé
+            async function timXe() {
+
+                let maVe = document.getElementById("maVe").value;
+
+                if (!maVe) {
+                    alert("Nhập mã vé");
+                    return;
+                }
+
+                try {
+
+                    let res = await fetch("http://localhost:3000/api/xera/" + maVe);
+
+                    let data = await res.json();
+
+                    document.getElementById("bienSo").value = data.BienSo;
+                    document.getElementById("loaiXe").value = data.TenLoaiXe;
+
+                    document.getElementById("vao").value =
+                        new Date(data.ThoiGianVao).toISOString().slice(0, 16);
+
+                } catch (err) {
+                    alert("Không tìm thấy xe");
+                }
+
+            }
+
+
+            // ghi nhận xe ra (checkout)
+            async function ghiNhan() {
+
+                let maVe = document.getElementById("maVe").value;
+
+                if (!maVe) {
+                    alert("Nhập mã vé");
+                    return;
+                }
+
+                try {
+
+                    let res = await fetch("http://localhost:3000/api/checkout", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            VeGuiId: maVe
+                        })
+                    });
+
+                    let data = await res.json();
+
+                    if (data.status === "OK") {
+
+                        document.getElementById("ra").value =
+                            new Date(data.data.Ra).toISOString().slice(0, 16);
+
+                        document.getElementById("gio").value = data.data.TongGio;
+
+                        document.getElementById("tien").value =
+                            data.data.TongTien.toLocaleString() + " VND";
+
+                        alert(data.message);
+
+                    } else {
+                        alert(data.message);
+                    }
+
+                } catch (err) {
+                    alert("Lỗi kết nối server");
+                }
+
+            }
+
+
+        </script>
+    </div>
+
 </body>
+
 </html>
