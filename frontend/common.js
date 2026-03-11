@@ -1,30 +1,22 @@
-// frontend/common.js
-
 async function callApi(endpoint, method = 'GET', bodyData = null) {
-
-    const BASE_URL = 'http://10.101.9.233:3000/api';
+    // Không dùng IP cứng nữa, lấy trực tiếp biến từ env.js
+    const url = `${API_BASE_URL}/${endpoint}`;
 
     try {
         const options = {
             method: method,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-user-role': localStorage.getItem('role') || '' // Tự động gửi quyền
             }
         };
 
+        if (bodyData) options.body = JSON.stringify(bodyData);
 
-        if (bodyData) {
-            options.body = JSON.stringify(bodyData);
-        }
-
-        const response = await fetch(`${BASE_URL}/${endpoint}`, options);
-
-
-        const data = await response.json();
-
-        return data;
+        const response = await fetch(url, options);
+        return await response.json();
     } catch (error) {
-        console.error("Lỗi kết nối API:", error);
-        return { success: false, message: "Không thể kết nối đến máy chủ!" };
+        console.error("Lỗi API:", error);
+        return { success: false, message: "Lỗi kết nối!" };
     }
 }

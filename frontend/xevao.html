@@ -1,121 +1,157 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ghi nhận xe vào</title>
     <style>
-        body { 
-            margin: 0; 
-            padding: 0; 
+        body {
+            margin: 0;
+            padding: 0;
             min-height: 100vh;
             background-image: url("background.png");
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            font-family: "Times New Roman", Times, serif; 
-        }
-
-        .navbar { 
-            width: 100%; 
-            background: #4A76C5; 
-            display: flex; 
-            justify-content: space-between; 
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            padding: 12px 30px; 
-            box-sizing: border-box; 
-            color: white; 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-family: "Times New Roman", Times, serif;
         }
 
-        .nav-buttons { display: flex; gap: 12px; }
+        .navbar {
+            width: 100%;
+            background: #4A76C5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 30px;
+            box-sizing: border-box;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-        .btn-nav { 
-            padding: 8px 18px; 
-            border-radius: 8px; 
-            border: none; 
-            color: white; 
-            cursor: pointer; 
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-nav {
+            padding: 8px 18px;
+            border-radius: 8px;
+            border: none;
+            color: white;
+            cursor: pointer;
             background: #2E69F2;
             font-family: inherit;
             font-size: 16px;
         }
-        .btn-nav:hover { background: #1e56d4; }
 
-        .container { 
-            display: flex; 
-            flex-direction: row; 
-            gap: 30px; 
-            padding: 40px; 
+        .btn-nav:hover {
+            background: #1e56d4;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            padding: 40px;
             max-width: 1300px;
             width: 95%;
             justify-content: center;
         }
 
-        .giaodien, .danh-sach-container { 
-            background: white; 
-            border-radius: 8px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            overflow: hidden; 
+        .giaodien,
+        .danh-sach-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
             border: 1px solid #ccc;
         }
 
-        .giaodien { width: 400px; flex-shrink: 0; }
-        .danh-sach-container { flex-grow: 1; padding: 20px; min-width: 600px; }
-
-        #ghi, th { 
-            background: #4A76C5; 
-            color: white; 
-            padding: 12px; 
-            font-weight: bold; 
-            text-align: center; 
+        .giaodien {
+            width: 400px;
+            flex-shrink: 0;
         }
 
-        .form-content { padding: 25px; }
+        .danh-sach-container {
+            flex-grow: 1;
+            padding: 20px;
+            min-width: 600px;
+        }
 
-        table { width: 100%; border-collapse: collapse; }
-        td, th { padding: 12px; border: 1px solid #ddd; text-align: center; }
-        
-        input, select { 
-            width: 100%; 
-            height: 38px; 
-            border: 1px solid #aaa; 
-            padding: 5px 10px; 
+        #ghi,
+        th {
+            background: #4A76C5;
+            color: white;
+            padding: 12px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .form-content {
+            padding: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 38px;
+            border: 1px solid #aaa;
+            padding: 5px 10px;
             font-family: inherit;
             box-sizing: border-box;
             border-radius: 4px;
         }
 
-        .btn-main { 
-            width: 100%; 
-            padding: 14px; 
-            background: #4A76C5; 
-            color: white; 
-            border: none; 
-            font-weight: bold; 
-            cursor: pointer; 
-            margin-top: 15px; 
+        .btn-main {
+            width: 100%;
+            padding: 14px;
+            background: #4A76C5;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
             font-family: inherit;
             font-size: 16px;
             border-radius: 4px;
         }
-        .btn-main:hover { background: #3a5fa3; }
 
-        .btn-save { 
-            background: #28a745; 
-            display: none; 
-            float: right; 
-            width: auto; 
-            padding: 10px 30px; 
+        .btn-main:hover {
+            background: #3a5fa3;
+        }
+
+        .btn-save {
+            background: #28a745;
+            display: none;
+            float: right;
+            width: auto;
+            padding: 10px 30px;
             margin-top: 15px;
         }
 
-        .fee-text { color: #d32f2f; font-weight: bold; }
+        .fee-text {
+            color: #d32f2f;
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body>
     <div class="navbar">
         <div style="font-weight: bold; font-size: 24px;">Quản lý bãi xe</div>
@@ -132,23 +168,42 @@
             <div id="ghi">GHI NHẬN XE VÀO</div>
             <div class="form-content">
                 <table>
-                    <tr><td style="text-align: left;">Biển số</td><td><input type="text" id="bienSo" autofocus placeholder="Nhập biển số..."></td></tr>
-                    <tr><td style="text-align: left;">Mã vé</td><td><input type="text" id="maVe" placeholder="Nhập mã vé..."></td></tr>
-                    <tr><td style="text-align: left;">Loại xe</td><td>
-                        <select id="loaiXe">
-                            <option value="Xe máy">Xe máy (5.000đ)</option>
-                            <option value="Ô tô">Ô tô (20.000đ)</option>
-                        </select>
-                    </td></tr>
-                    <tr><td style="text-align: left;">Loại vé</td><td><select id="loaiVe"><option>Vé ngày</option><option>Vé tháng</option></select></td></tr>
-                    <tr><td style="text-align: left;">Giờ vào</td><td><input type="datetime-local" id="tgVao"></td></tr>
+                    <tr>
+                        <td style="text-align: left;">Biển số</td>
+                        <td><input type="text" id="bienSo" autofocus placeholder="Nhập biển số..."></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Mã vé</td>
+                        <td><input type="text" id="maVe" placeholder="Nhập mã vé..."></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Loại xe</td>
+                        <td>
+                            <select id="loaiXe">
+                                <option value="Xe máy">Xe máy (5.000đ)</option>
+                                <option value="Ô tô">Ô tô (20.000đ)</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Loại vé</td>
+                        <td><select id="loaiVe">
+                                <option>Vé ngày</option>
+                                <option>Vé tháng</option>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Giờ vào</td>
+                        <td><input type="datetime-local" id="tgVao"></td>
+                    </tr>
                 </table>
                 <button class="btn-main" onclick="ghiNhan()">Ghi nhận (Enter)</button>
             </div>
         </div>
 
         <div class="danh-sach-container">
-            <div style="color:#4A76C5; font-weight: bold; margin-bottom: 15px; font-size: 18px; border-bottom: 2px solid #4A76C5; padding-bottom: 5px; text-align: left;">
+            <div
+                style="color:#4A76C5; font-weight: bold; margin-bottom: 15px; font-size: 18px; border-bottom: 2px solid #4A76C5; padding-bottom: 5px; text-align: left;">
                 Danh sách xe vừa vào bãi
             </div>
             <table id="tableDanhSach">
@@ -166,10 +221,10 @@
             <button id="btnSave" class="btn-main btn-save" onclick="saveToDB()">Lưu tất cả vào Database</button>
         </div>
     </div>
-
+    <script src="env.js"></script>
     <script>
         const $ = id => document.getElementById(id);
-        
+
         function setTime() {
             const now = new Date();
             now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
@@ -182,34 +237,35 @@
             const lx = $('loaiXe').value;
 
             if (!bs || !mv) return alert("Vui lòng nhập đầy đủ Biển số và Mã vé!");
-            
+
             // Tính toán tiền phí
             let phi = (lx === "Ô tô") ? 5000 : 2000;
-            
+
             const tbody = $('tableDanhSach').tBodies[0];
-            const row = tbody.insertRow(0); 
+            const row = tbody.insertRow(0);
             row.innerHTML = `
                 <td style="font-weight: bold;">${bs}</td>
                 <td>${lx}</td>
                 <td><span style="color: #2E69F2;">${mv}</span></td>
-                <td style="font-size: 0.9em;">${$('tgVao').value.replace('T',' ')}</td>
+                <td style="font-size: 0.9em;">${$('tgVao').value.replace('T', ' ')}</td>
                 <td class="fee-text">${phi.toLocaleString('vi-VN')} đ</td>
             `;
-            
+
             $('btnSave').style.display = "block";
-            $('bienSo').value = ''; 
+            $('bienSo').value = '';
             $('maVe').value = '';
-            $('bienSo').focus(); 
+            $('bienSo').focus();
             setTime();
         }
 
-        function saveToDB() { 
-            alert("Dữ liệu đã được chuẩn bị để lưu!"); 
+        function saveToDB() {
+            alert("Dữ liệu đã được chuẩn bị để lưu!");
         }
 
         window.onload = () => { setTime(); $('bienSo').focus(); };
-        document.onkeypress = e => { if(e.key === 'Enter') ghiNhan(); };
-        function thoat() { if(confirm("Bạn muốn đăng xuất?")) location.href="login.html"; }
+        document.onkeypress = e => { if (e.key === 'Enter') ghiNhan(); };
+        function thoat() { if (confirm("Bạn muốn đăng xuất?")) location.href = "login.html"; }
     </script>
 </body>
+
 </html>

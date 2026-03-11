@@ -55,6 +55,6 @@ app.get('/', (req, res) => {
 
 // 5. CHẠY SERVER
 app.listen(PORT, () => {
-    console.log(`Server đang lắng nghe tại: http://10.101.9.233:${PORT}`);
+    console.log(`Server đang lắng nghe tại: ${API_BASE_URL}:${PORT}`);
 
 });
