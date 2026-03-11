@@ -1,3 +1,5 @@
+const PORT = 3000;
+const API_BASE_URL = 'http://192.168.32.233'; // IP máy chủ của bạn
 const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -16,7 +18,7 @@ app.use((req, res, next) => {
 });
 app.use(cors());
 app.use(express.static('frontend'));
-const PORT = 3000;
+
 
 
 app.use(bodyParser.json());
@@ -55,6 +57,5 @@ app.get('/', (req, res) => {
 
 // 5. CHẠY SERVER
 app.listen(PORT, () => {
-    console.log(`Server đang lắng nghe tại: ${API_BASE_URL}:${PORT}`);
-
+    console.log(`Server đang lắng nghe tại: http://192.168.32.233:${PORT}`);
 });

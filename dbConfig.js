@@ -8,7 +8,7 @@ const config = {
     //connectionString: 'Driver={ODBC Driver 17 for SQL Server};Server=DELL-PC;Database=QuanLyBaiXe;Trusted_Connection=yes;',
     //connectionString: 'Driver={ODBC Driver 17 for SQL Server};Server=Ham;Database=QuanLyBaiXe;Trusted_Connection=yes;',
 
-    connectionString: 'Driver={ODBC Driver 17 for SQL Server};Server=192.168.32.233\\SQLEXPRESS01;Database=QuanLyBaiXe;Trusted_Connection=yes;',
+    connectionString: 'Driver={ODBC Driver 17 for SQL Server};Server=ADMIN-PC\\SQLEXPRESS01;Database=QuanLyBaiXe;Trusted_Connection=yes;',
 };
 
 
