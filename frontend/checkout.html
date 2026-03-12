@@ -137,83 +137,73 @@
 
 
         <script>
-            /// tìm xe theo mã vé
-            async function timXe() {
+    // 1. Tìm xe theo mã vé
+    async function timXe() {
+        let maVe = document.getElementById("maVe").value;
+        if (!maVe) {
+            alert("Vui lòng nhập mã vé!");
+            return;
+        }
 
-                let maVe = document.getElementById("maVe").value;
-
-                if (!maVe) {
-                    alert("Nhập mã vé");
-                    return;
-                }
-
-                try {
-
-                    let res = await fetch("http://localhost:3000/api/xera/" + maVe);
-
-                    let data = await res.json();
-
-                    document.getElementById("bienSo").value = data.BienSo;
-                    document.getElementById("loaiXe").value = data.TenLoaiXe;
-
-                    document.getElementById("vao").value =
-                        new Date(data.ThoiGianVao).toISOString().slice(0, 16);
-
-                } catch (err) {
-                    alert("Không tìm thấy xe");
-                }
-
+        try {
+            let res = await fetch(`http://localhost:3000/api/xera/${maVe}`);
+            if (!res.ok) {
+                alert("Vé này hiện không có xe trong bãi!");
+                return;
             }
 
+            let data = await res.json();
 
-            // ghi nhận xe ra (checkout)
-            async function ghiNhan() {
+            // Điền thông tin vào Form
+            document.getElementById("bienSo").value = data.BienSo;
+            document.getElementById("loaiXe").value = data.TenLoaiXe;
+            
+            // Format thời gian để hiển thị lên input datetime-local
+            let dateVao = new Date(data.ThoiGianVao);
+            dateVao.setMinutes(dateVao.getMinutes() - dateVao.getTimezoneOffset());
+            document.getElementById("vao").value = dateVao.toISOString().slice(0, 16);
+            
+            // Tự động điền thời gian ra là hiện tại
+            let now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById("ra").value = now.toISOString().slice(0, 16);
 
-                let maVe = document.getElementById("maVe").value;
+        } catch (err) {
+            alert("Lỗi kết nối server!");
+        }
+    }
 
-                if (!maVe) {
-                    alert("Nhập mã vé");
-                    return;
-                }
+    // 2. Ghi nhận xe ra
+    async function ghiNhan() {
+        let maVe = document.getElementById("maVe").value;
+        if (!maVe) return alert("Nhập mã vé!");
 
-                try {
+        try {
+            let res = await fetch("http://localhost:3000/api/checkout", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ VeGuiId: maVe })
+            });
 
-                    let res = await fetch("http://localhost:3000/api/checkout", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            VeGuiId: maVe
-                        })
-                    });
+            let data = await res.json();
 
-                    let data = await res.json();
-
-                    if (data.status === "OK") {
-
-                        document.getElementById("ra").value =
-                            new Date(data.data.Ra).toISOString().slice(0, 16);
-
-                        document.getElementById("gio").value = data.data.TongGio;
-
-                        document.getElementById("tien").value =
-                            data.data.TongTien.toLocaleString() + " VND";
-
-                        alert(data.message);
-
-                    } else {
-                        alert(data.message);
-                    }
-
-                } catch (err) {
-                    alert("Lỗi kết nối server");
-                }
-
+            if (data.status === "OK") {
+                // Hiển thị kết quả tính toán từ Server
+                document.getElementById("gio").value = data.data.TongGio + " giờ";
+                document.getElementById("tien").value = data.data.TongTien.toLocaleString() + " VND";
+                
+                alert("Xe ra thành công! Tổng tiền: " + data.data.TongTien.toLocaleString() + " VNĐ");
+                
+                // Reset form sau khi thành công (tùy chọn)
+                // location.reload(); 
+            } else {
+                alert(data.message);
             }
-
-
-        </script>
+        } catch (err) {
+            alert("Lỗi khi ghi nhận xe ra!");
+        }
+    }
+</script>
     </div>
 
 </body>
