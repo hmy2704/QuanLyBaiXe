@@ -222,56 +222,11 @@
         </div>
     </div>
 
-<script>
-    const $ = id => document.getElementById(id);
-    
-    // 1. Tạo mảng để lưu tạm danh sách các xe vừa quét
-    let danhSachXeChoLuu = [];
-
-    function setTime() {
-        const now = new Date();
-        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-        $('tgVao').value = now.toISOString().slice(0, 16);
-    }
-
-    function ghiNhan() {
-        const bs = $('bienSo').value.trim();
-        const mv = $('maVe').value.trim();
-        const lx = $('loaiXe').value; // Sẽ dùng làm mauXe gửi lên backend
-
-        if (!bs || !mv) return alert("Vui lòng nhập đầy đủ Biển số và Mã vé!");
-        
-        // 2. Thêm dữ liệu vào mảng chờ lưu
-        // Lưu ý: Đặt tên biến (maVe, bienSo, mauXe) khớp chính xác với req.body ở Backend
-        danhSachXeChoLuu.push({
-            maVe: mv,
-            bienSo: bs,
-            mauXe: lx
-        });
-
-        // Tính toán tiền phí để hiển thị (Xe máy 5k, Ô tô 20k)
-        let phi = (lx === "Ô tô") ? 20000 : 5000; 
-        
-        // 3. Hiển thị lên bảng HTML
-        const tbody = $('tableDanhSach').tBodies[0];
-        const row = tbody.insertRow(0); 
-        row.innerHTML = `
-            <td style="font-weight: bold;">${bs}</td>
-            <td>${lx}</td>
-            <td><span style="color: #2E69F2;">${mv}</span></td>
-            <td style="font-size: 0.9em;">${$('tgVao').value.replace('T',' ')}</td>
-            <td class="fee-text">${phi.toLocaleString('vi-VN')} đ</td>
-        `;
-        
-        $('btnSave').style.display = "block";
-        $('bienSo').value = ''; 
-        $('maVe').value = '';
-        $('bienSo').focus(); 
-        setTime();
-    }
-    <script src="env.js"></script>
     <script>
         const $ = id => document.getElementById(id);
+
+        // 1. Tạo mảng để lưu tạm danh sách các xe vừa quét
+        let danhSachXeChoLuu = [];
 
         function setTime() {
             const now = new Date();
@@ -279,32 +234,77 @@
             $('tgVao').value = now.toISOString().slice(0, 16);
         }
 
-    // 4. Hàm gọi API Backend để lưu vào Database
-async function saveToDB() {
+        function ghiNhan() {
+            const bs = $('bienSo').value.trim();
+            const mv = $('maVe').value.trim();
+            const lx = $('loaiXe').value; // Sẽ dùng làm mauXe gửi lên backend
+
+            if (!bs || !mv) return alert("Vui lòng nhập đầy đủ Biển số và Mã vé!");
+
+            // 2. Thêm dữ liệu vào mảng chờ lưu
+            // Lưu ý: Đặt tên biến (maVe, bienSo, mauXe) khớp chính xác với req.body ở Backend
+            danhSachXeChoLuu.push({
+                maVe: mv,
+                bienSo: bs,
+                mauXe: lx
+            });
+
+            // Tính toán tiền phí để hiển thị (Xe máy 5k, Ô tô 20k)
+            let phi = (lx === "Ô tô") ? 20000 : 5000;
+
+            // 3. Hiển thị lên bảng HTML
+            const tbody = $('tableDanhSach').tBodies[0];
+            const row = tbody.insertRow(0);
+            row.innerHTML = `
+            <td style="font-weight: bold;">${bs}</td>
+            <td>${lx}</td>
+            <td><span style="color: #2E69F2;">${mv}</span></td>
+            <td style="font-size: 0.9em;">${$('tgVao').value.replace('T', ' ')}</td>
+            <td class="fee-text">${phi.toLocaleString('vi-VN')} đ</td>
+        `;
+
+            $('btnSave').style.display = "block";
+            $('bienSo').value = '';
+            $('maVe').value = '';
+            $('bienSo').focus();
+            setTime();
+        }
+        <script src="env.js"></script>
+    <script>
+        const $ = id => document.getElementById(id);
+
+            function setTime() {
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            $('tgVao').value = now.toISOString().slice(0, 16);
+        }
+
+            // 4. Hàm gọi API Backend để lưu vào Database
+            async function saveToDB() {
     if (danhSachXeChoLuu.length === 0) return alert("Chưa có xe nào!");
 
-    const API_URL = "http://localhost:3000/api/checkin";
+            const API_URL = "http://localhost:  3000/api/checkin";
 
-    for (let i = 0; i < danhSachXeChoLuu.length; i++) {
+            for (let i = 0; i < danhSachXeChoLuu.length; i++) {
         const xe = danhSachXeChoLuu[i];
-        try {
+            try {
             const response = await fetch(API_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(xe)
+            headers: {'Content-Type': 'application/json' },
+            body: JSON.stringify(xe)
             });
 
             const result = await response.json();
             if (!response.ok) {
                 alert(`Lỗi xe ${xe.bienSo}: ${result.message}`);
-                return; // Dừng lại ngay nếu có lỗi để tránh treo statement
+            return; // Dừng lại ngay nếu có lỗi để tránh treo statement
             }
-            
+
             // Thêm một khoảng nghỉ ngắn (0.1 giây) để Database kịp "thở"
             await new Promise(resolve => setTimeout(resolve, 100));
 
         } catch (error) {
-            alert("Lỗi kết nối Server!");
+                alert("Lỗi kết nối Server!");
             return;
             if (!bs || !mv) return alert("Vui lòng nhập đầy đủ Biển số và Mã vé!");
 
@@ -314,11 +314,11 @@ async function saveToDB() {
             const tbody = $('tableDanhSach').tBodies[0];
             const row = tbody.insertRow(0);
             row.innerHTML = `
-                <td style="font-weight: bold;">${bs}</td>
-                <td>${lx}</td>
-                <td><span style="color: #2E69F2;">${mv}</span></td>
-                <td style="font-size: 0.9em;">${$('tgVao').value.replace('T', ' ')}</td>
-                <td class="fee-text">${phi.toLocaleString('vi-VN')} đ</td>
+            <td style="font-weight: bold;">${bs}</td>
+            <td>${lx}</td>
+            <td><span style="color: #2E69F2;">${mv}</span></td>
+            <td style="font-size: 0.9em;">${$('tgVao').value.replace('T', ' ')}</td>
+            <td class="fee-text">${phi.toLocaleString('vi-VN')} đ</td>
             `;
 
             $('btnSave').style.display = "block";
@@ -341,10 +341,10 @@ async function saveToDB() {
     window.onload = () => { setTime(); $('bienSo').focus(); };
     document.onkeypress = e => { if(e.key === 'Enter') ghiNhan(); };
     function thoat() { if(confirm("Bạn muốn đăng xuất?")) location.href="login.html"; }
-</script>
-        window.onload = () => { setTime(); $('bienSo').focus(); };
-        document.onkeypress = e => { if (e.key === 'Enter') ghiNhan(); };
-        function thoat() { if (confirm("Bạn muốn đăng xuất?")) location.href = "login.html"; }
+    </script>
+    window.onload = () => { setTime(); $('bienSo').focus(); };
+    document.onkeypress = e => { if (e.key === 'Enter') ghiNhan(); };
+    function thoat() { if (confirm("Bạn muốn đăng xuất?")) location.href = "login.html"; }
     </script>
 </body>
 
