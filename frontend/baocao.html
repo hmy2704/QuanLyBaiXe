@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8" />
   <title>Báo cáo thống kê bãi xe</title>
@@ -8,226 +9,260 @@
 
 <body>
 
-<div class="header">
-  <h3>Quản lý bãi xe</h3>
+  <div class="header">
+    <h3>Quản lý bãi xe</h3>
 
-  <ul class="nav">
-  
-    <li><a href="main.html">Trang chủ</a></li>
-    <li ><a href="login.html">Đăng xuất</a></li>
-  </ul>
-</div>
+    <ul class="nav">
 
-
-
-<!-- Thống kê nhanh -->
-<div class="stats">
-  <div class="card">
-    <h3>Tổng lượt gửi hôm nay</h3>
-    <p>128</p>
+      <li><a href="main.html">Trang chủ</a></li>
+      <li><a href="login.html">Đăng xuất</a></li>
+    </ul>
   </div>
-  <div class="card">
-    <h3>Xe đang trong bãi</h3>
-    <p>42</p>
-  </div>
-  <div class="card">
-    <h3>Doanh thu hôm nay</h3>
-    <p>1.250.000đ</p>
-  </div>
-  <div class="card">
-    <h3>Vé tháng đang hoạt động</h3>
-    <p>56</p>
-  </div>
-</div>
-<div class="card">
-  <h3>Lọc báo cáo</h3>
-
-<div class="filters">
-
-<input type="text" id="filterBienSo" placeholder="Tìm biển số">
-
-<select id="filterLoaiXe">
-<option value="">Tất cả loại xe</option>
-<option>Xe máy</option>
-<option>Ô tô</option>
-</select>
-
-<label>Từ ngày</label>
-<input type="date" id="fromDate">
-
-<label>Đến ngày</label>
-<input type="date" id="toDate">
-
-<button id="btnFilter" onclick="filterTable()">Lọc</button>
-<button id="btnReset" onclick="resetFilter()" style="display:none;">Reset</button>
-
-</div>
-</div>
-
-<!-- Bảng thống kê chi tiết -->
-<table>
-  <thead>
-    <tr>
-      
-      <th>Biển số</th>
-      <th>Loại xe</th>
-      <th>Giờ vào</th>
-      <th>Giờ ra</th>
-      <th>Phí gửi</th>
-      <th>Ngày</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      
-      <td>59A-123.45</td>
-      <td>Xe máy</td>
-      <td>08:15</td>
-      <td>10:30</td>
-      <td>10.000đ</td>
-      <td>2026/06/05</td>
-    </tr>
-    <tr>
-     
-      <td>51G-678.90</td>
-      <td>Ô tô</td>
-      <td>09:00</td>
-      <td>11:20</td>
-      <td>40.000đ</td>
-       <td>2026/01/09</td>
-    </tr>
-  </tbody>
-  
-</table>
-<p id="noData" style="display:none;color:red">Không có dữ liệu</p>
-<!-- Form nhập thông tin -->
-<div class="card form-card">
-  <h3>Chỉnh sửa thông tin xe</h3>
 
 
-<form class="filters">
-  <input type="text" id="bienSo" placeholder="Biển số xe" required>
 
-  <select id="loaiXe" >
-    <option value="">-- Loại xe --</option>
-    <option>Xe máy</option>
-    <option>Ô tô</option>
-  </select>
-
-  <div class="time-row">
-    <div>
-      <h3>Giờ xe vào</h3>
-      <input type="time" id="gioVao" required>
+  <!-- Thống kê nhanh -->
+  <div class="stats">
+    <div class="card">
+      <h3>Tổng lượt gửi hôm nay</h3>
+      <p>128</p>
     </div>
+    <div class="card">
+      <h3>Xe đang trong bãi</h3>
+      <p>42</p>
+    </div>
+    <div class="card">
+      <h3>Doanh thu hôm nay</h3>
+      <p>1.250.000đ</p>
+    </div>
+    <div class="card">
+      <h3>Vé tháng đang hoạt động</h3>
+      <p>56</p>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Lọc báo cáo</h3>
 
-    <div>
-      <h3>Giờ xe ra</h3>
-      <input type="time" id="gioRa">
+    <div class="filters">
+
+      <input type="text" id="filterBienSo" placeholder="Tìm biển số">
+
+      <select id="filterLoaiXe">
+        <option value="">Tất cả loại xe</option>
+        <option>Xe máy</option>
+        <option>Ô tô</option>
+      </select>
+
+      <label>Từ ngày</label>
+      <input type="date" id="fromDate">
+
+      <label>Đến ngày</label>
+      <input type="date" id="toDate">
+
+      <button id="btnFilter" onclick="filterTable()">Lọc</button>
+      <button id="btnReset" onclick="resetFilter()" style="display:none;">Reset</button>
+
     </div>
   </div>
 
-  <input type="text" id="phiGui" placeholder="Phí gửi (VNĐ)">
+  <!-- Bảng thống kê chi tiết -->
+  <table>
+    <thead>
+      <tr>
 
-  <button type="submit">Lưu</button>
-</form>
-</div>
+        <th>Biển số</th>
+        <th>Loại xe</th>
+        <th>Giờ vào</th>
+        <th>Giờ ra</th>
+        <th>Phí gửi</th>
+        <th>Ngày</th>
+      </tr>
+    </thead>
+    <tbody id="reportBody"></tbody>
 
-<script>
+  </table>
+  <p id="noData" style="display:none;color:red">Không có dữ liệu</p>
+  <!-- Form nhập thông tin -->
+  <div class="card form-card">
+    <h3>Chỉnh sửa thông tin xe</h3>
 
 
+    <form class="filters">
+      <input type="text" id="bienSo" placeholder="Biển số xe" required>
 
-let selectedRow = null;
+      <select id="loaiXe">
+        <option value="">-- Loại xe --</option>
+        <option>Xe máy</option>
+        <option>Ô tô</option>
+      </select>
 
-const rows = document.querySelectorAll("table tbody tr");
+      <div class="time-row">
+        <div>
+          <h3>Giờ xe vào</h3>
+          <input type="time" id="gioVao" required>
+        </div>
 
-rows.forEach(row => {
-  row.addEventListener("click", () => {
-    selectedRow = row;
+        <div>
+          <h3>Giờ xe ra</h3>
+          <input type="time" id="gioRa">
+        </div>
+      </div>
 
-    const cells = row.querySelectorAll("td");
+      <input type="text" id="tongTien" placeholder="Phí gửi (VNĐ)">
 
-    document.getElementById("bienSo").value = cells[0].innerText;
-    document.getElementById("loaiXe").value = cells[1].innerText;
-    document.getElementById("gioVao").value = cells[2].innerText;
-    document.getElementById("gioRa").value = cells[3].innerText;
-    document.getElementById("phiGui").value = cells[4].innerText;
-  });
-});
+      <button type="submit">Lưu</button>
+    </form>
+  </div>
+  <script src="env.js"></script>
+  <script>
 
-document.querySelector(".filters").addEventListener("submit", function (e) {
-  e.preventDefault();
+    let selectedRow = null;
 
-  if (!selectedRow) {
-    alert("Vui lòng chọn xe trong bảng trước!");
-    return;
-  }
+    // FORM SUBMIT
+    document.querySelector(".form-card form").addEventListener("submit", function (e) {
 
-  const cells = selectedRow.querySelectorAll("td");
+      e.preventDefault();
 
-  cells[0].innerText = document.getElementById("bienSo").value;
-  cells[1].innerText = document.getElementById("loaiXe").value;
-  cells[2].innerText = document.getElementById("gioVao").value;
-  cells[3].innerText = document.getElementById("gioRa").value;
-  cells[4].innerText = document.getElementById("phiGui").value;
-});
-function filterTable() {
+      if (!selectedRow) {
+        alert("Vui lòng chọn xe trong bảng trước!");
+        return;
+      }
 
-let bienSo = document.getElementById("filterBienSo").value.toLowerCase();
-let loaiXe = document.getElementById("filterLoaiXe").value;
-let fromDate = document.getElementById("fromDate").value;
-let toDate = document.getElementById("toDate").value;
+      const cells = selectedRow.querySelectorAll("td");
 
-let rows = document.querySelectorAll("table tbody tr");
+      cells[0].innerText = document.getElementById("bienSo").value;
+      cells[1].innerText = document.getElementById("loaiXe").value;
+      cells[2].innerText = document.getElementById("gioVao").value;
+      cells[3].innerText = document.getElementById("gioRa").value;
+      cells[4].innerText = document.getElementById("tongTien").value;
 
-rows.forEach(row => {
+    });
 
-let cells = row.querySelectorAll("td");
 
-let ngay = cells[5].innerText;
-let bs = cells[0].innerText.toLowerCase();
-let lx = cells[1].innerText;
+    // FILTER TABLE
+    function filterTable() {
 
-let show = true;
+      let bienSo = document.getElementById("filterBienSo").value.toLowerCase();
+      let loaiXe = document.getElementById("filterLoaiXe").value;
+      let fromDate = document.getElementById("fromDate").value;
+      let toDate = document.getElementById("toDate").value;
 
-let dateParts = ngay.split("/");
-let formattedDate = dateParts[0] + "-" + dateParts[1] + "-" + dateParts[2];
+      let rows = document.querySelectorAll("table tbody tr");
 
-if (bienSo && !bs.includes(bienSo)) show = false;
+      rows.forEach(row => {
 
-if (loaiXe && lx !== loaiXe) show = false;
+        let cells = row.querySelectorAll("td");
 
-if (fromDate && formattedDate < fromDate) show = false;
+        let ngay = cells[5].innerText;
+        let bs = cells[0].innerText.toLowerCase();
+        let lx = cells[1].innerText;
 
-if (toDate && formattedDate > toDate) show = false;
+        let show = true;
 
-row.style.display = show ? "" : "none";
+        let dateParts = ngay.split("/");
+        let formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
 
-});
-document.getElementById("btnFilter").style.display = "none";
-document.getElementById("btnReset").style.display = "inline-block";
-let visibleRows = [...rows].filter(r => r.style.display !== "none");
+        if (bienSo && !bs.includes(bienSo)) show = false;
 
-document.getElementById("noData").style.display =
-visibleRows.length === 0 ? "block" : "none";
-}
-function resetFilter(){
+        if (loaiXe && lx !== loaiXe) show = false;
 
-document.getElementById("filterBienSo").value = "";
-document.getElementById("filterLoaiXe").value = "";
-document.getElementById("fromDate").value = "";
-document.getElementById("toDate").value = "";
+        if (fromDate && formattedDate < fromDate) show = false;
 
-let rows = document.querySelectorAll("table tbody tr");
+        if (toDate && formattedDate > toDate) show = false;
 
-rows.forEach(row=>{
-row.style.display = "";
-})
-document.getElementById("btnFilter").style.display = "inline-block";
-document.getElementById("btnReset").style.display = "none";
-document.getElementById("noData").style.display = "none";
-}
+        row.style.display = show ? "" : "none";
 
-</script>
+      });
+
+      document.getElementById("btnFilter").style.display = "none";
+      document.getElementById("btnReset").style.display = "inline-block";
+
+      let visibleRows = [...rows].filter(r => r.style.display !== "none");
+
+      document.getElementById("noData").style.display =
+        visibleRows.length === 0 ? "block" : "none";
+
+    }
+
+
+    // RESET FILTER
+    function resetFilter() {
+
+      document.getElementById("filterBienSo").value = "";
+      document.getElementById("filterLoaiXe").value = "";
+      document.getElementById("fromDate").value = "";
+      document.getElementById("toDate").value = "";
+
+      let rows = document.querySelectorAll("table tbody tr");
+
+      rows.forEach(row => {
+        row.style.display = "";
+      })
+
+      document.getElementById("btnFilter").style.display = "inline-block";
+      document.getElementById("btnReset").style.display = "none";
+      document.getElementById("noData").style.display = "none";
+
+    }
+
+
+    // LOAD REPORT
+    async function loadReport() {
+
+      let res = await fetch(`${API_BASE_URL}/report/all`);
+      let data = await res.json();
+
+      let tbody = document.getElementById("reportBody");
+
+      tbody.innerHTML = "";
+
+      data.DanhSachBaoCao.forEach(xe => {
+
+        let vao = new Date(xe.ThoiGianVao);
+        let ra = xe.ThoiGianRa ? new Date(xe.ThoiGianRa) : null;
+
+        let gioVao = vao.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" });
+        let gioRa = ra ? ra.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" }) : "Chưa ra";
+
+        let ngay = vao.toLocaleDateString("vi-VN");
+
+        // TẠO ROW
+        let row = document.createElement("tr");
+
+        row.innerHTML = `
+<td>${xe.BienSo}</td>
+<td>${xe.LoaiXe}</td>
+<td>${gioVao}</td>
+<td>${gioRa}</td>
+<td>${xe.TongTien ? xe.TongTien.toLocaleString() + "đ" : "0đ"}</td>
+<td>${ngay}</td>
+`;
+
+        // CLICK ROW
+        row.onclick = function () {
+
+          selectedRow = row;
+
+          let cells = row.querySelectorAll("td");
+
+          document.getElementById("bienSo").value = cells[0].innerText;
+          document.getElementById("loaiXe").value = cells[1].innerText;
+          document.getElementById("gioVao").value = cells[2].innerText;
+          document.getElementById("gioRa").value = cells[3].innerText;
+          document.getElementById("tongTien").value = cells[4].innerText;
+
+        };
+
+        tbody.appendChild(row);
+
+      });
+
+    }
+
+    loadReport();
+
+  </script>
 
 </body>
+
 </html>
