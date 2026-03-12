@@ -18,6 +18,12 @@
             z-index: 1000;
         }
 
+
+        .form_box {
+            width: 85%;
+            margin: 30px auto;
+        }
+
         .card {
             margin-bottom: 50px;
             ;
@@ -66,11 +72,27 @@
 
         .container {
             width: 400px;
-            margin: 50px auto;
+            
             background: white;
-            padding: 30px;
-            margin-top: 110px;
+            padding-bottom: 20px;
+            margin-top: 140px;
             border-radius: 10px;
+        }
+        
+        .navbar {
+            background: #5b74b8;
+            color: white;
+            text-align: center;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 12px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            
+
+        }
+        .row{
+            margin-right: 15px;
         }
 
         input {
@@ -86,12 +108,16 @@
             background: #4e66b3;
             color: white;
             border: none;
+            border-radius: 7px;
         }
-
+.button{
+    margin: 0px 25px 0px 30px;
+}
         .search {
             display: flex;
             gap: 10px;
-            margin-bottom: 15px;
+            margin: 10px;
+
         }
     </style>
 </head>
@@ -110,100 +136,101 @@
         <div class="navbar">
             <h2>GHI NHẬN XE RA</h2>
         </div>
-        <div class="search">
-            <input type="text" id="maVe" placeholder="Nhập mã vé">
-            <button onclick="timXe()">Tìm kiếm</button>
+        <div class="form_box">
+            <div class="search">
+                <input type="text" id="maVe" placeholder="Nhập mã vé">
+                <button onclick="timXe()">Tìm kiếm</button>
+            </div>
+<div class="row">
+            <label>Biển số xe</label>
+            <input id="bienSo" readonly>
+
+            <label>Loại xe</label>
+            <input id="loaiXe" readonly>
+
+            <label>Thời gian vào</label>
+            <input type="datetime-local" id="vao" readonly>
+
+            <label>Thời gian ra</label>
+            <input type="datetime-local" id="ra" onchange="tinhTien()">
+
+            <label>Tiền gửi</label>
+            <input id="tien" readonly>
+            </div>
         </div>
-
-        <label>Biển số xe</label>
-        <input id="bienSo" readonly>
-
-        <label>Loại xe</label>
-        <input id="loaiXe" readonly>
-
-        <label>Thời gian vào</label>
-        <input type="datetime-local" id="vao" readonly>
-
-        <label>Thời gian ra</label>
-        <input type="datetime-local" id="ra" onchange="tinhTien()">
-
-        <label>Số giờ</label>
-        <input id="gio" readonly>
-
-        <label>Tiền</label>
-        <input id="tien" readonly>
-
+        <div class="button">
         <button onclick="ghiNhan()">Ghi nhận xe ra</button>
+        </div>
         <script src="env.js"></script>
 
         <script>
-    // 1. Tìm xe theo mã vé
-    async function timXe() {
-        let maVe = document.getElementById("maVe").value;
-        if (!maVe) {
-            alert("Vui lòng nhập mã vé!");
-            return;
-        }
+            // 1. Tìm xe theo mã vé
+            async function timXe() {
+                let maVe = document.getElementById("maVe").value;
+                if (!maVe) {
+                    alert("Vui lòng nhập mã vé!");
+                    return;
+                }
 
-        try {
-            let res = await fetch(`http://localhost:3000/api/xera/${maVe}`);
-            if (!res.ok) {
-                alert("Vé này hiện không có xe trong bãi!");
-                return;
+                try {
+                    let res = await fetch(`http://localhost:3000/api/xera/${maVe}`);
+                    if (!res.ok) {
+                        alert("Vé này hiện không có xe trong bãi!");
+                        return;
+                    }
+
+                    let data = await res.json();
+
+                    // Điền thông tin vào Form
+                    document.getElementById("bienSo").value = data.BienSo;
+                    document.getElementById("loaiXe").value = data.TenLoaiXe;
+
+                    // Format thời gian để hiển thị lên input datetime-local
+                    let dateVao = new Date(data.ThoiGianVao);
+                    dateVao.setMinutes(dateVao.getMinutes() - dateVao.getTimezoneOffset());
+                    document.getElementById("vao").value = dateVao.toISOString().slice(0, 16);
+
+                    // Tự động điền thời gian ra là hiện tại
+                    let now = new Date();
+                    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+                    document.getElementById("ra").value = now.toISOString().slice(0, 16);
+
+                } catch (err) {
+                    alert("Lỗi kết nối server!");
+                }
             }
 
-            let data = await res.json();
+            // 2. Ghi nhận xe ra
+            async function ghiNhan() {
+                let maVe = document.getElementById("maVe").value;
+                if (!maVe) return alert("Nhập mã vé!");
 
-            // Điền thông tin vào Form
-            document.getElementById("bienSo").value = data.BienSo;
-            document.getElementById("loaiXe").value = data.TenLoaiXe;
-            
-            // Format thời gian để hiển thị lên input datetime-local
-            let dateVao = new Date(data.ThoiGianVao);
-            dateVao.setMinutes(dateVao.getMinutes() - dateVao.getTimezoneOffset());
-            document.getElementById("vao").value = dateVao.toISOString().slice(0, 16);
-            
-            // Tự động điền thời gian ra là hiện tại
-            let now = new Date();
-            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-            document.getElementById("ra").value = now.toISOString().slice(0, 16);
+                try {
+                    let res = await fetch("http://localhost:3000/api/checkout", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ VeGuiId: maVe })
+                    });
 
-        } catch (err) {
-            alert("Lỗi kết nối server!");
-        }
-    }
+                    let data = await res.json();
 
-    // 2. Ghi nhận xe ra
-    async function ghiNhan() {
-        let maVe = document.getElementById("maVe").value;
-        if (!maVe) return alert("Nhập mã vé!");
+                    if (data.status === "OK") {
+                        // Hiển thị kết quả tính toán từ Server
+                        document.getElementById("gio").value = data.data.TongGio + " giờ";
+                        document.getElementById("tien").value = data.data.TongTien.toLocaleString() + " VND";
 
-        try {
-            let res = await fetch("http://localhost:3000/api/checkout", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ VeGuiId: maVe })
-            });
+                        alert("Xe ra thành công! Tổng tiền: " + data.data.TongTien.toLocaleString() + " VNĐ");
 
-            let data = await res.json();
-
-            if (data.status === "OK") {
-                // Hiển thị kết quả tính toán từ Server
-                document.getElementById("gio").value = data.data.TongGio + " giờ";
-                document.getElementById("tien").value = data.data.TongTien.toLocaleString() + " VND";
-                
-                alert("Xe ra thành công! Tổng tiền: " + data.data.TongTien.toLocaleString() + " VNĐ");
-                
-                // Reset form sau khi thành công (tùy chọn)
-                // location.reload(); 
-            } else {
-                alert(data.message);
+                        // Reset form sau khi thành công (tùy chọn)
+                        // location.reload(); 
+                    } else {
+                        alert(data.message);
+                    }
+                } catch (err) {
+                    alert("Lỗi khi ghi nhận xe ra!");
+                }
             }
-        } catch (err) {
-            alert("Lỗi khi ghi nhận xe ra!");
-        }
-    }
-</script>
+        </script>
     </div>
 
 </body>
