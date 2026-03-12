@@ -1,2 +1,2 @@
 // env.js
-const API_BASE_URL = "ADMIN-PC\\SQLEXPRESS01";
+const API_BASE_URL = 'http://172.16.124.145:3000/api';
