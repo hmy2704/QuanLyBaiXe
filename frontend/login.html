@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <title>Trang Đăng Nhập - Hệ thống Quản lý Bãi Xe</title>
     <link rel="stylesheet" href="login.css">
+<<<<<<< HEAD
 
     <style>
         table { width: 100%; border-spacing: 10px; }
@@ -15,6 +16,10 @@
         button { padding: 10px 30px; cursor: pointer; background-color: #3366CC; color: white; border: none; border-radius: 5px; font-weight: bold; }
     </style>
 
+=======
+
+
+>>>>>>> 6dd732ab2182369c5d892bd154a2ee7df5df6c79
 </head>
 
 <body>
@@ -42,7 +47,7 @@
             </form>
         </div>
     </div>
-
+    <script src="env.js"></script>
     <script>
         document.getElementById('formLogin').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -56,7 +61,7 @@
             btn.disabled = true;
 
             try {
-                const res = await fetch('http://localhost:3000/api/login', {
+                const res = await fetch(`${API_BASE_URL}/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ TenDangNhap: user, MatKhau: pass })

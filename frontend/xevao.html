@@ -1,95 +1,165 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ghi nhận xe vào</title>
     <style>
-        body { 
-            margin: 0; 
-            padding: 0; 
-            background: #f0f2f5 url("background.png") fixed center/cover; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            font-family: 'Poppins', sans-serif; 
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-image: url("background.png");
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: "Times New Roman", Times, serif;
         }
-        .navbar { 
-            width: 100%; 
-            background: #3366CC; 
-            display: flex; 
-            justify-content: space-between; 
-            padding: 10px 30px; 
-            box-sizing: border-box; 
-            color: white; 
-            position: sticky; 
-            top: 0; 
+
+        .navbar {
+            width: 100%;
+            background: #4A76C5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 30px;
+            box-sizing: border-box;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        .nav-buttons { display: flex; gap: 10px; }
-        .btn-nav { 
-            padding: 8px 15px; 
-            border-radius: 5px; 
-            border: 1px solid white; 
-            color: white; 
-            font-weight: bold; 
-            cursor: pointer; 
+
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
         }
-        .btn-xera { background: #ff9800; }
-        .btn-baocao { background: #4CAF50; }
-        .btn-thoat { background: #f44336; }
-        .container { 
-            display: flex; 
-            gap: 20px; 
-            padding: 40px; 
+
+        .btn-nav {
+            padding: 8px 18px;
+            border-radius: 8px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            background: #2E69F2;
+            font-family: inherit;
+            font-size: 16px;
         }
-        .giaodien, .danh-sach-container { 
-            background: #DCDCDC; 
-            border-radius: 10px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
-            overflow: hidden; 
+
+        .btn-nav:hover {
+            background: #1e56d4;
         }
-        .giaodien { width: 400px; }
-        .danh-sach-container { width: 550px; background: white; padding: 20px; }
-        #ghi, th { background: #3366CC; color: white; padding: 15px; font-weight: bold; text-align: center; }
-        .form-content { padding: 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        td, th { padding: 10px; border: 1px solid #ddd; }
-        input, select { 
-            width: 100%; 
-            height: 35px; 
-            border-radius: 5px; 
-            border: 1px solid #ccc; 
-            padding: 5px; 
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            padding: 40px;
+            max-width: 1300px;
+            width: 95%;
+            justify-content: center;
         }
-        .btn-main { 
-            width: 100%; 
-            padding: 12px; 
-            background: #3366CC; 
-            color: white; 
-            border: none; 
-            border-radius: 5px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            margin-top: 15px; 
+
+        .giaodien,
+        .danh-sach-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid #ccc;
         }
-        .btn-save { 
-            background: #4CAF50; 
-            display: none; 
-            float: right; 
-            margin-top: 10px; 
-            width: auto; 
-            padding: 10px 30px; 
+
+        .giaodien {
+            width: 400px;
+            flex-shrink: 0;
         }
-        .user-info { margin-top: 20px; padding: 10px 30px; background: #DCDCDC; border-radius: 20px; font-weight: bold; color: #3366CC; }
+
+        .danh-sach-container {
+            flex-grow: 1;
+            padding: 20px;
+            min-width: 600px;
+        }
+
+        #ghi,
+        th {
+            background: #4A76C5;
+            color: white;
+            padding: 12px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .form-content {
+            padding: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        input,
+        select {
+            width: 100%;
+            height: 38px;
+            border: 1px solid #aaa;
+            padding: 5px 10px;
+            font-family: inherit;
+            box-sizing: border-box;
+            border-radius: 4px;
+        }
+
+        .btn-main {
+            width: 100%;
+            padding: 14px;
+            background: #4A76C5;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            font-family: inherit;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+        .btn-main:hover {
+            background: #3a5fa3;
+        }
+
+        .btn-save {
+            background: #28a745;
+            display: none;
+            float: right;
+            width: auto;
+            padding: 10px 30px;
+            margin-top: 15px;
+        }
+
+        .fee-text {
+            color: #d32f2f;
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body>
     <div class="navbar">
-        <div style="font-weight: bold">QUẢN LÝ BÃI XE</div>
+        <div style="font-weight: bold; font-size: 24px;">Quản lý bãi xe</div>
         <div class="nav-buttons">
-            <button class="btn-nav btn-xera" onclick="location.href='checkout.html'">Xe ra</button>
-            <button class="btn-nav btn-baocao" onclick="location.href='baocao.html'">Báo cáo</button>
-            <button class="btn-nav btn-thoat" onclick="thoat()">Thoát</button>
+            <button class="btn-nav" onclick="location.href='main.html'">Trang chủ</button>
+            <button class="btn-nav" onclick="location.href='checkout.html'">Xe ra</button>
+            <button class="btn-nav" onclick="location.href='baocao.html'">Báo cáo</button>
+            <button class="btn-nav" onclick="thoat()">Đăng xuất</button>
         </div>
     </div>
 
@@ -98,31 +168,66 @@
             <div id="ghi">GHI NHẬN XE VÀO</div>
             <div class="form-content">
                 <table>
-                    <tr><td>Biển số</td><td><input type="text" id="bienSo"></td></tr>
-                    <tr><td>Mã vé</td><td><input type="text" id="maVe"></td></tr>
-                    <tr><td>Loại xe</td><td><select id="loaiXe"><option>Xe máy</option><option>Ô tô</option></select></td></tr>
-                    <tr><td>Loại vé</td><td><select id="loaiVe"><option>Vé ngày</option><option>Vé tháng</option></select></td></tr>
-                    <tr><td>Giờ vào</td><td><input type="datetime-local" id="tgVao"></td></tr>
+                    <tr>
+                        <td style="text-align: left;">Biển số</td>
+                        <td><input type="text" id="bienSo" autofocus placeholder="Nhập biển số..."></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Mã vé</td>
+                        <td><input type="text" id="maVe" placeholder="Nhập mã vé..."></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Loại xe</td>
+                        <td>
+                            <select id="loaiXe">
+                                <option value="Xe máy">Xe máy (5.000đ)</option>
+                                <option value="Ô tô">Ô tô (20.000đ)</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Loại vé</td>
+                        <td><select id="loaiVe">
+                                <option>Vé ngày</option>
+                                <option>Vé tháng</option>
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;">Giờ vào</td>
+                        <td><input type="datetime-local" id="tgVao"></td>
+                    </tr>
                 </table>
                 <button class="btn-main" onclick="ghiNhan()">Ghi nhận (Enter)</button>
             </div>
         </div>
 
         <div class="danh-sach-container">
-            <div style="color:#003399; font-weight: bold; margin-bottom: 10px;">Xe vừa vào bãi</div>
+            <div
+                style="color:#4A76C5; font-weight: bold; margin-bottom: 15px; font-size: 18px; border-bottom: 2px solid #4A76C5; padding-bottom: 5px; text-align: left;">
+                Danh sách xe vừa vào bãi
+            </div>
             <table id="tableDanhSach">
-                <thead><tr><th>Biển số</th><th>Loại xe</th><th>Mã vé</th><th>Thời gian</th></tr></thead>
+                <thead>
+                    <tr>
+                        <th>Biển số</th>
+                        <th>Loại xe</th>
+                        <th>Mã vé</th>
+                        <th>Thời gian</th>
+                        <th>Tiền phí</th>
+                    </tr>
+                </thead>
                 <tbody></tbody>
             </table>
-            <button id="btnSave" class="btn-main btn-save" onclick="saveToDB()">Lưu vào Database</button>
+            <button id="btnSave" class="btn-main btn-save" onclick="saveToDB()">Lưu tất cả vào Database</button>
         </div>
     </div>
 
-    <div class="user-info">NV: Phùng Ngọc Châu</div>
-
     <script>
         const $ = id => document.getElementById(id);
-        
+
+        // 1. Tạo mảng để lưu tạm danh sách các xe vừa quét
+        let danhSachXeChoLuu = [];
+
         function setTime() {
             const now = new Date();
             now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
@@ -130,31 +235,123 @@
         }
 
         function ghiNhan() {
-            if (!$('bienSo').value || !$('maVe').value) return alert("Thiếu dữ liệu!");
-            
-            const row = $('tableDanhSach').tBodies[0].insertRow(0);
-            row.innerHTML = `<td><b>${$('bienSo').value}</b></td><td>${$('loaiXe').value}</td><td>${$('maVe').value}</td><td>${$('tgVao').value.replace('T',' ')}</td>`;
-            
+            const bs = $('bienSo').value.trim();
+            const mv = $('maVe').value.trim();
+            const lx = $('loaiXe').value; // Sẽ dùng làm mauXe gửi lên backend
+
+            if (!bs || !mv) return alert("Vui lòng nhập đầy đủ Biển số và Mã vé!");
+
+            // 2. Thêm dữ liệu vào mảng chờ lưu
+            // Lưu ý: Đặt tên biến (maVe, bienSo, mauXe) khớp chính xác với req.body ở Backend
+            danhSachXeChoLuu.push({
+                maVe: mv,
+                bienSo: bs,
+                mauXe: lx
+            });
+
+            // Tính toán tiền phí để hiển thị (Xe máy 5k, Ô tô 20k)
+            let phi = (lx === "Ô tô") ? 20000 : 5000;
+
+            // 3. Hiển thị lên bảng HTML
+            const tbody = $('tableDanhSach').tBodies[0];
+            const row = tbody.insertRow(0);
+            row.innerHTML = `
+            <td style="font-weight: bold;">${bs}</td>
+            <td>${lx}</td>
+            <td><span style="color: #2E69F2;">${mv}</span></td>
+            <td style="font-size: 0.9em;">${$('tgVao').value.replace('T', ' ')}</td>
+            <td class="fee-text">${phi.toLocaleString('vi-VN')} đ</td>
+        `;
+
             $('btnSave').style.display = "block";
-            $('bienSo').value = ''; $('maVe').value = '';
-            $('bienSo').focus(); setTime();
+            $('bienSo').value = '';
+            $('maVe').value = '';
+            $('bienSo').focus();
+            setTime();
+        }
+        <script src="env.js"></script>
+    <script>
+        const $ = id => document.getElementById(id);
+
+            function setTime() {
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            $('tgVao').value = now.toISOString().slice(0, 16);
         }
 
+            // 4. Hàm gọi API Backend để lưu vào Database
+            async function saveToDB() {
+    if (danhSachXeChoLuu.length === 0) return alert("Chưa có xe nào!");
+
+            const API_URL = "http://localhost:  3000/api/checkin";
+
+            for (let i = 0; i < danhSachXeChoLuu.length; i++) {
+        const xe = danhSachXeChoLuu[i];
+            try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+            headers: {'Content-Type': 'application/json' },
+            body: JSON.stringify(xe)
+            });
+
+            const result = await response.json();
+            if (!response.ok) {
+                alert(`Lỗi xe ${xe.bienSo}: ${result.message}`);
+            return; // Dừng lại ngay nếu có lỗi để tránh treo statement
+            }
+
+            // Thêm một khoảng nghỉ ngắn (0.1 giây) để Database kịp "thở"
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+        } catch (error) {
+                alert("Lỗi kết nối Server!");
+            return;
+            if (!bs || !mv) return alert("Vui lòng nhập đầy đủ Biển số và Mã vé!");
+
+            // Thêm vào mảng chờ
+            danhSachXeChoLuu.push({
+                maVe: mv,
+            bienSo: bs,
+            mauXe: lx
+            });
+
+            // Tính phí hiển thị
+            let phi = (lx === "Ô tô") ? 20000 : 5000;
+
+            const tbody = $('tableDanhSach').tBodies[0];
+            const row = tbody.insertRow(0);
+            row.innerHTML = `
+            <td style="font-weight: bold;">${bs}</td>
+            <td>${lx}</td>
+            <td><span style="color: #2E69F2;">${mv}</span></td>
+            <td style="font-size: 0.9em;">${$('tgVao').value.replace('T', ' ')}</td>
+            <td class="fee-text">${phi.toLocaleString('vi-VN')} đ</td>
+            `;
+
+            $('btnSave').style.display = "block";
+            $('bienSo').value = '';
+            $('maVe').value = '';
+            $('bienSo').focus();
+            setTime();
+        }
+
+        // 3. Hàm gọi API lưu vào Database
         async function saveToDB() {
-            // Đây là nơi bạn kết nối với file database (PHP, Nodejs hoặc API)
-            const data = {
-                bienSo: $('bienSo').value,
-                maVe: $('maVe').value,
-                // Lấy thêm dữ liệu từ bảng nếu cần lưu nhiều xe cùng lúc
-            };
+            if (danhSachXeChoLuu.length === 0) return alert("Chưa có xe nào!");
 
-            alert("Đã gửi lệnh lưu vào database!");
-            // Code mẫu: fetch('save.php', { method: 'POST', body: JSON.stringify(data) });
-        }
-
-        window.onload = () => { setTime(); $('bienSo').focus(); };
-        document.onkeypress = e => e.key === 'Enter' && ghiNhan();
-        function thoat() { if(confirm("Thoát?")) location.href="main.html"; }
+    alert("Toàn bộ dữ liệu đã được lưu thành công!");
+    danhSachXeChoLuu = [];
+    $('tableDanhSach').tBodies[0].innerHTML = '';
+    $('btnSave').style.display = "none";
+}
+    window.onload = () => { setTime(); $('bienSo').focus(); };
+    document.onkeypress = e => { if(e.key === 'Enter') ghiNhan(); };
+    function thoat() { if(confirm("Bạn muốn đăng xuất?")) location.href="login.html"; }
+    </script>
+    window.onload = () => { setTime(); $('bienSo').focus(); };
+    document.onkeypress = e => { if (e.key === 'Enter') ghiNhan(); };
+    function thoat() { if (confirm("Bạn muốn đăng xuất?")) location.href = "login.html"; }
     </script>
 </body>
+
 </html>

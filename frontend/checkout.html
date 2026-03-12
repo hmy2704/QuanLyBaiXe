@@ -5,17 +5,94 @@
     <meta charset="UTF-8">
     <title>Ghi nhận xe ra</title>
     <style>
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+
+            background: #4873c9;
+            padding: 14px 24px;
+            color: white;
+            z-index: 1000;
+        }
+
+
+        .form_box {
+            width: 85%;
+            margin: 30px auto;
+        }
+
+        .card {
+            margin-bottom: 50px;
+            ;
+        }
+
+        .nav {
+            margin-top: 20px;
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin-left: 70%;
+
+        }
+
+        .nav li {
+            background: #2563eb;
+
+            border: none;
+            cursor: pointer;
+            padding: 10px 10px;
+            border-radius: 8px;
+            border: 1px solid #2563eb;
+            font-size: 14px;
+        }
+
+        .nav li a {
+            color: white;
+            text-decoration: none;
+
+        }
+
+        .nav li:hover {
+            /* text-decoration: underline; */
+            background: #1e4fd8;
+        }
+
         body {
-            font-family: Arial;
-            background: linear-gradient(90deg, #6c7ae0, #a7b5f0);
+            margin: 0;
+            padding: 0;
+            background: #f0f2f5 url("background.png") fixed center/cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
         }
 
         .container {
             width: 400px;
-            margin: 50px auto;
+            
             background: white;
-            padding: 30px;
+            padding-bottom: 20px;
+            margin-top: 140px;
             border-radius: 10px;
+        }
+        
+        .navbar {
+            background: #5b74b8;
+            color: white;
+            text-align: center;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 12px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            
+
+        }
+        .row{
+            margin-right: 15px;
         }
 
         input {
@@ -24,94 +101,137 @@
             margin-bottom: 10px;
         }
 
+
         button {
             width: 100%;
             padding: 10px;
             background: #4e66b3;
             color: white;
             border: none;
+            border-radius: 7px;
         }
-
+.button{
+    margin: 0px 25px 0px 30px;
+}
         .search {
             display: flex;
             gap: 10px;
-            margin-bottom: 15px;
+            margin: 10px;
+
         }
     </style>
 </head>
 
 <body>
+    <div class="header">
+        <h3>Quản lý bãi xe</h3>
 
+        <ul class="nav">
+
+            <li><a href="main.html">Trang chủ</a></li>
+            <li><a href="login.html">Đăng xuất</a></li>
+        </ul>
+    </div>
     <div class="container">
-
-        <h2>GHI NHẬN XE RA</h2>
-
-        <div class="search">
-            <input type="text" id="maVe" placeholder="Nhập mã vé">
-            <button onclick="timXe()">Tìm kiếm</button>
+        <div class="navbar">
+            <h2>GHI NHẬN XE RA</h2>
         </div>
+        <div class="form_box">
+            <div class="search">
+                <input type="text" id="maVe" placeholder="Nhập mã vé">
+                <button onclick="timXe()">Tìm kiếm</button>
+            </div>
+<div class="row">
+            <label>Biển số xe</label>
+            <input id="bienSo" readonly>
 
-        <label>Biển số xe</label>
-        <input id="bienSo" readonly>
+            <label>Loại xe</label>
+            <input id="loaiXe" readonly>
 
-        <label>Loại xe</label>
-        <input id="loaiXe" readonly>
+            <label>Thời gian vào</label>
+            <input type="datetime-local" id="vao" readonly>
 
-        <label>Thời gian vào</label>
-        <input type="datetime-local" id="vao" readonly>
+            <label>Thời gian ra</label>
+            <input type="datetime-local" id="ra" onchange="tinhTien()">
 
-        <label>Thời gian ra</label>
-        <input type="datetime-local" id="ra" onchange="tinhTien()">
-
-        <label>Số giờ</label>
-        <input id="gio" readonly>
-
-        <label>Tiền</label>
-        <input id="tien" readonly>
-
+            <label>Tiền gửi</label>
+            <input id="tien" readonly>
+            </div>
+        </div>
+        <div class="button">
         <button onclick="ghiNhan()">Ghi nhận xe ra</button>
-
+        </div>
+        <script src="env.js"></script>
 
         <script>
-            // tìm kiếm theo mã vé
+            // 1. Tìm xe theo mã vé
             async function timXe() {
-
                 let maVe = document.getElementById("maVe").value;
+                if (!maVe) {
+                    alert("Vui lòng nhập mã vé!");
+                    return;
+                }
 
-                let res = await fetch("http://localhost:3000/api/xera/" + maVe);
+                try {
+                    let res = await fetch(`http://localhost:3000/api/xera/${maVe}`);
+                    if (!res.ok) {
+                        alert("Vé này hiện không có xe trong bãi!");
+                        return;
+                    }
 
-                let data = await res.json();
+                    let data = await res.json();
 
-                document.getElementById("bienSo").value = data.BienSo;
-                document.getElementById("loaiXe").value = data.TenLoaiXe;
+                    // Điền thông tin vào Form
+                    document.getElementById("bienSo").value = data.BienSo;
+                    document.getElementById("loaiXe").value = data.TenLoaiXe;
 
-                document.getElementById("vao").value =
-                    new Date(data.ThoiGianVao).toISOString().slice(0, 16);
+                    // Format thời gian để hiển thị lên input datetime-local
+                    let dateVao = new Date(data.ThoiGianVao);
+                    dateVao.setMinutes(dateVao.getMinutes() - dateVao.getTimezoneOffset());
+                    document.getElementById("vao").value = dateVao.toISOString().slice(0, 16);
 
+                    // Tự động điền thời gian ra là hiện tại
+                    let now = new Date();
+                    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+                    document.getElementById("ra").value = now.toISOString().slice(0, 16);
+
+                } catch (err) {
+                    alert("Lỗi kết nối server!");
+                }
             }
 
-            // tính tiền tự động 
-            function tinhTien() {
+            // 2. Ghi nhận xe ra
+            async function ghiNhan() {
+                let maVe = document.getElementById("maVe").value;
+                if (!maVe) return alert("Nhập mã vé!");
 
-                let vao = new Date(document.getElementById("vao").value);
-                let ra = new Date(document.getElementById("ra").value);
+                try {
+                    let res = await fetch("http://localhost:3000/api/checkout", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ VeGuiId: maVe })
+                    });
 
-                let hours = (ra - vao) / (1000 * 60 * 60);
+                    let data = await res.json();
 
-                let gio = Math.ceil(hours);
+                    if (data.status === "OK") {
+                        // Hiển thị kết quả tính toán từ Server
+                        document.getElementById("gio").value = data.data.TongGio + " giờ";
+                        document.getElementById("tien").value = data.data.TongTien.toLocaleString() + " VND";
 
-                let tien = gio * 5000;
+                        alert("Xe ra thành công! Tổng tiền: " + data.data.TongTien.toLocaleString() + " VNĐ");
 
-                document.getElementById("gio").value = gio;
-
-                document.getElementById("tien").value =
-                    tien.toLocaleString() + " VND";
-
+                        // Reset form sau khi thành công (tùy chọn)
+                        // location.reload(); 
+                    } else {
+                        alert(data.message);
+                    }
+                } catch (err) {
+                    alert("Lỗi khi ghi nhận xe ra!");
+                }
             }
         </script>
     </div>
-
-
 
 </body>
 

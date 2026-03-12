@@ -30,15 +30,17 @@
             padding: 15px;
             background: #DCDCDC;
         }
-        th{
+
+        th {
             background-color: #3366CC;
             color: white;
         }
-        a{
+
+        a {
             text-decoration: none;
             color: white;
             background-color: red;
-            text-align:center;
+            text-align: center;
             margin-left: 800px;
             height: 1%;
             border-radius: 5px;
@@ -54,8 +56,12 @@
             <a href="main.html">
                 Trang chủ
             </a> 
+
+        <a href="main.html">
+            Trang chủ
+        </a>
     </div>
-   
+
     <div id="divThem" class="form-add" style="display:none;">
         <h3>Thêm nhân viên mới</h3>
         <input type="text" id="hoTen" placeholder="Họ tên">
@@ -79,13 +85,13 @@
         </thead>
         <tbody id="tableBody"></tbody>
     </table>
-
+    <script src="env.js"></script>
     <script>
         const role = (localStorage.getItem('role') || "").trim();
 
         async function loadNhanVien() {
             try {
-                const res = await fetch('http://localhost:3000/api/nhanvien');
+                const res = await fetch(`${API_BASE_URL}/nhanvien`);
                 const data = await res.json();
 
                 console.log("Dữ liệu nhận được từ Server:", data); // 
@@ -98,14 +104,14 @@
                     data.forEach(nv => {
 
                         body.innerHTML += `<tr>
-                    <td>${nv.NhanVienId}</td>
-                    <td>${nv.HoTen}</td>
-                    <td>${nv.SoDienThoai}</td>
-                    <td>${nv.ChucVu}</td>
-                    <td class="admin-only">
-            <button onclick="xoaNV(${nv.NhanVienId})">Xóa</button>
-        </td>
-                </tr>`;
+    <td>${nv.NhanVienId}</td>
+    <td>${nv.HoTen}</td>
+    <td>${nv.SoDienThoai}</td>
+    <td>${nv.ChucVu}</td>
+    <td class="admin-only" style="display: ${role === 'Admin' ? 'table-cell' : 'none'};">
+        <button onclick="xoaNV(${nv.NhanVienId})">Xóa</button>
+    </td>
+</tr>`;
                     });
                 }
             } catch (err) { console.error("Lỗi:", err); }
@@ -137,7 +143,7 @@
 
             const dataNV = { HoTen: hoTen, SoDienThoai: sdt, ChucVu: chucVu };
 
-            const res = await fetch('http://localhost:3000/api/nhanvien', {
+            const res = await fetch(`${API_BASE_URL}/nhanvien`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -154,7 +160,7 @@
             }
         }
         async function xoaNV(id) {
-            const res = await fetch(`http://localhost:3000/api/nhanvien/${id}`, {
+            const res = await fetch(`${API_BASE_URL}/nhanvien/${id}`, {
                 method: 'DELETE',
                 headers: { 'x-user-role': role }
             });

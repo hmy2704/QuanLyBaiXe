@@ -5,44 +5,48 @@ const config = require('../../dbConfig');
 
 router.post('/checkin', async (req, res) => {
     try {
-        // Postman gửi lên key gì thì phải lấy đúng key đó ở đây
-        const { VeGuiId, BienSo, MauXe } = req.body;
-
+        const { maVe, bienSo } = req.body; 
         let pool = await sql.connect(config);
 
-        // BƯỚC 1: Tìm vé dựa trên VeGuiId mà bạn gửi từ Postman
+        // 1. KIỂM TRA VÀO BẢNG VeGui
+        // Theo ảnh của bạn: Bảng VeGui dùng VeGuiId (Chữ I hoa)
         let veCheck = await pool.request()
-            .input('veld', sql.Int, VeGuiId) // Sử dụng đúng biến VeGuiId đã lấy ở trên
-            .query("SELECT VeXeId FROM VeXe WHERE VeXeld = @veId AND TrangThai = N'Trống'");
+            .input('vIdInput', sql.Int, maVe)
+            .query("SELECT VeGuiId FROM VeGui WHERE VeGuiId = @vIdInput AND TrangThaiId = 1");
 
         if (veCheck.recordset.length === 0) {
-            return res.status(400).json({ message: "Vé không tồn tại hoặc đã có xe dùng!" });
+            return res.status(400).json({ message: "Vé số " + maVe + " không sẵn sàng!" });
         }
 
-        const vId = veCheck.recordset[0].VeXeld;
+        const vId = veCheck.recordset[0].VeGuiId;
 
-        // BƯỚC 2: INSERT & UPDATE
+        // 2. THỰC HIỆN NGHIỆP VỤ TRÊN CÁC BẢNG KHÁC
+        // Theo ảnh: Bảng Xe dùng Xeld (l thường), Bảng LuotGui dùng VeXeld (l thường) và ThoiGianVao
         await pool.request()
-            .input('vld', sql.Int, vId)
-            .input('bs', sql.VarChar, BienSo)
-            .input('mx', sql.NVarChar, MauXe)
+            .input('vId', sql.Int, vId)
+            .input('bs', sql.VarChar, bienSo)
             .query(`
+                -- Kiểm tra xe
                 IF NOT EXISTS (SELECT 1 FROM Xe WHERE BienSo = @bs)
-                    INSERT INTO Xe (BienSo, LoaiXeId) VALUES (@bs, 1);
+                    INSERT INTO Xe (BienSo, LoaiXeld) VALUES (@bs, 1);
 
-                DECLARE @CurrentXeId INT = (SELECT XeId FROM Xe WHERE BienSo = @bs);
+                DECLARE @CurrentXeld INT = (SELECT Xeld FROM Xe WHERE BienSo = @bs);
 
-                INSERT INTO LuotGui (VeXeld, ThoiGianVao, MauXe, TrangThaiThanhToan, XeId) 
-                VALUES (@vId, GETDATE(), @mx, 0, @CurrentXeld);
+                -- Ghi vào LuotGui (Dùng VeXeld theo ảnh cột bảng LuotGui của bạn)
+                INSERT INTO LuotGui (VeXeld, ThoiGianVao, Xeld) 
+                VALUES (@vId, GETDATE(), @CurrentXeld);
 
-                UPDATE VeXe SET TrangThai = N'Đang sử dụng' WHERE VeXeld = @vId;
+                -- Cập nhật trạng thái vé (Dùng VeGuiId theo ảnh cột bảng VeGui của bạn)
+                UPDATE VeGui SET TrangThaiId = 2 WHERE VeGuiId = @vId;
             `);
 
-        res.status(200).json({ status: "OK", message: "Xe vào thành công!" });
+        res.status(200).json({ status: "OK", message: "Ghi nhận xe " + bienSo + " thành công!" });
 
     } catch (err) {
-        console.error("Lỗi chi tiết:", err.message);
-        res.status(500).json({ message: "Lỗi hệ thống", error: err.message });
+        console.log("---------- LỖI SQL CHI TIẾT ----------");
+        console.error(err.message); 
+        console.log("--------------------------------------");
+        res.status(500).json({ message: "Lỗi hệ thống", detail: err.message });
     }
 });
 
