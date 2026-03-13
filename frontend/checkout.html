@@ -157,8 +157,8 @@
                 <label>Thời gian ra</label>
                 <input type="datetime-local" id="ra" onchange="tinhTien()">
 
-                <label>Trạng thái thanh toán</label>
-                <input id="trangThai" readonly>
+                <label>Tổng tiền</label>
+                <input id="tongTien" readonly>
             </div>
         </div>
         <div class="button">
@@ -167,22 +167,21 @@
         <script src="env.js"></script>
 
 
-
         <script>
 
-            // tìm xe theo VeXeId
+            // tìm xe theo mã vé
             async function timXe() {
 
-                let veXeId = document.getElementById("maVe").value;
+                let maVe = document.getElementById("maVe").value;
 
-                if (!veXeId) {
+                if (!maVe) {
                     alert("Vui lòng nhập mã vé!");
                     return;
                 }
 
                 try {
 
-                    let res = await fetch(`${API_BASE_URL}/xera/${veXeId}`);
+                    let res = await fetch(`${API_BASE_URL}/xera/${maVe}`);
 
                     if (!res.ok) {
                         alert("Không tìm thấy xe trong bãi!");
@@ -193,15 +192,16 @@
 
                     // hiển thị thông tin
                     document.getElementById("bienSo").value = data.BienSo || "";
-                    document.getElementById("loaiXe").value = data.MauXe || "";
+                    document.getElementById("loaiXe").value = data.TenLoaiXe || "";
 
-                    // trạng thái thanh toán
-                    if (data.TrangThaiThanhToan == 1) {
-                        document.getElementById("trangThai").value = "Đã thanh toán";
-                    } else {
-                        document.getElementById("trangThai").value = "Chưa thanh toán";
+                    // thời gian vào
+                    if (data.ThoiGianVao) {
+                        let time = new Date(data.ThoiGianVao);
+                        document.getElementById("vao").value =
+                            time.toISOString().slice(0, 16);
                     }
 
+                    document.getElementById("trangThai").value = "Chưa thanh toán";
 
                 } catch (err) {
 
@@ -212,40 +212,12 @@
             }
 
 
-
-            // tính tiền tự động
-            function tinhTien() {
-
-                let vao = new Date(document.getElementById("vao").value);
-                let ra = new Date(document.getElementById("ra").value);
-
-                let gio = (ra - vao) / (1000 * 60 * 60);
-
-                if (gio < 1) gio = 1;
-
-                let loaiXe = document.getElementById("loaiXe").value;
-
-                let tien = 0;
-
-                if (loaiXe.toLowerCase().includes("ô tô")) {
-                    tien = gio * 20000;
-                } else {
-                    tien = gio * 5000;
-                }
-
-                document.getElementById("tien").value =
-                    Math.round(tien).toLocaleString() + " VND";
-
-            }
-
             // ghi nhận xe ra
             async function ghiNhan() {
 
-                let veXeId = document.getElementById("maVe").value;
-                let thoiGianRa = document.getElementById("ra").value;
-                let phiGui = document.getElementById("tien").value.replace(/\D/g, '');
+                let maVe = document.getElementById("maVe").value;
 
-                if (!veXeId) {
+                if (!maVe) {
                     alert("Vui lòng nhập mã vé!");
                     return;
                 }
@@ -261,9 +233,7 @@
                         },
 
                         body: JSON.stringify({
-                            VeXeId: veXeId,
-                            ThoiGianRa: thoiGianRa,
-                            PhiGui: phiGui
+                            VeGuiId: maVe
                         })
 
                     });
@@ -272,9 +242,18 @@
 
                     if (data.status === "OK") {
 
-                        alert("Xe ra thành công!");
+                        // hiển thị thời gian ra
+                        let ra = new Date(data.data.Ra);
+                        document.getElementById("ra").value =
+                            ra.toISOString().slice(0, 16);
 
-                        location.reload();
+                        document.getElementById("trangThai").value = "Đã thanh toán";
+
+                        alert(
+                            "Xe ra thành công!\n" +
+                            "Tổng giờ: " + data.data.TongGio +
+                            "\nTổng tiền: " + data.data.TongTien + " VND"
+                        );
 
                     } else {
 
@@ -290,7 +269,6 @@
                 }
 
             }
-
         </script>
     </div>
 
