@@ -173,10 +173,6 @@
                         <td><input type="text" id="bienSo" autofocus placeholder="Nhập biển số..."></td>
                     </tr>
                     <tr>
-                        <td style="text-align: left;">Mã vé</td>
-                        <td><input type="text" id="maVe" placeholder="Nhập mã vé..."></td>
-                    </tr>
-                    <tr>
                         <td style="text-align: left;">Loại xe</td>
                         <td>
                             <select id="loaiXe">
@@ -184,13 +180,6 @@
                                 <option value="Ô tô">Ô tô (20.000đ)</option>
                             </select>
                         </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">Loại vé</td>
-                        <td><select id="loaiVe">
-                                <option>Vé ngày</option>
-                                <option>Vé tháng</option>
-                            </select></td>
                     </tr>
                     <tr>
                         <td style="text-align: left;">Giờ vào</td>
@@ -204,14 +193,13 @@
         <div class="danh-sach-container">
             <div
                 style="color:#4A76C5; font-weight: bold; margin-bottom: 15px; font-size: 18px; border-bottom: 2px solid #4A76C5; padding-bottom: 5px; text-align: left;">
-                Danh sách xe vừa vào bãi
+                Danh sách xe chờ lưu
             </div>
             <table id="tableDanhSach">
                 <thead>
                     <tr>
                         <th>Biển số</th>
                         <th>Loại xe</th>
-                        <th>Mã vé</th>
                         <th>Thời gian</th>
                         <th>Tiền phí</th>
                     </tr>
@@ -221,105 +209,88 @@
             <button id="btnSave" class="btn-main btn-save" onclick="saveToDB()">Lưu tất cả vào Database</button>
         </div>
     </div>
-<script src="env.js"></script>
+
+    <script src="env.js"></script>
     <script>
-const $ = id => document.getElementById(id);
+        const $ = id => document.getElementById(id);
+        let danhSachXeChoLuu = [];
 
-let danhSachXeChoLuu = [];
+        function setTime() {
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            $('tgVao').value = now.toISOString().slice(0, 16);
+        }
 
-function setTime(){
-    const now = new Date();
-    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-    $('tgVao').value = now.toISOString().slice(0,16);
-}
+        function ghiNhan() {
+            const bs = $('bienSo').value.trim();
+            const lx = $('loaiXe').value;
 
-function ghiNhan(){
-    const bs = $('bienSo').value.trim();
-    const mv = $('maVe').value.trim();
-    const lx = $('loaiXe').value;
-
-    if(!bs || !mv) return alert("Vui lòng nhập đầy đủ Biển số và Mã vé!");
-
-    danhSachXeChoLuu.push({
-        maVe: mv,
-        bienSo: bs,
-        mauXe: lx
-    });
-
-    let phi = (lx === "Ô tô") ? 20000 : 5000;
-
-    const tbody = $('tableDanhSach').tBodies[0];
-    const row = tbody.insertRow(0);
-
-    row.innerHTML = `
-        <td style="font-weight:bold">${bs}</td>
-        <td>${lx}</td>
-        <td style="color:#2E69F2">${mv}</td>
-        <td>${$('tgVao').value.replace('T',' ')}</td>
-        <td class="fee-text">${phi.toLocaleString('vi-VN')} đ</td>
-    `;
-
-    $('btnSave').style.display="block";
-
-    $('bienSo').value='';
-    $('maVe').value='';
-    $('bienSo').focus();
-
-    setTime();
-}
-
-async function saveToDB(){
-
-    if(danhSachXeChoLuu.length === 0)
-        return alert("Chưa có xe nào!");
-
-    const API_URL="http://localhost:3000/api/checkin";
-
-    for(const xe of danhSachXeChoLuu){
-
-        try{
-
-            const response=await fetch(API_URL,{
-                method:'POST',
-                headers:{'Content-Type':'application/json'},
-                body:JSON.stringify(xe)
-            });
-
-            const result=await response.json();
-
-            if(!response.ok){
-                alert(`Lỗi xe ${xe.bienSo}: ${result.message}`);
+            // Chỉ kiểm tra biển số, không cần kiểm tra maVe nữa
+            if (!bs) {
+                alert("Vui lòng nhập Biển số!");
                 return;
             }
 
-            await new Promise(r=>setTimeout(r,100));
+            // Đẩy dữ liệu vào danh sách (Không cần maVe)
+            danhSachXeChoLuu.push({
+                bienSo: bs,
+                mauXe: lx
+            });
 
-        }catch(err){
-            alert("Lỗi kết nối Server!");
-            return;
+            let phi = (lx === "Ô tô") ? 20000 : 5000;
+
+            // Cập nhật bảng hiển thị
+            const tbody = $('tableDanhSach').tBodies[0];
+            const row = tbody.insertRow(0);
+
+            // Lưu ý: Đã xóa cột "Mã vé" để khớp với yêu cầu tự động cấp vé
+            row.innerHTML = `
+        <td style="font-weight:bold">${bs}</td>
+        <td>${lx}</td>
+        <td>${$('tgVao').value.replace('T', ' ')}</td>
+        <td class="fee-text">${phi.toLocaleString('vi-VN')} đ</td>
+    `;
+
+            // Hiện nút Lưu
+            $('btnSave').style.display = "block";
+
+            // Xóa input để nhập xe tiếp theo
+            $('bienSo').value = '';
+            $('bienSo').focus();
+            setTime();
         }
-    }
 
-    alert("Lưu database thành công!");
+        async function saveToDB() {
+            if (danhSachXeChoLuu.length === 0) return alert("Chưa có xe nào!");
+            const API_URL = "http://localhost:3000/api/checkin";
 
-    danhSachXeChoLuu=[];
-    $('tableDanhSach').tBodies[0].innerHTML='';
-    $('btnSave').style.display="none";
-}
+            for (const xe of danhSachXeChoLuu) {
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(xe)
+                    });
+                    const result = await response.json();
+                    if (!response.ok) {
+                        alert(`Lỗi xe ${xe.bienSo}: ${result.message}`);
+                        return;
+                    }
+                } catch (err) {
+                    alert("Lỗi kết nối Server!");
+                    return;
+                }
+            }
+            alert("Lưu database thành công!");
+            danhSachXeChoLuu = [];
+            $('tableDanhSach').tBodies[0].innerHTML = '';
+            $('btnSave').style.display = "none";
+        }
 
-window.onload = () => {
-    setTime();
-    $('bienSo').focus();
-}
-
-document.onkeypress = e => {
-    if(e.key === 'Enter') ghiNhan();
-}
-
-function thoat(){
-    if(confirm("Bạn muốn đăng xuất?"))
-        location.href="login.html";
-}
-</script>
+        window.onload = () => { setTime(); $('bienSo').focus(); }
+        document.onkeypress = e => { if (e.key === 'Enter') ghiNhan(); }
+        function thoat() { if (confirm("Bạn muốn đăng xuất?")) location.href = "login.html"; }
+    </script>
 </body>
+
 </html>

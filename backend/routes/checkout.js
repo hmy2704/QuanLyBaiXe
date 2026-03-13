@@ -7,18 +7,19 @@ const config = require('../../dbConfig');
 router.get('/xera/:maVe', async (req, res) => {
     try {
         let pool = await sql.connect(config);
+        // Lưu ý: Dùng MaVe (từ bảng VeXe) hoặc VeXeId tùy logic của bạn
         let result = await pool.request()
-            .input('maVe', sql.Int, req.params.maVe)
+            .input('maVe', sql.VarChar, req.params.maVe)
             .query(`
                 SELECT TOP 1 
-                    L.VeXeld, 
+                    L.VeXeId, 
                     X.BienSo, 
                     L.ThoiGianVao,
-                    -- Giả định có bảng LoaiXe nối với bảng Xe
-                    N'Xe máy' as TenLoaiXe 
+                    X.MauXe
                 FROM LuotGui L
-                JOIN Xe X ON L.Xeld = X.Xeld
-                WHERE L.VeXeld = @maVe AND L.ThoiGianRa IS NULL
+                JOIN VeXe V ON L.VeXeId = V.VeXeId
+                JOIN Xe X ON L.XeId = X.XeId
+                WHERE V.MaVe = @maVe AND L.ThoiGianRa IS NULL
                 ORDER BY L.ThoiGianVao DESC
             `);
 
@@ -34,19 +35,19 @@ router.get('/xera/:maVe', async (req, res) => {
 // 2. API Ghi nhận xe ra (Checkout)
 router.post('/checkout', async (req, res) => {
     try {
-        const { VeGuiId } = req.body;
+        const { VeXeId } = req.body; // Lấy VeXeId từ client gửi lên
         let pool = await sql.connect(config);
 
-        // Lấy thông tin lượt vào để tính tiền
+        // Lấy thông tin lượt vào
         let result = await pool.request()
-            .input('veId', sql.Int, VeGuiId)
+            .input('veId', sql.Int, VeXeId)
             .query(`
                 SELECT TOP 1 
-                    LuotGuild, 
+                    LuotGuiId, 
                     ThoiGianVao,
                     DATEDIFF(HOUR, ThoiGianVao, GETDATE()) as SoGio
                 FROM LuotGui 
-                WHERE VeXeld = @veId AND ThoiGianRa IS NULL 
+                WHERE VeXeId = @veId AND ThoiGianRa IS NULL 
                 ORDER BY ThoiGianVao DESC
             `);
 
@@ -54,41 +55,36 @@ router.post('/checkout', async (req, res) => {
             return res.status(400).json({ message: "Không tìm thấy dữ liệu xe vào!" });
         }
 
-        const { LuotGuild, ThoiGianVao, SoGio } = result.recordset[0];
-        
-        // Tính tiền: Ít nhất 1 giờ, mỗi giờ 5000đ (Bạn có thể sửa công thức này)
+        const { LuotGuiId, ThoiGianVao, SoGio } = result.recordset[0];
+
+        // Tính tiền: Ít nhất 5.000đ (Xe máy)
         const tongGio = SoGio <= 0 ? 1 : SoGio;
         const phiGui = tongGio * 5000;
         const thoiGianRa = new Date();
 
         // Cập nhật Database
         await pool.request()
-            .input('luotId', sql.Int, LuotGuild)
+            .input('luotId', sql.Int, LuotGuiId)
             .input('tgRa', sql.DateTime, thoiGianRa)
-            .input('phi', sql.Decimal(18, 2), phiGui)
-            .input('veId', sql.Int, VeGuiId)
+            .input('phi', sql.Decimal(10, 2), phiGui)
+            .input('veId', sql.Int, VeXeId)
             .query(`
-                -- Cập nhật giờ ra và phí gửi
                 UPDATE LuotGui 
                 SET ThoiGianRa = @tgRa, PhiGui = @phi 
-                WHERE LuotGuild = @luotId;
+                WHERE LuotGuiId = @luotId;
 
-                -- Trả trạng thái vé về 1 (Trống) để dùng cho xe khác
-                UPDATE VeGui SET TrangThaild = 1 WHERE VeGuild = @veId;
+             -- Cập nhật trạng thái vé trở về 'Trống'
+UPDATE VeXe SET TrangThai = N'Trống' WHERE VeXeId = @veId;
             `);
 
         res.status(200).json({
             status: "OK",
             message: "Thanh toán thành công!",
-            data: {
-                Vao: ThoiGianVao,
-                Ra: thoiGianRa,
-                TongGio: tongGio,
-                TongTien: phiGui
-            }
+            data: { Vao: ThoiGianVao, Ra: thoiGianRa, TongTien: phiGui }
         });
 
     } catch (err) {
+        console.error(err);
         res.status(500).json({ message: "Lỗi hệ thống", error: err.message });
     }
 });
