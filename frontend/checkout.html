@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -72,13 +72,13 @@
 
         .container {
             width: 400px;
-            
+
             background: white;
             padding-bottom: 20px;
             margin-top: 140px;
             border-radius: 10px;
         }
-        
+
         .navbar {
             background: #5b74b8;
             color: white;
@@ -88,10 +88,11 @@
             padding: 12px;
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
-            
+
 
         }
-        .row{
+
+        .row {
             margin-right: 15px;
         }
 
@@ -110,9 +111,11 @@
             border: none;
             border-radius: 7px;
         }
-.button{
-    margin: 0px 25px 0px 30px;
-}
+
+        .button {
+            margin: 0px 25px 0px 30px;
+        }
+
         .search {
             display: flex;
             gap: 10px;
@@ -141,94 +144,130 @@
                 <input type="text" id="maVe" placeholder="Nhập mã vé">
                 <button onclick="timXe()">Tìm kiếm</button>
             </div>
-<div class="row">
-            <label>Biển số xe</label>
-            <input id="bienSo" readonly>
+            <div class="row">
+                <label>Biển số xe</label>
+                <input id="bienSo" readonly>
 
-            <label>Loại xe</label>
-            <input id="loaiXe" readonly>
+                <label>Loại xe</label>
+                <input id="loaiXe" readonly>
 
-            <label>Thời gian vào</label>
-            <input type="datetime-local" id="vao" readonly>
+                <label>Thời gian vào</label>
+                <input type="datetime-local" id="vao" readonly>
 
-            <label>Thời gian ra</label>
-            <input type="datetime-local" id="ra" onchange="tinhTien()">
+                <label>Thời gian ra</label>
+                <input type="datetime-local" id="ra" onchange="tinhTien()">
 
-            <label>Tiền gửi</label>
-            <input id="tien" readonly>
+                <label>Tổng tiền</label>
+                <input id="tongTien" readonly>
             </div>
         </div>
         <div class="button">
-        <button onclick="ghiNhan()">Ghi nhận xe ra</button>
+            <button onclick="ghiNhan()">Ghi nhận xe ra</button>
         </div>
         <script src="env.js"></script>
 
+
         <script>
-            // 1. Tìm xe theo mã vé
+
+            // tìm xe theo mã vé
             async function timXe() {
+
                 let maVe = document.getElementById("maVe").value;
+
                 if (!maVe) {
                     alert("Vui lòng nhập mã vé!");
                     return;
                 }
 
                 try {
-                    let res = await fetch(`http://localhost:3000/api/xera/${maVe}`);
+
+                    let res = await fetch(`${API_BASE_URL}/xera/${maVe}`);
+
                     if (!res.ok) {
-                        alert("Vé này hiện không có xe trong bãi!");
+                        alert("Không tìm thấy xe trong bãi!");
                         return;
                     }
 
                     let data = await res.json();
 
-                    // Điền thông tin vào Form
-                    document.getElementById("bienSo").value = data.BienSo;
-                    document.getElementById("loaiXe").value = data.TenLoaiXe;
+                    // hiển thị thông tin
+                    document.getElementById("bienSo").value = data.BienSo || "";
+                    document.getElementById("loaiXe").value = data.TenLoaiXe || "";
 
-                    // Format thời gian để hiển thị lên input datetime-local
-                    let dateVao = new Date(data.ThoiGianVao);
-                    dateVao.setMinutes(dateVao.getMinutes() - dateVao.getTimezoneOffset());
-                    document.getElementById("vao").value = dateVao.toISOString().slice(0, 16);
+                    // thời gian vào
+                    if (data.ThoiGianVao) {
+                        let time = new Date(data.ThoiGianVao);
+                        document.getElementById("vao").value =
+                            time.toISOString().slice(0, 16);
+                    }
 
-                    // Tự động điền thời gian ra là hiện tại
-                    let now = new Date();
-                    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-                    document.getElementById("ra").value = now.toISOString().slice(0, 16);
+                    document.getElementById("trangThai").value = "Chưa thanh toán";
 
                 } catch (err) {
-                    alert("Lỗi kết nối server!");
+
+                    console.log(err);
+                    alert("Không kết nối được server!");
+
                 }
             }
 
-            // 2. Ghi nhận xe ra
+
+            // ghi nhận xe ra
             async function ghiNhan() {
+
                 let maVe = document.getElementById("maVe").value;
-                if (!maVe) return alert("Nhập mã vé!");
+
+                if (!maVe) {
+                    alert("Vui lòng nhập mã vé!");
+                    return;
+                }
 
                 try {
-                    let res = await fetch("http://localhost:3000/api/checkout", {
+
+                    let res = await fetch(`${API_BASE_URL}/checkout`, {
+
                         method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ VeGuiId: maVe })
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            VeGuiId: maVe
+                        })
+
                     });
 
                     let data = await res.json();
 
                     if (data.status === "OK") {
-                        // Hiển thị kết quả tính toán từ Server
-                        document.getElementById("gio").value = data.data.TongGio + " giờ";
-                        document.getElementById("tien").value = data.data.TongTien.toLocaleString() + " VND";
 
-                        alert("Xe ra thành công! Tổng tiền: " + data.data.TongTien.toLocaleString() + " VNĐ");
+                        // hiển thị thời gian ra
+                        let ra = new Date(data.data.Ra);
+                        document.getElementById("ra").value =
+                            ra.toISOString().slice(0, 16);
 
-                        // Reset form sau khi thành công (tùy chọn)
-                        // location.reload(); 
+                        document.getElementById("trangThai").value = "Đã thanh toán";
+
+                        alert(
+                            "Xe ra thành công!\n" +
+                            "Tổng giờ: " + data.data.TongGio +
+                            "\nTổng tiền: " + data.data.TongTien + " VND"
+                        );
+
                     } else {
+
                         alert(data.message);
+
                     }
+
                 } catch (err) {
+
+                    console.log(err);
                     alert("Lỗi khi ghi nhận xe ra!");
+
                 }
+
             }
         </script>
     </div>
