@@ -3,7 +3,7 @@ const router = express.Router();
 const sql = require('mssql/msnodesqlv8');
 const config = require('../../dbConfig');
 
-// 1. API Tìm kiếm xe theo mã vé
+// 1. API Tìm kiếm thông tin xe để hiện lên Form
 router.get('/xera/:maVe', async (req, res) => {
     try {
         let pool = await sql.connect(config);
@@ -32,7 +32,7 @@ router.get('/xera/:maVe', async (req, res) => {
     }
 });
 
-// 2. API Ghi nhận xe ra (Checkout)
+// 2. API Ghi nhận xe ra (Cập nhật tiền và trạng thái vé)
 router.post('/checkout', async (req, res) => {
     try {
         const { VeXeId } = req.body; // Lấy VeXeId từ client gửi lên
@@ -52,7 +52,7 @@ router.post('/checkout', async (req, res) => {
             `);
 
         if (result.recordset.length === 0) {
-            return res.status(400).json({ message: "Không tìm thấy dữ liệu xe vào!" });
+            return res.status(400).json({ message: "Vé này hiện không có xe trong bãi!" });
         }
 
         const { LuotGuiId, ThoiGianVao, SoGio } = result.recordset[0];

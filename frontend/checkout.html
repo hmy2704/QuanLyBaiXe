@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -162,6 +162,7 @@
             <button onclick="ghiNhan()">Ghi nhận xe ra</button>
         </div>
 
+
         <script>
             // Biến lưu trữ VeXeId tạm thời để lát nữa dùng cho lúc xác nhận ra
             let currentVeXeId = null;
@@ -192,11 +193,15 @@
 
                         tinhTien(); // Tự tính tiền khi tìm thấy xe
                     } else {
+
                         alert(data.message);
+
                     }
+
                 } catch (err) {
                     alert("Lỗi kết nối tới Server!");
                 }
+
             }
 
             function tinhTien() {
