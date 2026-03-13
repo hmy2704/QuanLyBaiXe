@@ -5,52 +5,50 @@ const config = require('../../dbConfig');
 
 router.post('/checkin', async (req, res) => {
     try {
-        const { maVe, bienSo, loaiXe } = req.body;
+        const { bienSo, mauXe } = req.body;
         let pool = await sql.connect(config);
 
-        // 1. Kiểm tra trạng thái vé trong bảng VeGui
-        // Tôi giả định bảng VeGui cũng dùng tên cột là VeGuiId và TrangThaiId
+        // 1. Lấy vé trống
         let veCheck = await pool.request()
-            .input('vIdInput', sql.Int, maVe)
-            .query(`
-                SELECT VeGuiId 
-                FROM VeGui 
-                WHERE VeGuiId = @vIdInput AND TrangThaiId = 1
-            `);
+            .query("SELECT TOP 1 VeXeId FROM VeXe WHERE TrangThai = N'Trống'");
 
         if (veCheck.recordset.length === 0) {
-            return res.status(400).json({
-                message: "Vé số " + maVe + " không sẵn sàng hoặc không tồn tại!"
-            });
+            return res.status(400).json({ message: "Hiện tại không còn vé trống!" });
+        }
+        const vId = veCheck.recordset[0].VeXeId;
+
+        // 2. Xử lý xe
+        let xeCheck = await pool.request()
+            .input('bs', sql.VarChar, bienSo)
+            .query("SELECT XeId FROM Xe WHERE BienSo = @bs");
+
+        let xeId;
+        if (xeCheck.recordset.length === 0) {
+            let newXe = await pool.request()
+                .input('bs', sql.VarChar, bienSo)
+                .input('mx', sql.NVarChar, mauXe)
+                .query("INSERT INTO Xe (BienSo, MauXe, LoaiXeId) OUTPUT INSERTED.XeId VALUES (@bs, @mx, 1)");
+            xeId = newXe.recordset[0].XeId;
+        } else {
+            xeId = xeCheck.recordset[0].XeId;
         }
 
-        const vId = veCheck.recordset[0].VeGuiId;
-
-        // 2. Chèn vào bảng LuotGui với đúng tên cột trong hình Design của bạn
-        // Cột bạn chụp là: LuotGuild, ThoiGianVao, Xeld, VeXeld
+        // 3. Ghi dữ liệu
         await pool.request()
             .input('vId', sql.Int, vId)
-            .input('xId', sql.Int, 1) // Tạm thời dùng XeId = 1
+            .input('xId', sql.Int, xeId)
+            .input('mx', sql.NVarChar, mauXe)
             .query(`
-                INSERT INTO LuotGui
-                (VeXeld, Xeld, ThoiGianVao)
-                VALUES
-                (@vId, @xId, GETDATE());
-
-                UPDATE VeGui
-                SET TrangThaiId = 2
-                WHERE VeGuiId = @vId;
+                INSERT INTO LuotGui (VeXeId, XeId, MauXe, ThoiGianVao, TrangThaiThanhToan)
+                VALUES (@vId, @xId, @mx, GETDATE(), 0);
+                UPDATE VeXe SET TrangThai = N'Đang sử dụng' WHERE VeXeId = @vId;
             `);
 
-        res.json({ message: "Xe vào thành công!" });
-
+        res.json({ message: "Thành công" });
     } catch (err) {
-        console.error("LỖI SQL:", err.message);
-        res.status(500).json({
-            message: "Lỗi hệ thống",
-            detail: err.message
-        });
+        res.status(500).json({ message: "Lỗi hệ thống", detail: err.message });
     }
 });
+
 
 module.exports = router;
