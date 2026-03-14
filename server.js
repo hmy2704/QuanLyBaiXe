@@ -1,5 +1,5 @@
 const PORT = 3000;
-const API_BASE_URL = 'http://172.16.124.145'; // IP máy chủ của bạn
+const API_BASE_URL = 'http://localhost:3000'; // IP máy chủ của bạn
 const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
