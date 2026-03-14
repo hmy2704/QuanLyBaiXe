@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <script src="https://unpkg.com/html5-qrcode"></script>
     <meta charset="UTF-8">
     <title>Ghi nhận xe ra</title>
     <style>
@@ -144,117 +145,57 @@
                 <input type="text" id="maVe" placeholder="Nhập mã vé">
                 <button onclick="timXe()">Tìm kiếm</button>
             </div>
+
             <div class="row">
-                <label>Biển số xe</label>
-                <input id="bienSo" readonly>
-
-                <label>Loại xe</label>
-                <input id="loaiXe" readonly>
-
-                <label>Thời gian vào</label>
-                <input type="datetime-local" id="vao" readonly>
-
-                <label>Thời gian ra</label>
-                <input type="datetime-local" id="ra" onchange="tinhTien()">
-
-                <label>Tổng tiền</label>
-                <input id="tongTien" readonly>
+                <<label>Biển số/Số cuối</label>
+                    <input id="soCuoiHienThi" readonly> ```
+                    <label>Loại xe</label>
+                    <input id="loaiXe" readonly>
+                    <label>Thời gian vào</label>
+                    <input type="datetime-local" id="vao" readonly>
+                    <label>Thời gian ra</label>
+                    <input type="datetime-local" id="ra" onchange="tinhTien()">
+                    <label>Tiền gửi</label>
+                    <input id="tien" readonly>
             </div>
+            <div id="reader" style="width: 300px; margin: 10px auto;"></div>
+            <button onclick="startScanner()">Bật Camera quét mã</button>
         </div>
         <div class="button">
             <button onclick="ghiNhan()">Ghi nhận xe ra</button>
         </div>
-        <script src="env.js"></script>
 
 
         <script>
+            // Biến lưu trữ VeXeId tạm thời để lát nữa dùng cho lúc xác nhận ra
+            let currentVeXeId = null;
 
-            // tìm xe theo mã vé
             async function timXe() {
+                // Thêm đoạn này vào trong hàm timXe() sau khi nhận data thành công
+                const now = new Date();
+                now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+                document.getElementById('ra').value = now.toISOString().slice(0, 16);
 
-                let maVe = document.getElementById("maVe").value;
-
-                if (!maVe) {
-                    alert("Vui lòng nhập mã vé!");
-                    return;
-                }
-
-                try {
-
-                    let res = await fetch(`${API_BASE_URL}/xera/${maVe}`);
-
-                    if (!res.ok) {
-                        alert("Không tìm thấy xe trong bãi!");
-                        return;
-                    }
-
-                    let data = await res.json();
-
-                    // hiển thị thông tin
-                    document.getElementById("bienSo").value = data.BienSo || "";
-                    document.getElementById("loaiXe").value = data.TenLoaiXe || "";
-
-                    // thời gian vào
-                    if (data.ThoiGianVao) {
-                        let time = new Date(data.ThoiGianVao);
-                        document.getElementById("vao").value =
-                            time.toISOString().slice(0, 16);
-                    }
-
-                    document.getElementById("trangThai").value = "Chưa thanh toán";
-
-                } catch (err) {
-
-                    console.log(err);
-                    alert("Không kết nối được server!");
-
-                }
-            }
-
-
-            // ghi nhận xe ra
-            async function ghiNhan() {
-
-                let maVe = document.getElementById("maVe").value;
-
-                if (!maVe) {
-                    alert("Vui lòng nhập mã vé!");
-                    return;
-                }
+                // Sau khi set giá trị cho ô ra, gọi hàm tính tiền luôn
+                tinhTien();
+                const maVe = document.getElementById('maVe').value; // Sửa từ maVeRa -> maVe
+                if (!maVe) return alert("Vui lòng nhập mã vé!");
 
                 try {
+                    const response = await fetch(`/api/xera/${maVe}`);
+                    const data = await response.json();
 
-                    let res = await fetch(`${API_BASE_URL}/checkout`, {
+                    if (response.ok) {
+                        // Lưu VeXeId vào biến toàn cục để dùng cho hàm ghiNhan
+                        currentVeXeId = data.VeXeId;
 
-                        method: "POST",
+                        // Điền dữ liệu vào form
+                        // Sửa trong hàm timXe()
+                        document.getElementById('soCuoiHienThi').value = data.BienSo || data.SoCuoi;
+                        document.getElementById('loaiXe').value = data.MauXe;
+                        document.getElementById('vao').value = data.ThoiGianVao.slice(0, 16);
 
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-
-                        body: JSON.stringify({
-                            VeGuiId: maVe
-                        })
-
-                    });
-
-                    let data = await res.json();
-
-                    if (data.status === "OK") {
-
-                        // hiển thị thời gian ra
-                        let ra = new Date(data.data.Ra);
-                        document.getElementById("ra").value =
-                            ra.toISOString().slice(0, 16);
-
-                        document.getElementById("trangThai").value = "Đã thanh toán";
-
-                        alert(
-                            "Xe ra thành công!\n" +
-                            "Tổng giờ: " + data.data.TongGio +
-                            "\nTổng tiền: " + data.data.TongTien + " VND"
-                        );
-
+                        tinhTien(); // Tự tính tiền khi tìm thấy xe
                     } else {
 
                         alert(data.message);
@@ -262,16 +203,68 @@
                     }
 
                 } catch (err) {
-
-                    console.log(err);
-                    alert("Lỗi khi ghi nhận xe ra!");
-
+                    alert("Lỗi kết nối tới Server!");
                 }
 
             }
+
+            function tinhTien() {
+                const vaoInput = document.getElementById('vao').value;
+                const raInput = document.getElementById('ra').value;
+
+                // Kiểm tra nếu chưa nhập thời gian ra thì dừng lại
+                if (!raInput) return;
+
+                const vao = new Date(vaoInput);
+                const ra = new Date(raInput);
+
+                // Kiểm tra xem date có hợp lệ không
+                if (isNaN(vao.getTime()) || isNaN(ra.getTime())) {
+                    document.getElementById('tien').value = "0 đ";
+                    return;
+                }
+
+                // Tính chênh lệch giờ
+                let diffMs = ra - vao;
+                // Đảm bảo không âm (trường hợp giờ ra < giờ vào)
+                let diffHrs = Math.max(1, Math.ceil(diffMs / (1000 * 60 * 60)));
+
+                const loaiXe = document.getElementById('loaiXe').value;
+                const giaMoiGio = (loaiXe === "Ô tô") ? 20000 : 5000;
+
+                document.getElementById('tien').value = (diffHrs * giaMoiGio).toLocaleString('vi-VN') + " đ";
+            }
+
+            async function ghiNhan() {
+                if (!currentVeXeId) return alert("Vui lòng tìm kiếm xe trước!");
+
+                const response = await fetch('/api/checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ VeXeId: currentVeXeId }) // Gửi ID đúng cho server
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert(result.message);
+                    location.reload(); // Làm mới trang sau khi thành công
+                } else {
+                    alert("Lỗi: " + result.message);
+                }
+            }
+            function startScanner() {
+                const html5QrcodeScanner = new Html5QrcodeScanner(
+                    "reader", { fps: 10, qrbox: 250 });
+
+                html5QrcodeScanner.render((decodedText) => {
+                    // decodedText chính là mã vé được quét từ camera
+                    document.getElementById('maVe').value = decodedText;
+
+                    // Tự động tìm xe luôn
+                    timXe();
+
+                    // Tắt camera sau khi quét xong để đỡ tốn tài nguyên
+                    html5QrcodeScanner.clear();
+                });
+            }
         </script>
-    </div>
-
-</body>
-
-</html>
