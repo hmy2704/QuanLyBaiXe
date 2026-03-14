@@ -2,48 +2,165 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Trang Đăng Nhập - Hệ thống Quản lý Bãi Xe</title>
-    <link rel="stylesheet" href="login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Hệ thống Quản lý Bãi Xe</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        
-        table { width: 100%; border-spacing: 10px; }
-        th { text-align: left; font-weight: normal; }
-        input { width: 100%; padding: 8px; box-sizing: border-box; }
-        .but_login { text-align: center; margin-top: 20px; }
-        button { padding: 10px 30px; cursor: pointer; background-color: #3366CC; color: white; border: none; border-radius: 5px; font-weight: bold; }
+        :root {
+            --p-blue: #E3F2FD;
+            --m-blue: #90CAF9;
+            --d-blue: #1E88E5;
+            --text-color: #37474F;
+        }
+
+        body {
+            background: url("background.png");
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            width: 950px;
+            height: 550px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+
+        /* Phần hình ảnh bên trái */
+        .image-side {
+            flex: 1.2;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-right: 1px solid #eee;
+        }
+
+        .image-side img {
+            max-width: 90%;
+            height: auto;
+            border-radius: 15px;
+            /* Nếu file của bạn là anh_xe.jpg hoặc image_0.png, hãy đổi tên ở src dưới đây */
+        }
+
+        /* Phần form bên phải */
+        .form-side {
+            flex: 1;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-header h2 {
+            font-size: 2.2rem;
+            color: var(--d-blue);
+            margin: 0;
+        }
+
+        .input-group {
+            width: 100%;
+            position: relative;
+            margin: 15px 0;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--m-blue);
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--d-blue);
+            box-shadow: 0 0 10px rgba(30,136,229,0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: var(--d-blue);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #1565C0;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30,136,229,0.3);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
     </style>
-
 </head>
-
 <body>
-    <div class="login_container">
-        <div class="logo">
-            <img src="anh_xe.jpg" alt="Logo" width="700" height="550">
+
+    <div class="container">
+        <div class="image-side">
+            <img src="login.png" alt="Parking Sign">
+            <h3 style="color: var(--d-blue); margin-top: 20px;">HỆ THỐNG QUẢN LÝ THÔNG MINH</h3>
         </div>
 
-        <div class="login_form">
-            <h2>Đăng Nhập</h2>
+        <div class="form-side">
+            <div class="form-header">
+                <h2>Đăng Nhập</h2>
+                <p style="color: #666;">Nhập thông tin để vào hệ thống</p>
+            </div>
+
             <form id="formLogin">
-                <table>
-                    <tr>
-                        <th><label for="username">Tên Đăng Nhập:</label></th>
-                        <td><input type="text" id="username" name="username" required></td>
-                    </tr>
-                    <tr>
-                        <th><label for="password">Mật Khẩu:</label></th>
-                        <td><input type="password" id="password" name="password" required></td>
-                        <form id="formLogin1"></form>
-                    </tr>
-                </table>
-                <div class="but_login">
-                    <button type="submit" id="btnLogin">Đăng Nhập</button>
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Tên đăng nhập" required>
                 </div>
+
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Mật khẩu" required>
+                </div>
+
+                <button type="submit" id="btnLogin">ĐĂNG NHẬP <i class="fas fa-arrow-right" style="margin-left: 10px;"></i></button>
             </form>
         </div>
     </div>
-    <script src="env.js"></script>
-    <script>
 
+    <script src="env.js"></script>
+    
+    <script>
         document.getElementById('formLogin').addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -51,11 +168,12 @@
             const pass = document.getElementById('password').value;
             const btn = document.getElementById('btnLogin');
 
-
-            btn.innerText = "Đang xác thực...";
+            // Hiệu ứng đang xử lý
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xác thực...';
             btn.disabled = true;
 
             try {
+                // Sử dụng API_BASE_URL từ env.js của bạn
                 const res = await fetch(`${API_BASE_URL}/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -66,16 +184,15 @@
 
                 if (!res.ok) {
                     alert("Lỗi: " + (data.message || "Đăng nhập thất bại"));
-                    btn.innerText = "Đăng Nhập";
+                    btn.innerText = "ĐĂNG NHẬP";
                     btn.disabled = false;
                     return;
                 }
 
                 if (data.success) {
-
+                    // Lưu thông tin vào LocalStorage
                     localStorage.setItem('username', data.user.username);
                     localStorage.setItem('role', data.user.role);
-
 
                     alert("Chào mừng " + data.user.username + " quay trở lại!");
                     window.location.href = 'main.html';
@@ -83,8 +200,8 @@
 
             } catch (err) {
                 console.error("Chi tiết lỗi kết nối:", err);
-                alert("Không thể kết nối đến Server. Hãy kiểm tra xem Backend đã chạy chưa (npm start)!");
-                btn.innerText = "Đăng Nhập";
+                alert("Không thể kết nối đến Server. Hãy kiểm tra Backend (npm start)!");
+                btn.innerText = "ĐĂNG NHẬP";
                 btn.disabled = false;
             }
         });
