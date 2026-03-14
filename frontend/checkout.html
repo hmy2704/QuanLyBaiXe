@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <script src="https://unpkg.com/html5-qrcode"></script>
     <meta charset="UTF-8">
     <title>Ghi nhận xe ra</title>
     <style>
@@ -146,17 +147,19 @@
             </div>
 
             <div class="row">
-                <label>Biển số xe</label>
-                <input id="bienSo" readonly>
-                <label>Loại xe</label>
-                <input id="loaiXe" readonly>
-                <label>Thời gian vào</label>
-                <input type="datetime-local" id="vao" readonly>
-                <label>Thời gian ra</label>
-                <input type="datetime-local" id="ra" onchange="tinhTien()">
-                <label>Tiền gửi</label>
-                <input id="tien" readonly>
+                <<label>Biển số/Số cuối</label>
+                    <input id="soCuoiHienThi" readonly> ```
+                    <label>Loại xe</label>
+                    <input id="loaiXe" readonly>
+                    <label>Thời gian vào</label>
+                    <input type="datetime-local" id="vao" readonly>
+                    <label>Thời gian ra</label>
+                    <input type="datetime-local" id="ra" onchange="tinhTien()">
+                    <label>Tiền gửi</label>
+                    <input id="tien" readonly>
             </div>
+            <div id="reader" style="width: 300px; margin: 10px auto;"></div>
+            <button onclick="startScanner()">Bật Camera quét mã</button>
         </div>
         <div class="button">
             <button onclick="ghiNhan()">Ghi nhận xe ra</button>
@@ -187,7 +190,8 @@
                         currentVeXeId = data.VeXeId;
 
                         // Điền dữ liệu vào form
-                        document.getElementById('bienSo').value = data.BienSo;
+                        // Sửa trong hàm timXe()
+                        document.getElementById('soCuoiHienThi').value = data.BienSo || data.SoCuoi;
                         document.getElementById('loaiXe').value = data.MauXe;
                         document.getElementById('vao').value = data.ThoiGianVao.slice(0, 16);
 
@@ -247,5 +251,20 @@
                 } else {
                     alert("Lỗi: " + result.message);
                 }
+            }
+            function startScanner() {
+                const html5QrcodeScanner = new Html5QrcodeScanner(
+                    "reader", { fps: 10, qrbox: 250 });
+
+                html5QrcodeScanner.render((decodedText) => {
+                    // decodedText chính là mã vé được quét từ camera
+                    document.getElementById('maVe').value = decodedText;
+
+                    // Tự động tìm xe luôn
+                    timXe();
+
+                    // Tắt camera sau khi quét xong để đỡ tốn tài nguyên
+                    html5QrcodeScanner.clear();
+                });
             }
         </script>
