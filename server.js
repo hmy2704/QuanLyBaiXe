@@ -57,5 +57,5 @@ app.get('/', (req, res) => {
 
 // 5. CHẠY SERVER
 app.listen(PORT, () => {
-    console.log(`Server đang lắng nghe tại: http://172.16.124.145:${PORT}`);
+    console.log(`Server đang lắng nghe tại: http://localhost:${PORT}`);
 });
