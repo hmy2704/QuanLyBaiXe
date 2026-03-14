@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ghi nhận xe vào</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         body {
             margin: 0;
@@ -149,6 +149,12 @@
             color: #d32f2f;
             font-weight: bold;
         }
+
+        #qrCode {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 
@@ -168,128 +174,89 @@
             <div id="ghi">GHI NHẬN XE VÀO</div>
             <div class="form-content">
                 <table>
+
                     <tr>
-                        <td style="text-align: left;">Biển số</td>
-                        <td><input type="text" id="bienSo" autofocus placeholder="Nhập biển số..."></td>
+                        <td>3 số cuối</td>
+                        <td><input type="text" id="soCuoi" placeholder="Ví dụ: 123"></td>
                     </tr>
                     <tr>
-                        <td style="text-align: left;">Loại xe</td>
+                        <td>Loại xe</td>
                         <td>
                             <select id="loaiXe">
-                                <option value="Xe máy">Xe máy (5.000đ)</option>
-                                <option value="Ô tô">Ô tô (20.000đ)</option>
+                                <option value="Xe máy">Xe máy</option>
+                                <option value="Ô tô">Ô tô</option>
                             </select>
                         </td>
-                    </tr>
                     <tr>
                         <td style="text-align: left;">Giờ vào</td>
                         <td><input type="datetime-local" id="tgVao"></td>
                     </tr>
+                    </tr>
                 </table>
                 <button class="btn-main" onclick="ghiNhan()">Ghi nhận (Enter)</button>
+                <div id="qrCode"></div>
             </div>
         </div>
 
-        <div class="danh-sach-container">
-            <div
-                style="color:#4A76C5; font-weight: bold; margin-bottom: 15px; font-size: 18px; border-bottom: 2px solid #4A76C5; padding-bottom: 5px; text-align: left;">
-                Danh sách xe chờ lưu
-            </div>
-            <table id="tableDanhSach">
-                <thead>
-                    <tr>
-                        <th>Biển số</th>
-                        <th>Loại xe</th>
-                        <th>Thời gian</th>
-                        <th>Tiền phí</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-            <button id="btnSave" class="btn-main btn-save" onclick="saveToDB()">Lưu tất cả vào Database</button>
-        </div>
     </div>
+    <div class="danh-sach-container">
+        <div
+            style="color:#4A76C5; font-weight: bold; margin-bottom: 15px; font-size: 18px; border-bottom: 2px solid #4A76C5; padding-bottom: 5px; text-align: left;">
+            Danh sách xe chờ lưu
+        </div>
+        <table id="tableDanhSach">
+            <thead>
+                <tr>
 
-    <script src="env.js"></script>
+                    <th>Loại xe</th>
+                    <th>Thời gian</th>
+                    <th>Tiền phí</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button id="btnSave" class="btn-main btn-save" onclick="saveToDB()">Lưu tất cả vào Database</button>
+    </div>
+    </div>
     <script>
         const $ = id => document.getElementById(id);
         let danhSachXeChoLuu = [];
 
-        function setTime() {
-            const now = new Date();
-            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-            $('tgVao').value = now.toISOString().slice(0, 16);
-        }
 
-        function ghiNhan() {
-            const bs = $('bienSo').value.trim();
-            const lx = $('loaiXe').value;
+        async function ghiNhan() {
+            const sc = document.getElementById('soCuoi').value;
+            const lx = document.getElementById('loaiXe').value;
+            if (!sc) return alert("Vui lòng nhập 3 số cuối!");
 
-            // Chỉ kiểm tra biển số, không cần kiểm tra maVe nữa
-            if (!bs) {
-                alert("Vui lòng nhập Biển số!");
-                return;
-            }
-
-            // Đẩy dữ liệu vào danh sách (Không cần maVe)
-            danhSachXeChoLuu.push({
-                bienSo: bs,
-                mauXe: lx
+            const res = await fetch('http://localhost:3000/api/checkin', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ soCuoi: sc, mauXe: lx })
             });
 
-            let phi = (lx === "Ô tô") ? 20000 : 5000;
-
-            // Cập nhật bảng hiển thị
-            const tbody = $('tableDanhSach').tBodies[0];
-            const row = tbody.insertRow(0);
-
-            // Lưu ý: Đã xóa cột "Mã vé" để khớp với yêu cầu tự động cấp vé
-            row.innerHTML = `
-        <td style="font-weight:bold">${bs}</td>
-        <td>${lx}</td>
-        <td>${$('tgVao').value.replace('T', ' ')}</td>
-        <td class="fee-text">${phi.toLocaleString('vi-VN')} đ</td>
-    `;
-
-            // Hiện nút Lưu
-            $('btnSave').style.display = "block";
-
-            // Xóa input để nhập xe tiếp theo
-            $('bienSo').value = '';
-            $('bienSo').focus();
-            setTime();
-        }
-
-        async function saveToDB() {
-            if (danhSachXeChoLuu.length === 0) return alert("Chưa có xe nào!");
-            const API_URL = "http://localhost:3000/api/checkin";
-
-            for (const xe of danhSachXeChoLuu) {
-                try {
-                    const response = await fetch(API_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(xe)
-                    });
-                    const result = await response.json();
-                    if (!response.ok) {
-                        alert(`Lỗi xe ${xe.bienSo}: ${result.message}`);
-                        return;
-                    }
-                } catch (err) {
-                    alert("Lỗi kết nối Server!");
-                    return;
-                }
+            const data = await res.json();
+            if (data.success) {
+                alert("Ghi nhận thành công! Mã vé: " + data.maVe);
+                // Xóa mã QR cũ nếu có và vẽ mới
+                document.getElementById("qrCode").innerHTML = "";
+                new QRCode(document.getElementById("qrCode"), data.maVe);
+            } else {
+                alert(data.message);
             }
-            alert("Lưu database thành công!");
-            danhSachXeChoLuu = [];
-            $('tableDanhSach').tBodies[0].innerHTML = '';
-            $('btnSave').style.display = "none";
         }
-
-        window.onload = () => { setTime(); $('bienSo').focus(); }
-        document.onkeypress = e => { if (e.key === 'Enter') ghiNhan(); }
-        function thoat() { if (confirm("Bạn muốn đăng xuất?")) location.href = "login.html"; }
+        // Lưu Database (Gửi thêm soCuoi lên server)
+        async function saveToDB() {
+            const API_URL = "http://localhost:3000/api/checkin";
+            for (const xe of danhSachXeChoLuu) {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(xe)
+                });
+            }
+            alert("Lưu thành công!");
+            danhSachXeChoLuu = [];
+        }
     </script>
 </body>
 

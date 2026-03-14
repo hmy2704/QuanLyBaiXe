@@ -4,89 +4,78 @@ const sql = require('mssql/msnodesqlv8');
 const config = require('../../dbConfig');
 
 // 1. API Tìm kiếm thông tin xe để hiện lên Form
-router.get('/xera/:maVe', async (req, res) => {
+// File: backend/routes/checkout.js
+// File: backend/routes/checkout.js
+
+router.get('/xera/:keyword', async (req, res) => {
     try {
+        // 1. Lấy mã vé từ URL và xóa khoảng trắng thừa
+        const keyword = req.params.keyword ? req.params.keyword.trim() : "";
+        console.log("Đang tìm kiếm xe với mã vé:", keyword);
+
+        if (!keyword) {
+            return res.status(400).json({ message: "Vui lòng cung cấp mã vé!" });
+        }
+
         let pool = await sql.connect(config);
-        // Lưu ý: Dùng MaVe (từ bảng VeXe) hoặc VeXeId tùy logic của bạn
+
+        // 2. Truy vấn dùng LEFT JOIN để không bị mất dữ liệu khi XeId bị NULL
         let result = await pool.request()
-            .input('maVe', sql.VarChar, req.params.maVe)
+            .input('kw', sql.VarChar, keyword)
             .query(`
                 SELECT TOP 1 
-                    L.VeXeId, 
-                    X.BienSo, 
-                    L.ThoiGianVao,
-                    X.MauXe
-                FROM LuotGui L
-                JOIN VeXe V ON L.VeXeId = V.VeXeId
-                JOIN Xe X ON L.XeId = X.XeId
-                WHERE V.MaVe = @maVe AND L.ThoiGianRa IS NULL
-                ORDER BY L.ThoiGianVao DESC
+    L.LuotGuiId, 
+    L.VeXeId, 
+    -- Ưu tiên hiển thị Biển số (nếu có), nếu không có thì hiển thị 'Số cuối: ' + SoCuoi
+    ISNULL(X.BienSo, CONCAT(N'Số cuối: ', L.SoCuoi)) as BienSo, 
+    L.ThoiGianVao, 
+    ISNULL(L.MauXe, X.MauXe) as MauXe, 
+    L.SoCuoi
+FROM LuotGui L
+LEFT JOIN VeXe V ON L.VeXeId = V.VeXeId 
+LEFT JOIN Xe X ON L.XeId = X.XeId
+WHERE V.MaVe = @kw 
+  AND L.ThoiGianRa IS NULL
+ORDER BY L.ThoiGianVao DESC
             `);
 
         if (result.recordset.length === 0) {
-            return res.status(404).json({ message: "Không tìm thấy xe gắn với vé này!" });
+            return res.status(404).json({ message: "Không tìm thấy xe trong bãi với mã vé: " + keyword });
         }
+
         res.json(result.recordset[0]);
     } catch (err) {
-        res.status(500).json({ message: "Lỗi tìm kiếm", error: err.message });
+        console.error("Lỗi tại Backend:", err.message);
+        res.status(500).json({ message: "Lỗi hệ thống", error: err.message });
     }
 });
-
 // 2. API Ghi nhận xe ra (Cập nhật tiền và trạng thái vé)
 router.post('/checkout', async (req, res) => {
     try {
-        const { VeXeId } = req.body; // Lấy VeXeId từ client gửi lên
+        const { VeXeId } = req.body;
         let pool = await sql.connect(config);
 
-        // Lấy thông tin lượt vào
-        let result = await pool.request()
-            .input('veId', sql.Int, VeXeId)
-            .query(`
-                SELECT TOP 1 
-                    LuotGuiId, 
-                    ThoiGianVao,
-                    DATEDIFF(HOUR, ThoiGianVao, GETDATE()) as SoGio
-                FROM LuotGui 
-                WHERE VeXeId = @veId AND ThoiGianRa IS NULL 
-                ORDER BY ThoiGianVao DESC
-            `);
-
-        if (result.recordset.length === 0) {
-            return res.status(400).json({ message: "Vé này hiện không có xe trong bãi!" });
-        }
-
-        const { LuotGuiId, ThoiGianVao, SoGio } = result.recordset[0];
-
-        // Tính tiền: Ít nhất 5.000đ (Xe máy)
-        const tongGio = SoGio <= 0 ? 1 : SoGio;
-        const phiGui = tongGio * 5000;
-        const thoiGianRa = new Date();
-
-        // Cập nhật Database
-        await pool.request()
-            .input('luotId', sql.Int, LuotGuiId)
-            .input('tgRa', sql.DateTime, thoiGianRa)
-            .input('phi', sql.Decimal(10, 2), phiGui)
+        // 1. Cập nhật lượt gửi (Thêm thời gian ra và phí)
+        // Bạn không cần SELECT lại, hãy UPDATE trực tiếp dựa trên VeXeId và ThoiGianRa IS NULL
+        const result = await pool.request()
             .input('veId', sql.Int, VeXeId)
             .query(`
                 UPDATE LuotGui 
-                SET ThoiGianRa = @tgRa, PhiGui = @phi 
-                WHERE LuotGuiId = @luotId;
+                SET ThoiGianRa = GETDATE(), 
+                    PhiGui = 5000 -- Bạn có thể tính toán logic tiền ở đây
+                WHERE VeXeId = @veId AND ThoiGianRa IS NULL;
 
-             -- Cập nhật trạng thái vé trở về 'Trống'
-UPDATE VeXe SET TrangThai = N'Trống' WHERE VeXeId = @veId;
+                UPDATE VeXe SET TrangThai = N'Trống' WHERE VeXeId = @veId;
             `);
 
-        res.status(200).json({
-            status: "OK",
-            message: "Thanh toán thành công!",
-            data: { Vao: ThoiGianVao, Ra: thoiGianRa, TongTien: phiGui }
-        });
+        if (result.rowsAffected[0] === 0) {
+            return res.status(400).json({ message: "Không tìm thấy lượt gửi đang hoạt động cho vé này!" });
+        }
 
+        res.status(200).json({ message: "Thanh toán thành công!" });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: "Lỗi hệ thống", error: err.message });
     }
 });
-
 module.exports = router;
