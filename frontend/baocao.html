@@ -2,267 +2,389 @@
 <html lang="vi">
 
 <head>
-  <meta charset="UTF-8" />
-  <title>Báo cáo thống kê bãi xe</title>
-  <link rel="stylesheet" href="baocao.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống - Báo cáo thống kê</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1E88E5;
+            --success: #28a745;
+            --warning: #ffb300;
+            --info: #00bcd4;
+            --danger: #f44336;
+            --bg-body: #f4f7f6;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: url('background.png') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(30, 136, 229, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 12px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 50px;
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .nav-links a:hover { background: white; color: var(--primary); }
+
+        .container { padding: 30px 50px; }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 4px solid var(--primary);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .stat-info h3 { margin: 0; font-size: 14px; color: #666; text-transform: uppercase; }
+        .stat-info p { margin: 5px 0 0; font-size: 22px; font-weight: bold; color: #333; }
+
+        /* Filter & Table Card */
+        .main-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: flex-end;
+            margin-bottom: 25px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .filter-group { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 150px; }
+        .filter-group label { font-size: 13px; font-weight: 600; color: #555; }
+
+        input, select {
+            height: 40px;
+            padding: 0 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .btn {
+            height: 40px;
+            padding: 0 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-filter { background: var(--primary); color: white; }
+        .btn-reset { background: #6c757d; color: white; }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th {
+            background: #f1f3f5;
+            color: #444;
+            text-align: left;
+            padding: 15px;
+            font-size: 14px;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        td { padding: 15px; border-bottom: 1px solid #eee; font-size: 15px; color: #333; }
+        tr:hover { background: rgba(30, 136, 229, 0.05); cursor: pointer; }
+        tr.selected { background: #e3f2fd !important; border-left: 4px solid var(--primary); }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .badge-moto { background: #e1f5fe; color: #01579b; }
+        .badge-car { background: #fff3e0; color: #e65100; }
+
+        /* Edit Form */
+        .edit-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+    </style>
 </head>
 
 <body>
-
-  <div class="header">
-    <h3>Quản lý bãi xe</h3>
-
-    <ul class="nav">
-
-      <li><a href="main.html">Trang chủ</a></li>
-      <li><a href="login.html">Đăng xuất</a></li>
-    </ul>
-  </div>
-
-
-
-  <!-- Thống kê nhanh -->
-  <div class="stats">
-    <div class="card">
-      <h3>Tổng lượt gửi hôm nay</h3>
-      <p>128</p>
+    <div class="navbar">
+        <div style="font-size: 22px; font-weight: bold;"><i class="fas fa-chart-pie"></i> SMART PARKING ANALYTICS</div>
+        <div class="nav-links">
+            <a href="main.html"><i class="fas fa-home"></i> Trang chủ</a>
+            <a href="login.html" style="border-color: var(--danger); color: var(--danger);"><i class="fas fa-power-off"></i> Thoát</a>
+        </div>
     </div>
-    <div class="card">
-      <h3>Xe đang trong bãi</h3>
-      <p>42</p>
-    </div>
-    <div class="card">
-      <h3>Doanh thu hôm nay</h3>
-      <p>1.250.000đ</p>
-    </div>
-    <div class="card">
-      <h3>Vé tháng đang hoạt động</h3>
-      <p>56</p>
-    </div>
-  </div>
-  <div class="card">
-    <h3>Lọc báo cáo</h3>
 
-    <div class="filters">
-
-      <input type="text" id="filterBienSo" placeholder="Tìm biển số">
-
-      <select id="filterLoaiXe">
-        <option value="">Tất cả loại xe</option>
-        <option>Xe máy</option>
-        <option>Ô tô</option>
-      </select>
-
-      <label>Từ ngày</label>
-      <input type="date" id="fromDate">
-
-      <label>Đến ngày</label>
-      <input type="date" id="toDate">
-
-      <button id="btnFilter" onclick="filterTable()">Lọc</button>
-      <button id="btnReset" onclick="resetFilter()" style="display:none;">Reset</button>
-
-    </div>
-  </div>
-
-  <!-- Bảng thống kê chi tiết -->
-  <table>
-    <thead>
-      <tr>
-
-        <th>Biển số</th>
-        <th>Loại xe</th>
-        <th>Giờ vào</th>
-        <th>Giờ ra</th>
-        <th>Phí gửi</th>
-        <th>Ngày</th>
-      </tr>
-    </thead>
-    <tbody id="reportBody"></tbody>
-
-  </table>
-  <p id="noData" style="display:none;color:red">Không có dữ liệu</p>
-  <!-- Form nhập thông tin -->
-  <div class="card form-card">
-    <h3>Chỉnh sửa thông tin xe</h3>
-
-
-    <form class="filters">
-      <input type="text" id="bienSo" placeholder="Biển số xe" required>
-
-      <select id="loaiXe">
-        <option value="">-- Loại xe --</option>
-        <option>Xe máy</option>
-        <option>Ô tô</option>
-      </select>
-
-      <div class="time-row">
-        <div>
-          <h3>Giờ xe vào</h3>
-          <input type="time" id="gioVao" required>
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card" style="border-color: var(--info);">
+                <div class="stat-icon" style="background: var(--info);"><i class="fas fa-history"></i></div>
+                <div class="stat-info"><h3>Lượt gửi hôm nay</h3><p id="statToday">128</p></div>
+            </div>
+            <div class="stat-card" style="border-color: var(--warning);">
+                <div class="stat-icon" style="background: var(--warning);"><i class="fas fa-car-side"></i></div>
+                <div class="stat-info"><h3>Xe đang trong bãi</h3><p id="statInside">42</p></div>
+            </div>
+            <div class="stat-card" style="border-color: var(--success);">
+                <div class="stat-icon" style="background: var(--success);"><i class="fas fa-hand-holding-usd"></i></div>
+                <div class="stat-info"><h3>Doanh thu hôm nay</h3><p id="statRevenue">1.250.000đ</p></div>
+            </div>
+            <div class="stat-card" style="border-color: var(--primary);">
+                <div class="stat-icon" style="background: var(--primary);"><i class="fas fa-id-card-alt"></i></div>
+                <div class="stat-info"><h3>Vé tháng</h3><p id="statMonthly">56</p></div>
+            </div>
         </div>
 
-        <div>
-          <h3>Giờ xe ra</h3>
-          <input type="time" id="gioRa">
+        <div class="main-card">
+            <div class="section-title"><i class="fas fa-filter"></i> LỌC DỮ LIỆU CHI TIẾT</div>
+            <div class="filters">
+                <div class="filter-group">
+                    <label>Tìm biển số</label>
+                    <input type="text" id="filterBienSo" placeholder="Ví dụ: 29A-123.45">
+                </div>
+                <div class="filter-group">
+                    <label>Loại xe</label>
+                    <select id="filterLoaiXe">
+                        <option value="">Tất cả</option>
+                        <option>Xe máy</option>
+                        <option>Ô tô</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Từ ngày</label>
+                    <input type="date" id="fromDate">
+                </div>
+                <div class="filter-group">
+                    <label>Đến ngày</label>
+                    <input type="date" id="toDate">
+                </div>
+                <button class="btn btn-filter" onclick="filterTable()"><i class="fas fa-search"></i> Lọc</button>
+                <button class="btn btn-reset" id="btnReset" onclick="resetFilter()" style="display:none;"><i class="fas fa-undo"></i> Reset</button>
+            </div>
+
+            <div style="max-height: 400px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Biển số</th>
+                            <th>Loại xe</th>
+                            <th>Giờ vào</th>
+                            <th>Giờ ra</th>
+                            <th>Phí gửi</th>
+                            <th>Ngày</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportBody"></tbody>
+                </table>
+                <div id="noData" style="display:none; text-align: center; padding: 40px; color: #999;">
+                    <i class="fas fa-folder-open" style="font-size: 40px; display: block; margin-bottom: 10px;"></i>
+                    Không có dữ liệu phù hợp
+                </div>
+            </div>
         </div>
-      </div>
 
-      <input type="text" id="tongTien" placeholder="Phí gửi (VNĐ)">
+        <div class="main-card">
+            <div class="section-title"><i class="fas fa-edit"></i> CHỈNH SỬA BẢN GHI</div>
+            <form id="editForm">
+                <div class="edit-grid">
+                    <div class="filter-group">
+                        <label>Biển số xe</label>
+                        <input type="text" id="bienSo" required>
+                    </div>
+                    <div class="filter-group">
+                        <label>Loại xe</label>
+                        <select id="loaiXe">
+                            <option>Xe máy</option>
+                            <option>Ô tô</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Phí gửi (VNĐ)</label>
+                        <input type="text" id="tongTien">
+                    </div>
+                    <div class="filter-group">
+                        <label>Giờ vào</label>
+                        <input type="time" id="gioVao">
+                    </div>
+                    <div class="filter-group">
+                        <label>Giờ ra</label>
+                        <input type="time" id="gioRa">
+                    </div>
+                    <div class="filter-group">
+                        <label>&nbsp;</label>
+                        <button type="submit" class="btn btn-filter" style="background: var(--success); width: 100%;">
+                            <i class="fas fa-save"></i> CẬP NHẬT THAY ĐỔI
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
-      <button type="submit">Lưu</button>
-    </form>
-  </div>
-  <script src="env.js"></script>
-  <script>
+    <script src="env.js"></script>
+    <script>
+        let selectedRow = null;
 
-    let selectedRow = null;
+        // Load dữ liệu từ API
+        async function loadReport() {
+            try {
+                const res = await fetch(`${API_BASE_URL}/report/all`);
+                const data = await res.json();
+                const tbody = document.getElementById("reportBody");
+                tbody.innerHTML = "";
 
-    // FORM SUBMIT
-    document.querySelector(".form-card form").addEventListener("submit", function (e) {
+                data.DanhSachBaoCao.forEach(xe => {
+                    const vao = new Date(xe.ThoiGianVao);
+                    const ra = xe.ThoiGianRa ? new Date(xe.ThoiGianRa) : null;
+                    const badge = xe.LoaiXe === 'Ô tô' ? 'badge-car' : 'badge-moto';
 
-      e.preventDefault();
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td><b>${xe.BienSo}</b></td>
+                        <td><span class="badge ${badge}">${xe.LoaiXe}</span></td>
+                        <td>${vao.toLocaleTimeString("vi-VN", {hour:'2-digit', minute:'2-digit'})}</td>
+                        <td>${ra ? ra.toLocaleTimeString("vi-VN", {hour:'2-digit', minute:'2-digit'}) : '<i style="color:#999">Chưa ra</i>'}</td>
+                        <td style="color:var(--danger); font-weight:bold;">${xe.TongTien ? xe.TongTien.toLocaleString() + "đ" : "0đ"}</td>
+                        <td>${vao.toLocaleDateString("vi-VN")}</td>
+                    `;
 
-      if (!selectedRow) {
-        alert("Vui lòng chọn xe trong bảng trước!");
-        return;
-      }
+                    row.onclick = () => {
+                        if(selectedRow) selectedRow.classList.remove('selected');
+                        selectedRow = row;
+                        row.classList.add('selected');
+                        
+                        const cells = row.querySelectorAll("td");
+                        document.getElementById("bienSo").value = cells[0].innerText;
+                        document.getElementById("loaiXe").value = cells[1].innerText;
+                        document.getElementById("gioVao").value = cells[2].innerText;
+                        document.getElementById("gioRa").value = cells[3].innerText === "Chưa ra" ? "" : cells[3].innerText;
+                        document.getElementById("tongTien").value = cells[4].innerText;
+                    };
+                    tbody.appendChild(row);
+                });
+            } catch (err) { console.error("Lỗi:", err); }
+        }
 
-      const cells = selectedRow.querySelectorAll("td");
+        function filterTable() {
+            let bsInput = document.getElementById("filterBienSo").value.toLowerCase();
+            let lxInput = document.getElementById("filterLoaiXe").value;
+            let from = document.getElementById("fromDate").value;
+            let to = document.getElementById("toDate").value;
+            
+            let rows = document.querySelectorAll("tbody tr");
+            let hasData = false;
 
-      cells[0].innerText = document.getElementById("bienSo").value;
-      cells[1].innerText = document.getElementById("loaiXe").value;
-      cells[2].innerText = document.getElementById("gioVao").value;
-      cells[3].innerText = document.getElementById("gioRa").value;
-      cells[4].innerText = document.getElementById("tongTien").value;
+            rows.forEach(row => {
+                let cells = row.querySelectorAll("td");
+                let bs = cells[0].innerText.toLowerCase();
+                let lx = cells[1].innerText;
+                let dateParts = cells[5].innerText.split("/");
+                let dateStr = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
 
-    });
+                let show = bs.includes(bsInput) && 
+                           (!lxInput || lx === lxInput) &&
+                           (!from || dateStr >= from) &&
+                           (!to || dateStr <= to);
 
+                row.style.display = show ? "" : "none";
+                if(show) hasData = true;
+            });
 
-    // FILTER TABLE
-    function filterTable() {
+            document.getElementById("btnReset").style.display = "inline-block";
+            document.getElementById("noData").style.display = hasData ? "none" : "block";
+        }
 
-      let bienSo = document.getElementById("filterBienSo").value.toLowerCase();
-      let loaiXe = document.getElementById("filterLoaiXe").value;
-      let fromDate = document.getElementById("fromDate").value;
-      let toDate = document.getElementById("toDate").value;
+        function resetFilter() {
+            location.reload();
+        }
 
-      let rows = document.querySelectorAll("table tbody tr");
-
-      rows.forEach(row => {
-
-        let cells = row.querySelectorAll("td");
-
-        let ngay = cells[5].innerText;
-        let bs = cells[0].innerText.toLowerCase();
-        let lx = cells[1].innerText;
-
-        let show = true;
-
-        let dateParts = ngay.split("/");
-        let formattedDate = dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0];
-
-        if (bienSo && !bs.includes(bienSo)) show = false;
-
-        if (loaiXe && lx !== loaiXe) show = false;
-
-        if (fromDate && formattedDate < fromDate) show = false;
-
-        if (toDate && formattedDate > toDate) show = false;
-
-        row.style.display = show ? "" : "none";
-
-      });
-
-      document.getElementById("btnFilter").style.display = "none";
-      document.getElementById("btnReset").style.display = "inline-block";
-
-      let visibleRows = [...rows].filter(r => r.style.display !== "none");
-
-      document.getElementById("noData").style.display =
-        visibleRows.length === 0 ? "block" : "none";
-
-    }
-
-
-    // RESET FILTER
-    function resetFilter() {
-
-      document.getElementById("filterBienSo").value = "";
-      document.getElementById("filterLoaiXe").value = "";
-      document.getElementById("fromDate").value = "";
-      document.getElementById("toDate").value = "";
-
-      let rows = document.querySelectorAll("table tbody tr");
-
-      rows.forEach(row => {
-        row.style.display = "";
-      })
-
-      document.getElementById("btnFilter").style.display = "inline-block";
-      document.getElementById("btnReset").style.display = "none";
-      document.getElementById("noData").style.display = "none";
-
-    }
-
-
-    // LOAD REPORT
-    async function loadReport() {
-
-      let res = await fetch(`${API_BASE_URL}/report/all`);
-      let data = await res.json();
-
-      let tbody = document.getElementById("reportBody");
-
-      tbody.innerHTML = "";
-
-      data.DanhSachBaoCao.forEach(xe => {
-
-        let vao = new Date(xe.ThoiGianVao);
-        let ra = xe.ThoiGianRa ? new Date(xe.ThoiGianRa) : null;
-
-        let gioVao = vao.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" });
-        let gioRa = ra ? ra.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" }) : "Chưa ra";
-
-        let ngay = vao.toLocaleDateString("vi-VN");
-
-        // TẠO ROW
-        let row = document.createElement("tr");
-
-        row.innerHTML = `
-<td>${xe.BienSo}</td>
-<td>${xe.LoaiXe}</td>
-<td>${gioVao}</td>
-<td>${gioRa}</td>
-<td>${xe.TongTien ? xe.TongTien.toLocaleString() + "đ" : "0đ"}</td>
-<td>${ngay}</td>
-`;
-
-        // CLICK ROW
-        row.onclick = function () {
-
-          selectedRow = row;
-
-          let cells = row.querySelectorAll("td");
-
-          document.getElementById("bienSo").value = cells[0].innerText;
-          document.getElementById("loaiXe").value = cells[1].innerText;
-          document.getElementById("gioVao").value = cells[2].innerText;
-          document.getElementById("gioRa").value = cells[3].innerText;
-          document.getElementById("tongTien").value = cells[4].innerText;
-
+        document.getElementById("editForm").onsubmit = (e) => {
+            e.preventDefault();
+            if(!selectedRow) return alert("Chọn một dòng để sửa!");
+            const cells = selectedRow.querySelectorAll("td");
+            cells[0].innerHTML = `<b>${document.getElementById("bienSo").value}</b>`;
+            cells[1].innerHTML = `<span class="badge ${document.getElementById("loaiXe").value === 'Ô tô' ? 'badge-car' : 'badge-moto'}">${document.getElementById("loaiXe").value}</span>`;
+            cells[2].innerText = document.getElementById("gioVao").value;
+            cells[3].innerText = document.getElementById("gioRa").value || "Chưa ra";
+            cells[4].innerText = document.getElementById("tongTien").value;
+            alert("Đã cập nhật tạm thời trên bảng!");
         };
 
-        tbody.appendChild(row);
-
-      });
-
-    }
-
-    loadReport();
-
-  </script>
-
+        loadReport();
+    </script>
 </body>
-
 </html>
