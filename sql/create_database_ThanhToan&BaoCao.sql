@@ -38,7 +38,7 @@ CREATE TABLE HoaDon
     TrangThaiThanhToan NVARCHAR(30) DEFAULT N'Chưa thanh toán',
     -- Để tiếng Việt có dấu cho đồng bộ
     NhanVienId INT,
-    BaoCaoId INT,
+    BaoCaoId INT
     CONSTRAINT FK_HoaDon_NhanVien FOREIGN KEY (NhanVienId) REFERENCES NhanVien(NhanVienId),
     CONSTRAINT FK_HoaDon_BaoCao FOREIGN KEY (BaoCaoId) REFERENCES BaoCaoThongKe(BaoCaoId)
 );

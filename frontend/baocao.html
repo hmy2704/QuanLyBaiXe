@@ -25,7 +25,6 @@
             min-height: 100vh;
         }
 
-        /* Navbar */
         .navbar {
             background: rgba(30, 136, 229, 0.95);
             backdrop-filter: blur(10px);
@@ -52,7 +51,6 @@
 
         .container { padding: 30px 50px; }
 
-        /* Stats Cards */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -193,15 +191,15 @@
         <div class="stats-grid">
             <div class="stat-card" style="border-color: var(--info);">
                 <div class="stat-icon" style="background: var(--info);"><i class="fas fa-history"></i></div>
-                <div class="stat-info"><h3>Lượt gửi hôm nay</h3><p id="statToday">128</p></div>
+                <div class="stat-info"><h3>Lượt gửi hôm nay</h3><p id="statToday"></p></div>
             </div>
             <div class="stat-card" style="border-color: var(--warning);">
                 <div class="stat-icon" style="background: var(--warning);"><i class="fas fa-car-side"></i></div>
-                <div class="stat-info"><h3>Xe đang trong bãi</h3><p id="statInside">42</p></div>
+                <div class="stat-info"><h3>Xe đang trong bãi</h3><p id="statInside"></p></div>
             </div>
             <div class="stat-card" style="border-color: var(--success);">
                 <div class="stat-icon" style="background: var(--success);"><i class="fas fa-hand-holding-usd"></i></div>
-                <div class="stat-info"><h3>Doanh thu hôm nay</h3><p id="statRevenue">1.250.000đ</p></div>
+                <div class="stat-info"><h3>Doanh thu hôm nay</h3><p id="statRevenue"></p></div>
             </div>
             <div class="stat-card" style="border-color: var(--primary);">
                 <div class="stat-icon" style="background: var(--primary);"><i class="fas fa-id-card-alt"></i></div>
@@ -296,95 +294,189 @@
     </div>
 
     <script src="env.js"></script>
-    <script>
-        let selectedRow = null;
+<script>
 
-        // Load dữ liệu từ API
-        async function loadReport() {
-            try {
-                const res = await fetch(`${API_BASE_URL}/report/all`);
-                const data = await res.json();
-                const tbody = document.getElementById("reportBody");
-                tbody.innerHTML = "";
+let selectedRow = null;
 
-                data.DanhSachBaoCao.forEach(xe => {
-                    const vao = new Date(xe.ThoiGianVao);
-                    const ra = xe.ThoiGianRa ? new Date(xe.ThoiGianRa) : null;
-                    const badge = xe.LoaiXe === 'Ô tô' ? 'badge-car' : 'badge-moto';
+// Load dữ liệu từ API
+async function loadReport() {
+    try {
+        const res = await fetch(`${API_BASE_URL}/report/all`);
+        const data = await res.json();
+        const tbody = document.getElementById("reportBody");
+        tbody.innerHTML = "";
 
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td><b>${xe.BienSo}</b></td>
-                        <td><span class="badge ${badge}">${xe.LoaiXe}</span></td>
-                        <td>${vao.toLocaleTimeString("vi-VN", {hour:'2-digit', minute:'2-digit'})}</td>
-                        <td>${ra ? ra.toLocaleTimeString("vi-VN", {hour:'2-digit', minute:'2-digit'}) : '<i style="color:#999">Chưa ra</i>'}</td>
-                        <td style="color:var(--danger); font-weight:bold;">${xe.TongTien ? xe.TongTien.toLocaleString() + "đ" : "0đ"}</td>
-                        <td>${vao.toLocaleDateString("vi-VN")}</td>
-                    `;
+        data.DanhSachBaoCao.forEach(xe => {
 
-                    row.onclick = () => {
-                        if(selectedRow) selectedRow.classList.remove('selected');
-                        selectedRow = row;
-                        row.classList.add('selected');
-                        
-                        const cells = row.querySelectorAll("td");
-                        document.getElementById("bienSo").value = cells[0].innerText;
-                        document.getElementById("loaiXe").value = cells[1].innerText;
-                        document.getElementById("gioVao").value = cells[2].innerText;
-                        document.getElementById("gioRa").value = cells[3].innerText === "Chưa ra" ? "" : cells[3].innerText;
-                        document.getElementById("tongTien").value = cells[4].innerText;
-                    };
-                    tbody.appendChild(row);
-                });
-            } catch (err) { console.error("Lỗi:", err); }
+            const vao = new Date(xe.ThoiGianVao);
+            const ra = xe.ThoiGianRa ? new Date(xe.ThoiGianRa) : null;
+            const badge = xe.LoaiXe === 'Ô tô' ? 'badge-car' : 'badge-moto';
+
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td><b>${xe.BienSo}</b></td>
+                <td><span class="badge ${badge}">${xe.LoaiXe}</span></td>
+                <td>${vao.toLocaleTimeString("vi-VN",{hour:'2-digit',minute:'2-digit'})}</td>
+                <td>${ra ? ra.toLocaleTimeString("vi-VN",{hour:'2-digit',minute:'2-digit'}) : '<i style="color:#999">Chưa ra</i>'}</td>
+                <td style="color:red;font-weight:bold;">${xe.TongTien ? xe.TongTien.toLocaleString()+"đ" : "0đ"}</td>
+                <td>${vao.toLocaleDateString("vi-VN")}</td>
+            `;
+
+            row.onclick = () => {
+
+                if(selectedRow) selectedRow.classList.remove('selected');
+                selectedRow = row;
+                row.classList.add('selected');
+
+                const cells = row.querySelectorAll("td");
+
+                document.getElementById("bienSo").value = cells[0].innerText;
+                document.getElementById("loaiXe").value = cells[1].innerText;
+                document.getElementById("gioVao").value = cells[2].innerText;
+                document.getElementById("gioRa").value = cells[3].innerText === "Chưa ra" ? "" : cells[3].innerText;
+                document.getElementById("tongTien").value = cells[4].innerText;
+            };
+
+            tbody.appendChild(row);
+        });
+
+        updateStats();
+
+    } catch (err) {
+        console.error("Lỗi:", err);
+    }
+}
+
+
+// TÍNH THỐNG KÊ TỪ TABLE
+function updateStats(){
+
+    const rows = document.querySelectorAll("#reportBody tr");
+
+    let todayCount = 0;
+    let insideCount = 0;
+    let revenue = 0;
+
+    const today = new Date().toLocaleDateString("vi-VN");
+
+    rows.forEach(row => {
+
+        const cells = row.querySelectorAll("td");
+
+        const date = cells[5].innerText;
+        const gioRa = cells[3].innerText;
+        const tien = cells[4].innerText.replace(/[^\d]/g,"");
+
+        if(date === today){
+            todayCount++;
+            revenue += parseInt(tien || 0);
         }
 
-        function filterTable() {
-            let bsInput = document.getElementById("filterBienSo").value.toLowerCase();
-            let lxInput = document.getElementById("filterLoaiXe").value;
-            let from = document.getElementById("fromDate").value;
-            let to = document.getElementById("toDate").value;
-            
-            let rows = document.querySelectorAll("tbody tr");
-            let hasData = false;
-
-            rows.forEach(row => {
-                let cells = row.querySelectorAll("td");
-                let bs = cells[0].innerText.toLowerCase();
-                let lx = cells[1].innerText;
-                let dateParts = cells[5].innerText.split("/");
-                let dateStr = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
-
-                let show = bs.includes(bsInput) && 
-                           (!lxInput || lx === lxInput) &&
-                           (!from || dateStr >= from) &&
-                           (!to || dateStr <= to);
-
-                row.style.display = show ? "" : "none";
-                if(show) hasData = true;
-            });
-
-            document.getElementById("btnReset").style.display = "inline-block";
-            document.getElementById("noData").style.display = hasData ? "none" : "block";
+        if(gioRa === "Chưa ra"){
+            insideCount++;
         }
 
-        function resetFilter() {
-            location.reload();
+    });
+
+    document.getElementById("statToday").innerText = todayCount;
+    document.getElementById("statInside").innerText = insideCount;
+    document.getElementById("statRevenue").innerText = revenue.toLocaleString()+"đ";
+}
+
+
+// FILTER
+function filterTable(){
+
+    const bsInput = document.getElementById("filterBienSo").value.toLowerCase().trim();
+    const lxInput = document.getElementById("filterLoaiXe").value;
+    const from = document.getElementById("fromDate").value;
+    const to = document.getElementById("toDate").value;
+
+    const rows = document.querySelectorAll("#reportBody tr");
+
+    let hasData = false;
+
+    rows.forEach(row => {
+
+        const cells = row.querySelectorAll("td");
+
+        const bs = cells[0].innerText.toLowerCase().trim();
+        const lx = cells[1].innerText.trim();
+
+        // lấy ngày từ bảng
+        const dateText = cells[5].innerText;
+        const parts = dateText.split("/");
+
+        const rowDate = new Date(parts[2], parts[1]-1, parts[0]);
+
+        let show = true;
+
+        if(bsInput && !bs.includes(bsInput)){
+            show = false;
         }
 
-        document.getElementById("editForm").onsubmit = (e) => {
-            e.preventDefault();
-            if(!selectedRow) return alert("Chọn một dòng để sửa!");
-            const cells = selectedRow.querySelectorAll("td");
-            cells[0].innerHTML = `<b>${document.getElementById("bienSo").value}</b>`;
-            cells[1].innerHTML = `<span class="badge ${document.getElementById("loaiXe").value === 'Ô tô' ? 'badge-car' : 'badge-moto'}">${document.getElementById("loaiXe").value}</span>`;
-            cells[2].innerText = document.getElementById("gioVao").value;
-            cells[3].innerText = document.getElementById("gioRa").value || "Chưa ra";
-            cells[4].innerText = document.getElementById("tongTien").value;
-            alert("Đã cập nhật tạm thời trên bảng!");
-        };
+        if(lxInput && lx !== lxInput){
+            show = false;
+        }
 
-        loadReport();
-    </script>
+        if(from){
+            const fromDate = new Date(from);
+            if(rowDate < fromDate) show = false;
+        }
+
+        if(to){
+            const toDate = new Date(to);
+            if(rowDate > toDate) show = false;
+        }
+
+        row.style.display = show ? "" : "none";
+
+        if(show) hasData = true;
+
+    });
+
+    document.getElementById("btnReset").style.display = "inline-block";
+    document.getElementById("noData").style.display = hasData ? "none" : "block";
+
+    updateStats();
+}
+
+// RESET
+function resetFilter(){
+    location.reload();
+}
+
+
+// FORM SỬA
+document.getElementById("editForm").onsubmit = (e) => {
+
+    e.preventDefault();
+
+    if(!selectedRow) return alert("Chọn một dòng để sửa!");
+
+    const cells = selectedRow.querySelectorAll("td");
+
+    cells[0].innerHTML = `<b>${document.getElementById("bienSo").value}</b>`;
+
+    cells[1].innerHTML =
+        `<span class="badge ${document.getElementById("loaiXe").value === 'Ô tô' ? 'badge-car' : 'badge-moto'}">
+        ${document.getElementById("loaiXe").value}
+        </span>`;
+
+    cells[2].innerText = document.getElementById("gioVao").value;
+    cells[3].innerText = document.getElementById("gioRa").value || "Chưa ra";
+    cells[4].innerText = document.getElementById("tongTien").value;
+
+    alert("Đã cập nhật tạm thời trên bảng!");
+
+    updateStats();
+};
+
+
+// LOAD
+loadReport();
+
+</script>
 </body>
 </html>
