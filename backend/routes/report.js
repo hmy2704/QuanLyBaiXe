@@ -3,15 +3,16 @@ const router = express.Router();
 const sql = require('mssql/msnodesqlv8');
 const config = require('../../dbConfig');
 
+
+// =========================
+// LẤY BÁO CÁO
+// =========================
 router.get('/report/all', async (req, res) => {
 
     try {
 
         const pool = await sql.connect(config);
 
-        // =========================
-        // 1 THỐNG KÊ
-        // =========================
         const stats = await pool.request().query(`
             SELECT 
                 COUNT(CASE 
@@ -35,9 +36,6 @@ router.get('/report/all', async (req, res) => {
         `);
 
 
-        // =========================
-        // 2 DANH SÁCH BÁO CÁO
-        // =========================
         const report = await pool.request().query(`
             SELECT
                 ISNULL(RTRIM(SoCuoi),'Không rõ') AS BienSo,
@@ -50,9 +48,6 @@ router.get('/report/all', async (req, res) => {
         `);
 
 
-        // =========================
-        // 3 XE TRONG BÃI
-        // =========================
         const xeTrongBai = await pool.request().query(`
             SELECT COUNT(*) AS SoXe
             FROM LuotGui
@@ -80,6 +75,59 @@ router.get('/report/all', async (req, res) => {
 
         res.status(500).json({
             message: "Không lấy được báo cáo",
+            error: err.message
+        });
+
+    }
+
+});
+
+
+// =========================
+// CẬP NHẬT DỮ LIỆU
+// =========================
+router.put('/report/update', async (req, res) => {
+
+    try {
+
+        const { bienSo, loaiXe, gioVao, gioRa, tongTien } = req.body;
+
+        const pool = await sql.connect(config);
+
+                    const now = new Date();
+                const nowDate = now.getFullYear() + "-" +
+                (String(now.getMonth()+1).padStart(2,"0")) + "-" +
+                (String(now.getDate()).padStart(2,"0"));
+
+                const result = await pool.request()
+                .input("bienSo", sql.NVarChar, bienSo)
+                .input("loaiXe", sql.NVarChar, loaiXe)
+                .input("gioVao", sql.DateTime, `${nowDate} ${gioVao}:00`)
+                .input("gioRa", sql.DateTime, gioRa ? `${nowDate} ${gioRa}:00` : null)
+                .input("tongTien", sql.Int, tongTien)
+
+                .query(`
+                UPDATE LuotGui
+                SET
+                LoaiXe = @loaiXe,
+                ThoiGianVao = @gioVao,
+                ThoiGianRa = @gioRa,
+                PhiGui = @tongTien
+                WHERE RTRIM(SoCuoi) = @bienSo
+                `);
+        
+
+        res.json({
+            status: "OK",
+            message: "Cập nhật thành công"
+        });
+
+    } catch (err) {
+
+        console.error("Lỗi update:", err);
+
+        res.status(500).json({
+            message: "Không cập nhật được",
             error: err.message
         });
 

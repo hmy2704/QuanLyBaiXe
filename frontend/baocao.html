@@ -296,22 +296,14 @@
     <script src="env.js"></script>
 <script>
 
-<<<<<<< HEAD
 let selectedRow = null;
-=======
-        async function loadReport() {
-            try {
-                const res = await fetch(`${API_BASE_URL}/report/all`);
-                const data = await res.json();
-                const tbody = document.getElementById("reportBody");
-                tbody.innerHTML = "";
->>>>>>> a466b52714b87ff899864db347182c7204a578da
 
 // Load dữ liệu từ API
 async function loadReport() {
     try {
         const res = await fetch(`${API_BASE_URL}/report/all`);
         const data = await res.json();
+
         const tbody = document.getElementById("reportBody");
         tbody.innerHTML = "";
 
@@ -327,9 +319,9 @@ async function loadReport() {
                 <td><b>${xe.BienSo}</b></td>
                 <td><span class="badge ${badge}">${xe.LoaiXe}</span></td>
                 <td>${vao.toLocaleTimeString("vi-VN",{hour:'2-digit',minute:'2-digit'})}</td>
-                <td>${ra ? ra.toLocaleTimeString("vi-VN",{hour:'2-digit',minute:'2-digit'}) : '<i style="color:#999">Chưa ra</i>'}</td>
-                <td style="color:red;font-weight:bold;">${xe.TongTien ? xe.TongTien.toLocaleString()+"đ" : "0đ"}</td>
-                <td>${vao.toLocaleDateString("vi-VN")}</td>
+                <td>${ra ? ra.toLocaleTimeString("vi-VN",{hour:'2-digit',minute:'2-digit'}) : 'Chưa ra'}</td>
+                <td style="color:red;font-weight:bold;">${xe.TongTien.toLocaleString()}đ</td>
+                <td data-date="${vao.toISOString()}">${vao.toLocaleDateString("vi-VN")}</td>
             `;
 
             row.onclick = () => {
@@ -344,10 +336,11 @@ async function loadReport() {
                 document.getElementById("loaiXe").value = cells[1].innerText;
                 document.getElementById("gioVao").value = cells[2].innerText;
                 document.getElementById("gioRa").value = cells[3].innerText === "Chưa ra" ? "" : cells[3].innerText;
-                document.getElementById("tongTien").value = cells[4].innerText;
+                document.getElementById("tongTien").value = cells[4].innerText.replace(/[^\d]/g,"");
             };
 
             tbody.appendChild(row);
+
         });
 
         updateStats();
@@ -413,13 +406,17 @@ function filterTable(){
         const bs = cells[0].innerText.toLowerCase().trim();
         const lx = cells[1].innerText.trim();
 
-        // lấy ngày từ bảng
-        const dateText = cells[5].innerText;
-        const parts = dateText.split("/");
-
-        const rowDate = new Date(parts[2], parts[1]-1, parts[0]);
-
+        const rowDateStr = cells[5].dataset.date.slice(0,10); // yyyy-mm-dd
         let show = true;
+        if(from && rowDateStr < from){
+            show = false;
+        }
+
+        if(to && rowDateStr > to){
+            show = false;
+        }
+
+        
 
         if(bsInput && !bs.includes(bsInput)){
             show = false;
@@ -429,15 +426,7 @@ function filterTable(){
             show = false;
         }
 
-        if(from){
-            const fromDate = new Date(from);
-            if(rowDate < fromDate) show = false;
-        }
-
-        if(to){
-            const toDate = new Date(to);
-            if(rowDate > toDate) show = false;
-        }
+        
 
         row.style.display = show ? "" : "none";
 
@@ -450,7 +439,6 @@ function filterTable(){
 
     updateStats();
 }
-
 // RESET
 function resetFilter(){
     location.reload();
