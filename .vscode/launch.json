@@ -5,15 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "chrome",
+            "type": "msedge",
             "request": "launch",
-<<<<<<< HEAD
             "name": "Open login.html",
             "file": "d:\\TaiLieu\\QuanLyBaiXe\\frontend\\login.html"
-=======
             "name": "Open baocao.html",
             "file": "d:\\CHUYEN DE CNPM\\QuanLyBaiXe\\frontend\\baocao.html"
->>>>>>> d92bd9591ec4965adb2239f53f4ea30c8ec99b2b
         }
     ]
 }
