@@ -296,7 +296,16 @@
     <script src="env.js"></script>
 <script>
 
+<<<<<<< HEAD
 let selectedRow = null;
+=======
+        async function loadReport() {
+            try {
+                const res = await fetch(`${API_BASE_URL}/report/all`);
+                const data = await res.json();
+                const tbody = document.getElementById("reportBody");
+                tbody.innerHTML = "";
+>>>>>>> a466b52714b87ff899864db347182c7204a578da
 
 // Load dữ liệu từ API
 async function loadReport() {

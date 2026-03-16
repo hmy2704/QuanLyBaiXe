@@ -12,6 +12,150 @@
             left: 0;
             width: 100%;
             display: flex;
+            background: #4873c9;
+            padding: 14px 24px;
+            color: white;
+            z-index: 1000;
+        }
+
+        .form_box {
+            width: 85%;
+            margin: 30px auto;
+        }
+
+        .nav {
+            margin-top: 20px;
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin-left: 70%;
+        }
+
+        .nav li {
+            background: #2563eb;
+            padding: 10px 10px;
+            border-radius: 8px;
+            border: 1px solid #2563eb;
+            font-size: 14px;
+        }
+
+        .nav li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            width: 400px;
+            background: white;
+            padding-bottom: 20px;
+            margin-top: 140px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .navbar {
+            background: #5b74b8;
+            color: white;
+            text-align: center;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 12px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .row {
+            margin-right: 15px;
+            padding: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #4e66b3;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .search {
+            display: flex;
+            gap: 10px;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h3>Quản lý bãi xe</h3>
+        <ul class="nav">
+            <li><a href="main.html">Trang chủ</a></li>
+            <li><a href="login.html">Đăng xuất</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="navbar">
+            <h2>GHI NHẬN XE RA</h2>
+        </div>
+        <div class="form_box">
+            <div class="search">
+                <input type="text" id="maVe" placeholder="Nhập mã vé">
+                <button onclick="timXe()">Tìm kiếm</button>
+            </div>
+
+            <div class="row">
+              <label>Biển số/Số cuối</label>
+                    <input id="soCuoiHienThi" readonly> ```
+                    <label>Loại xe</label>
+                    <input id="loaiXe" readonly>
+                    <label>Thời gian vào</label>
+                    <input type="datetime-local" id="vao" readonly>
+                    <label>Thời gian ra</label>
+                    <input type="datetime-local" id="ra" onchange="tinhTien()">
+                    <label>Tiền gửi</label>
+                    <input id="tien" readonly>
+            </div>
+            <div id="reader" style="width: 300px; margin: 10px auto;"></div>
+            <button onclick="startScanner()">Bật Camera quét mã</button>
+        </div>
+        <div class="button">
+            <button onclick="ghiNhan()">Ghi nhận xe ra</button>
+        </div>
+
+
+        <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <meta charset="UTF-8">
+    <title>Ghi nhận xe ra</title>
+    <style>
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
 
             background: #4873c9;
             padding: 14px 24px;
@@ -147,7 +291,7 @@
             </div>
 
             <div class="row">
-                <<label>Biển số/Số cuối</label>
+                <label>Biển số/Số cuối</label>
                     <input id="soCuoiHienThi" readonly> ```
                     <label>Loại xe</label>
                     <input id="loaiXe" readonly>
@@ -156,115 +300,116 @@
                     <label>Thời gian ra</label>
                     <input type="datetime-local" id="ra" onchange="tinhTien()">
                     <label>Tiền gửi</label>
-                    <input id="tien" readonly>
+                    <input id="tien" readonly>=======
+                <input id="soCuoiHienThi" readonly>
+                <label>Loại xe</label>
+                <input id="loaiXe" readonly>
+                <label>Thời gian vào</label>
+                <input type="datetime-local" id="vao" readonly>
+                <label>Thời gian ra</label>
+                <input type="datetime-local" id="ra" onchange="tinhTien()">
+                <label>Tiền gửi</label>
+                <input id="tien" readonly>
             </div>
             <div id="reader" style="width: 300px; margin: 10px auto;"></div>
-            <button onclick="startScanner()">Bật Camera quét mã</button>
-        </div>
-        <div class="button">
+            <button onclick="startScanner()" style="background-color: #28a745; margin-bottom: 10px;">Bật Camera quét mã</button>
             <button onclick="ghiNhan()">Ghi nhận xe ra</button>
         </div>
+    </div>
 
+    <script>
+        let currentVeXeId = null;
+        // ĐỊNH NGHĨA PORT CỦA BACKEND Ở ĐÂY (VÍ DỤ 3000)
+        const BASE_URL = "http://localhost:3000";
 
-        <script>
-            // Biến lưu trữ VeXeId tạm thời để lát nữa dùng cho lúc xác nhận ra
-            let currentVeXeId = null;
+        async function timXe() {
+            const maVe = document.getElementById('maVe').value;
+            if (!maVe) return alert("Vui lòng nhập mã vé!");
 
-            async function timXe() {
-                // Thêm đoạn này vào trong hàm timXe() sau khi nhận data thành công
-                const now = new Date();
-                now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-                document.getElementById('ra').value = now.toISOString().slice(0, 16);
+            // Tự động điền thời gian ra là hiện tại
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('ra').value = now.toISOString().slice(0, 16);
 
-                // Sau khi set giá trị cho ô ra, gọi hàm tính tiền luôn
-                tinhTien();
-                const maVe = document.getElementById('maVe').value; // Sửa từ maVeRa -> maVe
-                if (!maVe) return alert("Vui lòng nhập mã vé!");
+            try {
+                // Sửa lỗi 404 bằng cách gọi đúng URL của Backend
+                const response = await fetch(`${BASE_URL}/api/xera/${maVe}`);
+                const data = await response.json();
 
-                try {
-                    const response = await fetch(`/api/xera/${maVe}`);
-                    const data = await response.json();
-
-                    if (response.ok) {
-                        // Lưu VeXeId vào biến toàn cục để dùng cho hàm ghiNhan
-                        currentVeXeId = data.VeXeId;
-
-                        // Điền dữ liệu vào form
-                        // Sửa trong hàm timXe()
-                        document.getElementById('soCuoiHienThi').value = data.BienSo || data.SoCuoi;
-                        document.getElementById('loaiXe').value = data.MauXe;
+                if (response.ok) {
+                    currentVeXeId = data.VeXeId;
+                    document.getElementById('soCuoiHienThi').value = data.BienSo || data.SoCuoi || "N/A";
+                    document.getElementById('loaiXe').value = data.MauXe || data.LoaiXe || "N/A";
+                    
+                    if(data.ThoiGianVao) {
                         document.getElementById('vao').value = data.ThoiGianVao.slice(0, 16);
-
-                        tinhTien(); // Tự tính tiền khi tìm thấy xe
-                    } else {
-
-                        alert(data.message);
-
                     }
 
-                } catch (err) {
-                    alert("Lỗi kết nối tới Server!");
+                    tinhTien();
+                } else {
+                    alert(data.message || "Không tìm thấy thông tin xe!");
                 }
+            } catch (err) {
+                console.error(err);
+                alert("Lỗi kết nối tới Server Backend (Hãy kiểm tra server đã chạy chưa và CORS đã bật chưa)!");
+            }
+        }
 
+        function tinhTien() {
+            const vaoInput = document.getElementById('vao').value;
+            const raInput = document.getElementById('ra').value;
+
+            if (!vaoInput || !raInput) return;
+
+            const vao = new Date(vaoInput);
+            const ra = new Date(raInput);
+
+            if (isNaN(vao.getTime()) || isNaN(ra.getTime())) {
+                document.getElementById('tien').value = "0 đ";
+                return;
             }
 
-            function tinhTien() {
-                const vaoInput = document.getElementById('vao').value;
-                const raInput = document.getElementById('ra').value;
+            let diffMs = ra - vao;
+            // Tính số giờ, tối thiểu là 1 giờ
+            let diffHrs = Math.max(1, Math.ceil(diffMs / (1000 * 60 * 60)));
 
-                // Kiểm tra nếu chưa nhập thời gian ra thì dừng lại
-                if (!raInput) return;
+            const loaiXe = document.getElementById('loaiXe').value;
+            // Giá tiền: Ô tô 20k, các xe khác 5k
+            const giaMoiGio = (loaiXe === "Ô tô") ? 20000 : 5000;
 
-                const vao = new Date(vaoInput);
-                const ra = new Date(raInput);
+            document.getElementById('tien').value = (diffHrs * giaMoiGio).toLocaleString('vi-VN') + " đ";
+        }
 
-                // Kiểm tra xem date có hợp lệ không
-                if (isNaN(vao.getTime()) || isNaN(ra.getTime())) {
-                    document.getElementById('tien').value = "0 đ";
-                    return;
-                }
+        async function ghiNhan() {
+            if (!currentVeXeId) return alert("Vui lòng tìm kiếm xe trước!");
 
-                // Tính chênh lệch giờ
-                let diffMs = ra - vao;
-                // Đảm bảo không âm (trường hợp giờ ra < giờ vào)
-                let diffHrs = Math.max(1, Math.ceil(diffMs / (1000 * 60 * 60)));
-
-                const loaiXe = document.getElementById('loaiXe').value;
-                const giaMoiGio = (loaiXe === "Ô tô") ? 20000 : 5000;
-
-                document.getElementById('tien').value = (diffHrs * giaMoiGio).toLocaleString('vi-VN') + " đ";
-            }
-
-            async function ghiNhan() {
-                if (!currentVeXeId) return alert("Vui lòng tìm kiếm xe trước!");
-
-                const response = await fetch('/api/checkout', {
+            try {
+                const response = await fetch(`${BASE_URL}/api/checkout`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ VeXeId: currentVeXeId }) // Gửi ID đúng cho server
+                    body: JSON.stringify({ VeXeId: currentVeXeId })
                 });
 
                 const result = await response.json();
                 if (response.ok) {
-                    alert(result.message);
-                    location.reload(); // Làm mới trang sau khi thành công
+                    alert("Thanh toán và ghi nhận xe ra thành công!");
+                    location.reload();
                 } else {
-                    alert("Lỗi: " + result.message);
+                    alert("Lỗi: " + (result.message || "Không thể thực hiện ghi nhận"));
                 }
+            } catch (err) {
+                alert("Lỗi kết nối tới Server khi ghi nhận!");
             }
-            function startScanner() {
-                const html5QrcodeScanner = new Html5QrcodeScanner(
-                    "reader", { fps: 10, qrbox: 250 });
+        }
 
-                html5QrcodeScanner.render((decodedText) => {
-                    // decodedText chính là mã vé được quét từ camera
-                    document.getElementById('maVe').value = decodedText;
-
-                    // Tự động tìm xe luôn
-                    timXe();
-
-                    // Tắt camera sau khi quét xong để đỡ tốn tài nguyên
-                    html5QrcodeScanner.clear();
-                });
-            }
-        </script>
+        function startScanner() {
+            const html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
+            html5QrcodeScanner.render((decodedText) => {
+                document.getElementById('maVe').value = decodedText;
+                timXe();
+                html5QrcodeScanner.clear();
+            });
+        }
+    </script>
+</body>
+</html>
