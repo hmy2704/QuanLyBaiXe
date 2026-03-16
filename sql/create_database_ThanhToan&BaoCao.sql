@@ -76,4 +76,5 @@ INSERT INTO BaoCaoThongKe
     (TuNgay, DenNgay)
 VALUES
     (CAST(GETDATE() AS DATE), CAST(GETDATE() AS DATE));
+    
 GO
