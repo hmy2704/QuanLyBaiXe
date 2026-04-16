@@ -48,10 +48,6 @@
             font-size: 16px;
         }
 
-        .btn-nav:hover {
-            background: #1e56d4;
-        }
-
         .container {
             display: flex;
             flex-direction: row;
@@ -72,7 +68,7 @@
         }
 
         .giaodien {
-            width: 400px;
+            width: 420px;
             flex-shrink: 0;
         }
 
@@ -113,8 +109,6 @@
             height: 38px;
             border: 1px solid #aaa;
             padding: 5px 10px;
-            font-family: inherit;
-            box-sizing: border-box;
             border-radius: 4px;
         }
 
@@ -126,34 +120,16 @@
             border: none;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 15px;
-            font-family: inherit;
-            font-size: 16px;
+            margin-top: 10px;
             border-radius: 4px;
         }
 
-        .btn-main:hover {
-            background: #3a5fa3;
-        }
-
-        .btn-save {
-            background: #28a745;
-            display: none;
-            float: right;
-            width: auto;
-            padding: 10px 30px;
-            margin-top: 15px;
-        }
-
-        .fee-text {
-            color: #d32f2f;
-            font-weight: bold;
-        }
-
-        #qrCode {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
+        #webcam {
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            margin-bottom: 10px;
+            width: 100%;
+            height: auto;
         }
     </style>
 </head>
@@ -173,12 +149,18 @@
         <div class="giaodien">
             <div id="ghi">GHI NHẬN XE VÀO</div>
             <div class="form-content">
-                <table>
+                <video id="webcam" autoplay></video>
+                <canvas id="canvas" style="display:none;"></canvas>
 
-                    <tr>
-                        <td>3 số cuối</td>
-                        <td><input type="text" id="soCuoi" placeholder="Ví dụ: 123"></td>
-                    </tr>
+                <button class="btn-main" id="btnScan" onclick="quetBienSo()" style="background: #28a745;"> Quét biển
+                    số tự động</button>
+
+                <div style="margin-top: 15px;">
+                    <label>Biển số nhận diện:</label>
+                    <input type="text" id="bienSoInput" placeholder="Kết quả AI sẽ hiện ở đây">
+                </div>
+
+                <table style="margin-top: 15px;">
                     <tr>
                         <td>Loại xe</td>
                         <td>
@@ -187,76 +169,139 @@
                                 <option value="Ô tô">Ô tô</option>
                             </select>
                         </td>
+                    </tr>
                     <tr>
                         <td style="text-align: left;">Giờ vào</td>
                         <td><input type="datetime-local" id="tgVao"></td>
                     </tr>
-                    </tr>
                 </table>
-                <button class="btn-main" onclick="ghiNhan()">Ghi nhận (Enter)</button>
+                <button class="btn-main" onclick="ghiNhan()">Ghi nhận xe vào</button>
                 <div id="qrCode"></div>
             </div>
         </div>
 
-    </div>
-    <div class="danh-sach-container">
-        <div
-            style="color:#4A76C5; font-weight: bold; margin-bottom: 15px; font-size: 18px; border-bottom: 2px solid #4A76C5; padding-bottom: 5px; text-align: left;">
-            Danh sách xe chờ lưu
+        <div class="danh-sach-container">
+            <div
+                style="color:#4A76C5; font-weight: bold; margin-bottom: 15px; font-size: 18px; border-bottom: 2px solid #4A76C5; padding-bottom: 5px;">
+                Danh sách xe chờ lưu
+            </div>
+            <table id="tableDanhSach">
+                <thead>
+                    <tr>
+                        <th>Biển số</th>
+                        <th>Loại xe</th>
+                        <th>Thời gian</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button id="btnSave" class="btn-main" style="background: #28a745; display:none;" onclick="saveToDB()">Lưu
+                tất cả vào Database</button>
         </div>
-        <table id="tableDanhSach">
-            <thead>
-                <tr>
+    </div>
 
-                    <th>Loại xe</th>
-                    <th>Thời gian</th>
-                    <th>Tiền phí</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-        <button id="btnSave" class="btn-main btn-save" onclick="saveToDB()">Lưu tất cả vào Database</button>
-    </div>
-    </div>
     <script>
-        const $ = id => document.getElementById(id);
-        let danhSachXeChoLuu = [];
+        const video = document.getElementById('webcam');
+        const canvas = document.getElementById('canvas');
+        const bienSoInput = document.getElementById('bienSoInput');
 
+        // 1. Mở Webcam
+        async function startWebcam() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+            } catch (err) {
+                alert("Không thể mở camera. Vui lòng kiểm tra quyền truy cập!");
+            }
+        }
+
+        // 2. Nhận diện biển số
+        async function quetBienSo() {
+            const btn = document.getElementById('btnScan');
+            btn.innerText = "Đang nhận diện...";
+            btn.disabled = true;
+
+            const context = canvas.getContext('2d');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            canvas.toBlob(async (blob) => {
+                const formData = new FormData();
+                formData.append('image', blob, 'capture.jpg');
+
+                try {
+                    const response = await fetch('http://localhost:5001/ocr', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const data = await response.json();
+                    if (data.bien_so) {
+                        bienSoInput.value = data.bien_so;
+                    } else {
+                        alert("Không đọc được biển số, thử lại nhé!");
+                    }
+                } catch (error) {
+                    alert("Lỗi kết nối Python! Hãy bật file detect_plate.py (Port 5001)");
+                } finally {
+                    btn.innerText = "Quét biển số tự động";
+                    btn.disabled = false;
+                }
+            }, 'image/jpeg');
+        }
+
+        // 3. Logic Ghi nhận tạm (My có thể sửa lại theo ý nhóm)
 
         async function ghiNhan() {
-            const sc = document.getElementById('soCuoi').value;
+            const bs = document.getElementById('bienSoInput').value;
             const lx = document.getElementById('loaiXe').value;
-            if (!sc) return alert("Vui lòng nhập 3 số cuối!");
 
-            const res = await fetch('http://localhost:3000/api/checkin', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ soCuoi: sc, mauXe: lx })
-            });
+            if (!bs) return alert("Vui lòng quét biển số trước!");
 
-            const data = await res.json();
-            if (data.success) {
-                alert("Ghi nhận thành công! Mã vé: " + data.maVe);
-                // Xóa mã QR cũ nếu có và vẽ mới
-                document.getElementById("qrCode").innerHTML = "";
-                new QRCode(document.getElementById("qrCode"), data.maVe);
-            } else {
-                alert(data.message);
-            }
-        }
-        // Lưu Database (Gửi thêm soCuoi lên server)
-        async function saveToDB() {
-            const API_URL = "http://localhost:3000/api/checkin";
-            for (const xe of danhSachXeChoLuu) {
-                await fetch(API_URL, {
+            try {
+                // BƯỚC 1: GỬI LÊN SQL QUA NODE.JS
+                const res = await fetch('http://localhost:3000/api/checkin', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(xe)
+                    body: JSON.stringify({
+                        bienSo: bs,
+                        loaiXe: lx
+                    })
                 });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    alert("Ghi nhận thành công! Mã vé: " + data.maVe);
+
+                    // BƯỚC 2: CẬP NHẬT THÔNG TIN SANG BẢNG BÊN CẠNH
+                    const tbody = document.querySelector('#tableDanhSach tbody');
+                    const newRow = `
+                <tr>
+                    <td>${bs}</td>
+                    <td>${lx}</td>
+                    <td>${new Date().toLocaleTimeString()}</td>
+                </tr>
+            `;
+                    // Chèn dòng mới lên đầu bảng
+                    tbody.insertAdjacentHTML('afterbegin', newRow);
+
+                    // BƯỚC 3: HIỆN MÃ QR VÉ
+                    document.getElementById("qrCode").innerHTML = "";
+                    new QRCode(document.getElementById("qrCode"), data.maVe);
+
+                    // Xóa ô nhập để chuẩn bị cho xe tiếp theo
+                    document.getElementById('bienSoInput').value = "";
+                } else {
+                    alert("Lỗi lưu Database: " + data.message);
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Lỗi kết nối Server Node.js! My đã bật 'node server.js' chưa?");
             }
-            alert("Lưu thành công!");
-            danhSachXeChoLuu = [];
         }
+        window.onload = startWebcam;
     </script>
 </body>
 
