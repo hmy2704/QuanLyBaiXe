@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +30,7 @@
             width: 900px;
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             text-align: center;
         }
 
@@ -90,7 +91,7 @@
         .menu-item:hover {
             transform: translateY(-5px);
             border-color: var(--primary-blue);
-            box-shadow: 0 10px 20px rgba(30,136,229,0.15);
+            box-shadow: 0 10px 20px rgba(30, 136, 229, 0.15);
             background: #f8fbff;
         }
 
@@ -109,7 +110,7 @@
 
         .btn-logout:hover {
             background: #d32f2f;
-            box-shadow: 0 5px 15px rgba(211,47,47,0.3);
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.3);
         }
 
         /* Ẩn nút admin mặc định */
@@ -118,6 +119,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="dashboard-container">
@@ -139,9 +141,9 @@
                 <span>Ghi Nhận Xe Ra</span>
             </a>
 
-            <a href="themmoi.html" class="menu-item">
+            <a href="vethang.html" class="menu-item">
                 <i class="fas fa-ticket-alt"></i>
-                <span>Thêm Mới Vé Xe</span>
+                <span>Vé Tháng</span>
             </a>
 
             <a href="nhanvien.html" class="menu-item admin-only">
@@ -154,10 +156,7 @@
                 <span>Báo Cáo Thống Kê</span>
             </a>
 
-            <div class="menu-item" id="btnSetting">
-                <i class="fas fa-cogs"></i>
-                <span>Cấu Hình Hệ Thống</span>
-            </div>
+
         </div>
 
         <button class="btn-logout" id="btnLogout">
@@ -195,4 +194,5 @@
         });
     </script>
 </body>
+
 </html>

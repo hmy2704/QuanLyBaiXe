@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Vé Tháng - My Parking</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .container {
+            background: white;
+            width: 450px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .btn-register {
+            background-color: #28a745;
+        }
+
+        .btn-register:hover {
+            background-color: #218838;
+        }
+
+        .btn-extend {
+            background-color: #17a2b8;
+        }
+
+        .btn-extend:hover {
+            background-color: #138496;
+        }
+
+        .divider {
+            height: 1px;
+            background: #ddd;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .divider::after {
+            content: "HOẶC";
+            position: absolute;
+            top: -10px;
+            left: 42%;
+            background: white;
+            padding: 0 10px;
+            color: #888;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>✨ ĐĂNG KÝ MỚI</h2>
+        <div class="input-group">
+            <label>Họ tên chủ xe:</label>
+            <input type="text" id="hoTen" placeholder="Nguyễn Huyền My">
+        </div>
+        <div class="input-group">
+            <label>Biển số xe:</label>
+            <input type="text" id="bienSo" placeholder="29F1-123.45">
+        </div>
+        <div class="input-group">
+            <label>Mã thẻ cấp mới:</label>
+            <input type="text" id="maVe" placeholder="Ví dụ: T001">
+        </div>
+        <div class="input-group">
+            <label>Ngày hết hạn đầu tiên:</label>
+            <input type="date" id="ngayHetHan">
+        </div>
+        <button class="btn-register" onclick="dangKy()">LƯU ĐĂNG KÝ</button>
+
+        <div class="divider"></div>
+
+        <h2>⏳ GIA HẠN VÉ</h2>
+        <div class="input-group">
+            <label>Biển số cần gia hạn:</label>
+            <input type="text" id="bsGiaHan" placeholder="Nhập đúng biển số đã đăng ký">
+        </div>
+        <div class="input-group">
+            <label>Thời gian gia hạn thêm:</label>
+            <select id="soThang">
+                <option value="1">Thêm 1 Tháng</option>
+                <option value="3">Thêm 3 Tháng</option>
+                <option value="6">Thêm 6 Tháng</option>
+                <option value="12">Thêm 1 Năm</option>
+            </select>
+        </div>
+        <button class="btn-extend" onclick="giaHan()">XÁC NHẬN GIA HẠN</button>
+    </div>
+
+    <script>
+        // Hàm Đăng ký mới
+        async function dangKy() {
+            const data = {
+                hoTen: document.getElementById('hoTen').value,
+                bienSo: document.getElementById('bienSo').value,
+                maVe: document.getElementById('maVe').value,
+                ngayHetHan: document.getElementById('ngayHetHan').value,
+                giaTien: 0 // My có thể thêm ô nhập giá tiền nếu muốn
+            };
+
+            if (!data.hoTen || !data.bienSo || !data.maVe || !data.ngayHetHan) {
+                return alert("Vui lòng điền đủ thông tin đăng ký!");
+            }
+
+            try {
+                const res = await fetch('/api/register-vethang', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+                alert(result.message);
+                if (result.success) location.reload();
+            } catch (err) {
+                alert("Lỗi kết nối server!");
+            }
+        }
+
+        // Hàm Gia hạn
+        async function giaHan() {
+            const bienSo = document.getElementById('bsGiaHan').value;
+            const thangGiaHan = document.getElementById('soThang').value;
+
+            if (!bienSo) return alert("Vui lòng nhập biển số xe khách muốn gia hạn!");
+
+            try {
+                const res = await fetch('/api/extend-vethang', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ bienSo, thangGiaHan: parseInt(thangGiaHan) })
+                });
+                const result = await res.json();
+                alert(result.message);
+                if (result.success) document.getElementById('bsGiaHan').value = "";
+            } catch (err) {
+                alert("Lỗi kết nối server!");
+            }
+        }
+    </script>
+</body>
+
+</html>
