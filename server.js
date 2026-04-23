@@ -42,6 +42,7 @@ const checkinRoutes = require('./backend/routes/checkin');
 const checkoutRoutes = require('./backend/routes/checkout');
 const reportRoutes = require('./backend/routes/report');
 const nhanvienRoutes = require('./backend/routes/nhanvien');
+const vethangRouter = require('./backend/routes/vethang');
 
 // 3. ĐĂNG KÝ CÁC ĐƯỜNG DẪN API
 app.use('/api', authRoutes);
@@ -49,7 +50,7 @@ app.use('/api', checkinRoutes);
 app.use('/api', checkoutRoutes);
 app.use('/api', reportRoutes);
 app.use('/api', nhanvienRoutes);
-
+app.use('/api', vethangRouter);
 
 app.get('/', (req, res) => {
     res.send(" Server QuanLyBaiXe đang chạy...");
