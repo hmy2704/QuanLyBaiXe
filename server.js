@@ -1,11 +1,11 @@
 const PORT = 3000;
-const API_BASE_URL = 'http://localhost:3000'; // IP máy chủ của bạn
+//const API_BASE_URL = 'http://localhost:3000'; // IP máy chủ của bạn
+const API_BASE_URL = `http://localhost:3000`;
 const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const sql = require('mssql/msnodesqlv8');
 const config = require('./dbConfig');
-
 
 // Khai báo ứng dụng
 const app = express();
@@ -16,10 +16,9 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Headers", "Content-Type, x-user-role");
     next();
 });
+
 app.use(cors());
 app.use(express.static('frontend'));
-
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

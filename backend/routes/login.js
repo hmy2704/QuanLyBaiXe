@@ -38,6 +38,10 @@ router.post("/login", async (req, res) => {
             });
         }
     } catch (err) {
+
+        console.error("🔥 LỖI LOGIN:", err); 
+
+        
         res.status(500).json({
             success: false,
             message: "Lỗi kết nối server",
