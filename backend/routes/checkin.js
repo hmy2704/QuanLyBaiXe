@@ -5,10 +5,10 @@ const config = require('../../dbConfig');
 
 router.post('/checkin', async (req, res) => {
     try {
-        const { bienSo, loaiXe, maVeQuet } = req.body; // maVeQuet từ ô nhập mã thẻ trên giao diện
+        const { bienSo, loaiXe, maVeQuet } = req.body;
         let pool = await sql.connect(config);
 
-        // 1. KIỂM TRA XE ĐÃ CÓ TRONG BÃI CHƯA (Chống trùng cho cả vé tháng và vãng lai)
+        // 1. KIỂM TRA XE ĐÃ CÓ TRONG BÃI CHƯA
         let checkXe = await pool.request()
             .input('sc_check', sql.VarChar, bienSo)
             .query("SELECT LuotGuiId FROM LuotGui WHERE SoCuoi = @sc_check AND ThoiGianRa IS NULL");
@@ -37,8 +37,7 @@ router.post('/checkin', async (req, res) => {
 
             const thongTinVeThang = checkVT.recordset[0];
 
-            // So khớp biển số xe đang quét với biển số đăng ký trên thẻ
-            if (thongTinVeThang.BienSo !== bienSo) {
+            if (thongTinVeThang.BienSo.trim() !== bienSo.trim()) {
                 return res.status(400).json({
                     success: false,
                     message: `Thẻ này cấp cho xe ${thongTinVeThang.BienSo}, không khớp với xe đang đứng cổng (${bienSo})!`
@@ -46,9 +45,9 @@ router.post('/checkin', async (req, res) => {
             }
 
             finalMaVe = thongTinVeThang.MaVe;
-            finalVeXeId = null; // Vé tháng có thể không cần ID từ bảng VeXe vãng lai
+            finalVeXeId = null;
         } else {
-            // --- TRƯỜNG HỢP VÃNG LAI (Không quẹt thẻ) ---
+            // --- TRƯỜNG HỢP VÃNG LAI ---
             let veTrong = await pool.request()
                 .query("SELECT TOP 1 VeXeId, MaVe FROM VeXe WHERE TrangThai = N'TRỐNG'");
 
@@ -59,27 +58,50 @@ router.post('/checkin', async (req, res) => {
             finalVeXeId = veTrong.recordset[0].VeXeId;
             finalMaVe = veTrong.recordset[0].MaVe;
 
-            // Cập nhật trạng thái vé vãng lai thành 'Đang sử dụng'
             await pool.request()
                 .input('vId', sql.Int, finalVeXeId)
                 .query("UPDATE VeXe SET TrangThai = N'Đang sử dụng' WHERE VeXeId = @vId");
         }
 
-        // 3. GHI NHẬT KÝ VÀO BẢNG LUOTGUI
-        // Lưu ý: Nếu là vé tháng, VeXeId sẽ là NULL (hoặc My có thể để một ID mặc định)
+        // BỔ SUNG: XỬ LÝ BẢNG XE ĐỂ LẤY XEID (Giúp hiển thị MaQR sau này)
+        let finalXeId = null;
+        let getXeId = await pool.request()
+            .input('bs', sql.VarChar, bienSo)
+            .query("SELECT XeId FROM Xe WHERE BienSo = @bs");
+
+        if (getXeId.recordset.length > 0) {
+            finalXeId = getXeId.recordset[0].XeId;
+        } else {
+            // Nếu xe vãng lai mới tinh chưa từng vào bãi, tự tạo một dòng trong bảng Xe
+            let insertXe = await pool.request()
+                .input('bs', sql.VarChar, bienSo)
+                .input('mx', sql.NVarChar, loaiXe)
+                .input('mqr', sql.NVarChar, finalMaVe) // Gán tạm mã thẻ làm mã QR cho xe vãng lai
+                .query(`
+                    INSERT INTO Xe (BienSo, MauXe, LoaiXeId, MaQR) 
+                    OUTPUT INSERTED.XeId
+                    VALUES (@bs, @mx, 1, @mqr)
+                `);
+            finalXeId = insertXe.recordset[0].XeId;
+        }
+
+        // 3. GHI NHẬT KÝ VÀO BẢNG LUOTGUI (Đã bổ sung XeId)
         await pool.request()
             .input('vId', sql.Int, finalVeXeId)
+            .input('xId', sql.Int, finalXeId)
             .input('sc', sql.VarChar, bienSo)
             .input('lx', sql.NVarChar, loaiXe)
             .query(`
-                INSERT INTO LuotGui (VeXeId, SoCuoi, MauXe, ThoiGianVao, TrangThaiThanhToan) 
-                VALUES (@vId, @sc, @lx, GETDATE(), 0)
+                INSERT INTO LuotGui (VeXeId, XeId, SoCuoi, MauXe, ThoiGianVao, TrangThaiThanhToan) 
+                VALUES (@vId, @xId, @sc, @lx, GETDATE(), 0)
             `);
 
+        // TRẢ VỀ THÊM MA_VE ĐỂ FRONTEND IN RA MÀN HÌNH
         res.json({
             success: true,
             maVe: finalMaVe,
-            loaiKhach: finalVeXeId ? "Vãng lai" : "Vé tháng"
+            loaiKhach: finalVeXeId ? "Vãng lai" : "Vé tháng",
+            message: "Ghi nhận xe vào thành công!"
         });
 
     } catch (err) {

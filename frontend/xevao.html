@@ -110,6 +110,7 @@
             border: 1px solid #aaa;
             padding: 5px 10px;
             border-radius: 4px;
+            box-sizing: border-box;
         }
 
         .btn-main {
@@ -130,6 +131,18 @@
             margin-bottom: 10px;
             width: 100%;
             height: auto;
+        }
+
+        .qr-wrapper {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border: 1px dashed #4A76C5;
+            border-radius: 6px;
+            background: #f9fbfd;
         }
     </style>
 </head>
@@ -152,17 +165,17 @@
                 <video id="webcam" autoplay></video>
                 <canvas id="canvas" style="display:none;"></canvas>
 
-                <button class="btn-main" id="btnScan" onclick="quetBienSo()" style="background: #28a745;"> Quét biển
-                    số tự động</button>
+                <button class="btn-main" id="btnScan" onclick="quetBienSo()" style="background: #28a745;"> Quét biển số
+                    tự động</button>
 
                 <div style="margin-top: 15px;">
-                    <label>Biển số nhận diện:</label>
+                    <label style="font-weight: bold;">Biển số nhận diện:</label>
                     <input type="text" id="bienSoInput" placeholder="Kết quả AI sẽ hiện ở đây">
                 </div>
 
                 <table style="margin-top: 15px;">
                     <tr>
-                        <td>Loại xe</td>
+                        <td style="text-align: left; font-weight: bold;">Loại xe</td>
                         <td>
                             <select id="loaiXe">
                                 <option value="Xe máy">Xe máy</option>
@@ -171,16 +184,23 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: left;">Giờ vào</td>
+                        <td style="text-align: left; font-weight: bold;">Giờ vào</td>
                         <td><input type="datetime-local" id="tgVao"></td>
                     </tr>
-                    <div class="input-group">
-                        <label>Mã thẻ (Quét thẻ vé tháng):</label>
-                        <input type="text" id="maVeInput" placeholder="Để trống nếu là khách vãng lai">
-                    </div>
+                    <tr>
+                        <td style="text-align: left; font-weight: bold;">Mã thẻ</td>
+                        <td>
+                            <input type="text" id="maVeInput" placeholder="Để trống nếu là vãng lai">
+                        </td>
+                    </tr>
                 </table>
+
                 <button class="btn-main" onclick="ghiNhan()">Ghi nhận xe vào</button>
-                <div id="qrCode"></div>
+
+                <div id="qrWrapper" class="qr-wrapper" style="display: none;">
+                    <div style="font-weight: bold; margin-bottom: 8px; color: #4A76C5;" id="qrTitle">MÃ VÉ QR</div>
+                    <div id="qrCode"></div>
+                </div>
             </div>
         </div>
 
@@ -208,6 +228,13 @@
         const video = document.getElementById('webcam');
         const canvas = document.getElementById('canvas');
         const bienSoInput = document.getElementById('bienSoInput');
+
+        // Tự động điền thời gian hiện tại vào ô Giờ vào lúc load trang
+        function datThoiGianHienTai() {
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('tgVao').value = now.toISOString().slice(0, 16);
+        }
 
         // 1. Mở Webcam
         async function startWebcam() {
@@ -255,12 +282,11 @@
             }, 'image/jpeg');
         }
 
-        // 3. Logic Ghi nhận tạm (My có thể sửa lại theo ý nhóm)
-
+        // 3. Logic Ghi nhận xe vào và hiển thị QR
         async function ghiNhan() {
             const bs = document.getElementById('bienSoInput').value;
             const lx = document.getElementById('loaiXe').value;
-            const mv = document.getElementById('maVeInput').value; // <--- Lấy mã thẻ nhân viên quét
+            const mv = document.getElementById('maVeInput').value;
 
             if (!bs) return alert("Chưa có biển số xe!");
 
@@ -271,24 +297,41 @@
                     body: JSON.stringify({
                         bienSo: bs,
                         loaiXe: lx,
-                        maVeQuet: mv // <--- Gửi mã thẻ kèm theo (nếu có)
+                        maVeQuet: mv
                     })
                 });
 
                 const data = await res.json();
 
                 if (data.success) {
-                    // Nếu là vé tháng, hiện thông báo chào mừng khác biệt
+                    // Xóa mã QR cũ nếu có trước khi tạo mới
+                    document.getElementById("qrCode").innerHTML = "";
+
                     if (data.loaiKhach === "Vé tháng") {
                         alert("CHÀO KHÁCH VÉ THÁNG: " + data.maVe);
+                        document.getElementById("qrTitle").innerText = "VÉ THÁNG: " + data.maVe;
                     } else {
                         alert("Cấp vé vãng lai: " + data.maVe);
-                        // Nếu có mã QR thì gọi hàm hiện QR ở đây
+                        document.getElementById("qrTitle").innerText = "MÃ VÉ QR: " + data.maVe;
                     }
 
-                    // Xóa sạch mã thẻ sau khi quẹt xong để sẵn sàng cho xe tiếp theo
+                    // Tiến hành sinh mã QR và hiển thị vùng chứa
+                    document.getElementById("qrWrapper").style.display = "flex";
+                    new QRCode(document.getElementById("qrCode"), {
+                        text: data.maVe,
+                        width: 150,
+                        height: 150,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+
+                    // Xóa sạch ô nhập mã thẻ và biển số sau khi hoàn thành
                     document.getElementById('maVeInput').value = "";
-                    // Tự động load lại danh sách xe trong bãi (nếu My có hàm load)
+                    document.getElementById('bienSoInput').value = "";
+                    datThoiGianHienTai(); // Làm mới lại ô thời gian
+
+                    // Tự động load lại danh sách xe trong bãi
                     if (typeof loadTable === "function") loadTable();
 
                 } else {
@@ -299,7 +342,11 @@
                 alert("Lỗi kết nối Server!");
             }
         }
-        window.onload = startWebcam;
+
+        window.onload = function () {
+            startWebcam();
+            datThoiGianHienTai();
+        };
     </script>
 </body>
 
